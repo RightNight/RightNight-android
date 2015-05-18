@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
-import mx.example.ruben.stir.app.Restfull.foursquare.Constants;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
