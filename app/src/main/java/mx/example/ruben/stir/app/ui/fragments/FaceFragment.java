@@ -39,6 +39,8 @@ public class FaceFragment extends Fragment {
     FacebookCallback<LoginResult> mFacebookCallback;
     Profile infoProfile;
 
+//    Estoy en git y funciono
+
 
     public FaceFragment() {
     }
