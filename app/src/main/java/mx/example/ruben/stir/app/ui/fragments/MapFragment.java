@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -22,19 +26,32 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.Restfull.foursquare.Constants;
+import mx.example.ruben.stir.app.RightNightApplication;
+import mx.example.ruben.stir.app.model.Items;
+import mx.example.ruben.stir.app.model.Venue;
 
-public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    protected static final String TAG = "basic-location-sample";
-
+public class MapFragment extends Fragment
+{
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
-    Location mLastLocation;
-    LatLng position;
 
-    GoogleApiClient mGoogleApiClient;
+    private Bundle mBundle;
+    int offset = 0;
+    List<Venue> mVenues;
 
     public MapFragment(){}
 
@@ -43,22 +60,30 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     {
         super.onAttach(activity);
         CONTEXT = activity;
-
     }
+    public static MapFragment getInstance(Bundle bundle)
+    {
+        MapFragment map = new MapFragment();
+        map.setArguments(bundle);
+        return map;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
+        mBundle = getArguments();
+        mVenues = new ArrayList<>();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mGoogleApiClient.connect();
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setUpMapIfNeeded();
+        requestClubs();
+        VenueMarkers();
         return rootView;
     }
 
@@ -75,6 +100,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
         {
             mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            setUpPosition();
         }
     }
 
@@ -83,56 +109,85 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
      */
     private void setUpPosition()
     {
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(position, 15)));
-
-        mMap.addMarker(new MarkerOptions().position(position).title(String.valueOf(position.latitude) + "," + String.valueOf(position.longitude)));
+        LatLng myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(myPosition, 15)));
+        mMap.addMarker(new MarkerOptions().position(myPosition).title(String.valueOf(myPosition.latitude) + "," + String.valueOf(myPosition.longitude)));
     }
 
-    public void addMarker(double latitude, double longitude)
+    public void addMarker(double latitude, double longitude,String name)
     {
         LatLng newMarkLatLng = new LatLng(latitude,longitude);
-        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).title(String.valueOf(latitude) + "," + String.valueOf(longitude)));
+        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
+                title(name));
     }
 
-
-    @Override
-    public void onConnected(Bundle bundle)
+    private void requestClubs()
     {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        String lat = String.valueOf(mBundle.getDouble("latitude"));
+        String lng = String.valueOf(mBundle.getDouble("longitude"));
+        Log.d("latitude",lat);
 
-        if (mLastLocation == null)
+        final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
+                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=45"+"&offset="+offset+
+                "&ll="+lat+","+lng);
+        //TEMPORAL añadir un Offset, quiza radio
+
+        JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
-            Toast.makeText(CONTEXT,"No location detected ", Toast.LENGTH_LONG).show();
-        }
-        if (mLastLocation != null)
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                Log.d("URL", uri.toString());
+
+                try
+                {
+                    List<Items> itemList;
+                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    int returnCode = response.getJSONObject("meta").getInt("code");
+
+                    if (returnCode == 200)
+                    {
+                        JSONArray items = response.getJSONObject("response").getJSONArray("groups").
+                                getJSONObject(0).getJSONArray("items");
+                        Gson gson = new Gson();
+                        Type tipoListaItems = new TypeToken<List<Items>>(){}.getType();
+                        itemList = gson.fromJson(items.toString(), tipoListaItems);
+
+                        for (int i = 0; i < itemList.size(); i++)
+                        {
+                            mVenues.add(itemList.get(i).getVenue());
+                        }
+                        VenueMarkers();
+
+                    }
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener()
         {
-            position = new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude());
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+        RightNightApplication.getInstance().addToRequestQueue(request);
+    }
 
-            setUpPosition();
+    public void VenueMarkers()
+    {
+        if (mVenues!=null)
+        {
+            for (int i = 0; i < mVenues.size(); ++i)
+            {
+
+                Venue current = mVenues.get(i);
+                if (current.isVerified())
+                addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
+                        String.valueOf(current.getHereNow())+" "+current.getCategories().getName());
+            }
         }
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i)
-    {
-        Log.i(TAG, "Connection suspended");
-        mGoogleApiClient.connect();
-    }
-
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
-    {
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
-    }
-
-    protected synchronized void buildGoogleApiClient()
-    {
-        mGoogleApiClient = new GoogleApiClient.Builder(CONTEXT)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
     }
 }

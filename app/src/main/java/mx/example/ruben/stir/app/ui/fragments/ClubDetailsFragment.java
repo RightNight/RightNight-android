@@ -23,7 +23,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     SimpleDraweeView clubImage;
     @InjectView(R.id.clubName)
     TextView clubName;
-    @InjectView(R.id.clubDescription)
+    @InjectView(R.id.seeMore)
     TextView clubDescription;
 
 
