@@ -67,15 +67,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             switch (mCurrentSelectedPositionpPresent) {
                 case 0:
                     fragment = new ClubsFragment();
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.main_container, fragment)
-//                            .commit();
                     break;
                 case 1:
                     fragment = new MapFragment();
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.main_container, fragment)
-//                            .commit();
                     break;
                 case 2:
                     fragment = new SettingsFragment();
