@@ -4,8 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="standard_spacing">8dp</dimen>
     <dimen name="navigation_drawer_width">320dp</dimen>
-    <dimen name="face_up">440dp</dimen>
-    <dimen name="padd_txt_btn">30dp</dimen>
-    <dimen name="normal_margin">20dp</dimen>
-    <dimen name="btn_face">20sp</dimen>
+    <dimen name="listview_image">200dp</dimen>
+    <dimen name="listview_nameBar">60dp</dimen>
+    <dimen name="padd_txt_btn">12dp</dimen>
+    <dimen name="listview_nameBarPadding">12dp</dimen>
+    <dimen name="face_up">12dp</dimen>
 </resources>
