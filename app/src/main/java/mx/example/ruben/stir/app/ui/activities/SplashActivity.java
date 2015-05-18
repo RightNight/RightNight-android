@@ -3,6 +3,7 @@ package mx.example.ruben.stir.app.ui.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,6 +39,7 @@ public class SplashActivity extends Activity {
                     } else {
                         i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
                     }
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 }
             }

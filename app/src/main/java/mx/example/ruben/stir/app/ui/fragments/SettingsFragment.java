@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.IntentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logOut();
-//                Toast.makeText(CONTEXT, "Estás por salir", Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("first_name", "");
@@ -95,6 +95,7 @@ public class SettingsFragment extends Fragment {
                 editor.apply();
 
                 Intent i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
         });
