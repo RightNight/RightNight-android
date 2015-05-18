@@ -1,7 +1,9 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,9 @@ public class NavigationDrawerFragment extends Fragment {
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
+    String firstName;
+    String lastName;
+    Uri profileImage;
 
 
     public NavigationDrawerFragment() {
@@ -67,6 +73,8 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+
+        getProfile();
 
         return mDrawerListView;
     }
@@ -148,6 +156,15 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    private void getProfile(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("fb_user_prefs", getActivity().MODE_PRIVATE);
+        firstName = sharedPreferences.getString("first_name", "");
+        lastName = sharedPreferences.getString("last_name", "");
+        profileImage = Uri.parse(sharedPreferences.getString("img_profile", ""));
+
+        Toast.makeText(getActivity(), "Bienvenid@ " + firstName + " " + lastName, Toast.LENGTH_SHORT).show();
+
+    }
 
     private void enableHomeButton ()
     {
