@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
-import mx.example.ruben.stir.app.model.Club;
+import mx.example.ruben.stir.app.model.Venue;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
 import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
@@ -30,7 +30,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 {
     private String noneContent = "None";
 
-    List<Club> clubs = EMPTY_LIST;
+    List<Venue> venues = EMPTY_LIST;
     Context context;
     private int DETAIL_FRAGMENT_ID = 0;
 
@@ -42,7 +42,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position)
     {
-        return clubs.get(position) != null ? R.layout.item_club : R.layout.item_progress;
+        return venues.get(position) != null ? R.layout.item_club : R.layout.item_progress;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
@@ -70,16 +70,16 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if (viewHolder instanceof ClubViewHolder)
         {
-            Club currentClub = clubs.get(position);
+            Venue currentVenue = venues.get(position);
             //((CharacterViewHolder) viewHolder).setImg(currentCharacter.getUrlImage());
-            ((ClubViewHolder) viewHolder).setName(currentClub.getName());
+            ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
 
             final Bundle bundle = new Bundle();
 
             //bundle.putString(Constants.CLUB_URL_IMAGE_URL_IMAGE, String.valueOf(currentClub.getUrlImage()));
             //bundle.putString(Constants.ID_KEY, String.valueOf(currentClub.getId()));
 
-            bundle.putString(Constants.CLUB_NAME, currentClub.getName());
+            bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
             bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
             bundle.putString(Constants.CLUB_DESCRIPTION, noneContent);
 
@@ -99,38 +99,38 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() //-1 cuando se implemente el progress
     {
-        if (clubs == null)
+        if (venues == null)
             return 0;
 
-        return clubs.size();
+        return venues.size();
     }
 
-    public void updateList(List<Club> clubs)
+    public void updateList(List<Venue> venues)
     {
-        this.clubs = clubs;
+        this.venues = venues;
         notifyDataSetChanged();
     }
 
     private void showOnLoadViewHolder() {
-        clubs.add(null);
+        venues.add(null);
         notifyDataSetChanged();
     }
 
     public boolean isProgressViewVisible() {
-        return clubs.contains(null);
+        return venues.contains(null);
     }
 
     public void DummyContent()
     {
-        clubs = new ArrayList<>();
-        Club temp;
+        venues = new ArrayList<>();
+        Venue temp;
         for (int i = 0; i < 40; i++)
         {
             String name = "Club "+i;
-            temp = new Club(2,name,name,Uri.EMPTY);
-            clubs.add(temp);
+            temp = new Venue(2,name,name,Uri.EMPTY);
+            venues.add(temp);
         }
-        clubs.add(null);
+        venues.add(null);
     }
 
     public class ClubViewHolder extends RecyclerView.ViewHolder
