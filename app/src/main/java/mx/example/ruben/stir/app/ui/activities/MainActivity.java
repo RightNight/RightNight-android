@@ -1,15 +1,22 @@
 package mx.example.ruben.stir.app.ui.activities;
 
+import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -19,12 +26,18 @@ import mx.example.ruben.stir.app.ui.fragments.MapFragment;
 import mx.example.ruben.stir.app.ui.fragments.NavigationDrawerFragment;
 import mx.example.ruben.stir.app.ui.fragments.SettingsFragment;
 
+public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    //Primera vez que se crea el bundle esta vacio
+
+    protected static final String TAG = "basic-location-sample";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private int mCurrentSelectedPositionpPresent = -1;
+    private Bundle bundle;
+    LatLng position;
+    GoogleApiClient mGoogleApiClient;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -40,24 +53,26 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        bundle = new Bundle();
+
+        buildGoogleApiClient();
+        mGoogleApiClient.connect(); //LLena mi bundle
+
+        setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         Fresco.initialize(this);
-
         setSupportActionBar(toolbar);
-
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
         mNavigationDrawerFragment.setUp(mFragmentContainerView, drawerLayoutND, toolbar);
     }
 
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-
-        if (mCurrentSelectedPositionpPresent != position) {
+    public void onNavigationDrawerItemSelected(int position)
+    {
+        if (mCurrentSelectedPositionpPresent != position)
+        {
             mCurrentSelectedPositionpPresent = position;
 
             setNewTitle(mCurrentSelectedPositionpPresent);
@@ -66,16 +81,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
             switch (mCurrentSelectedPositionpPresent) {
                 case 0:
-                    fragment = new ClubsFragment();
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.main_container, fragment)
-//                            .commit();
+                    fragment = ClubsFragment.getInstance(bundle);
                     break;
                 case 1:
-                    fragment = new MapFragment();
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.main_container, fragment)
-//                            .commit();
+                    fragment = MapFragment.getInstance(bundle);
                     break;
                 case 2:
                     fragment = new SettingsFragment();
@@ -101,7 +110,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         }
     }
 
-    public void restoreActionBar(CharSequence title) {
+    public void restoreActionBar(CharSequence title)
+    {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(title);
     }
@@ -122,4 +132,51 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         return true;
     }
 
+    @Override
+    public void onConnected(Bundle bundle)
+    {
+        Log.wtf("Connect","apenas me conecte");
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Log.wtf("Connect",String.valueOf(mLastLocation.getLatitude()));
+
+        if (mLastLocation == null)
+        {
+            Toast.makeText(this, "Turn GPS On ", Toast.LENGTH_LONG).show();
+        }
+        if (mLastLocation != null)
+        {
+            position = new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude());
+            setUpBundle();
+            onNavigationDrawerItemSelected(0);
+        }
+    }
+
+    private void setUpBundle()
+    {
+        bundle.putDouble("latitude", position.latitude);
+        bundle.putDouble("longitude",position.longitude);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i)
+    {
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
+    }
+
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
+    }
+
+    protected synchronized void buildGoogleApiClient()
+    {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
 }

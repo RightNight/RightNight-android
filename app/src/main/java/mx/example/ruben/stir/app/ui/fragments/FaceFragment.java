@@ -71,6 +71,7 @@ public class FaceFragment extends Fragment {
             protected void onCurrentProfileChanged(
                     Profile oldProfile,
                     Profile currentProfile) {
+
                 if (currentProfile != null) {
                     infoProfile = Profile.getCurrentProfile();
                     if (infoProfile != null) {
@@ -92,8 +93,11 @@ public class FaceFragment extends Fragment {
                     } else {
                         Toast.makeText(CONTEXT, "ERROR: No existe un perfil", Toast.LENGTH_SHORT).show();
                     }
+
+                Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
+                startActivity(i);
                 }
-            }
+            };
         };
     }
 

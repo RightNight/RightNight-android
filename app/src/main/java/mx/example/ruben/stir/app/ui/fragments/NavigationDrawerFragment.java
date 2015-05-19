@@ -37,10 +37,12 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
 
 
-    public NavigationDrawerFragment() {
+    public NavigationDrawerFragment()
+    {
     }
 
-    public interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks
+    {
         void onNavigationDrawerItemSelected(int position);
     }
 
@@ -50,29 +52,31 @@ public class NavigationDrawerFragment extends Fragment {
 
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
-        } catch (ClassCastException e) {
+        } catch (ClassCastException e)
+        {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
         }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mCallbacks.onNavigationDrawerItemSelected(0);
+//        mCallbacks.onNavigationDrawerItemSelected(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+                             Bundle savedInstanceState)
+    {
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
         return mDrawerListView;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
 
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity(), loadArrayOptions()));
@@ -108,7 +112,8 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar) {
+    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar)
+    {
         this.mFragmentContainerView = mFragmentContainerView;
         this.mDrawerLayout = drawerLayout;
 

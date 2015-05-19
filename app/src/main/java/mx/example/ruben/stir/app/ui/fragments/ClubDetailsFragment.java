@@ -1,5 +1,6 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     SimpleDraweeView clubImage;
     @InjectView(R.id.clubName)
     TextView clubName;
-    @InjectView(R.id.clubDescription)
+    @InjectView(R.id.seeMore)
     TextView clubDescription;
 
 
@@ -57,7 +58,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
     private void initView()
     {
-        //clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
+        clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
         clubName.setText(getArguments().getString(Constants.CLUB_NAME));
         clubDescription.setText(getArguments().getString(Constants.CLUB_DESCRIPTION));
     }
