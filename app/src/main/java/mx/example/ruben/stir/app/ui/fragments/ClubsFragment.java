@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -83,7 +84,6 @@ public class ClubsFragment extends Fragment
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState)
         {
-            requestMoreNearbyClubs(0);
             View rootView = inflater.inflate(R.layout.fragment_directory, container, false);
             ButterKnife.inject(this, rootView);
             initListClubs();
@@ -102,6 +102,8 @@ public class ClubsFragment extends Fragment
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             mListClubs.setLayoutManager(lm);
             mListClubs.setAdapter(adapter);
+
+
             mListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
             {
                 @Override
@@ -160,6 +162,7 @@ public class ClubsFragment extends Fragment
                 public void onErrorResponse(VolleyError error)
                 {
                     VolleyLog.e("Error: ", error.getMessage());
+                    adapter.RemoveProgressView();
                 }
             });
             RightNightApplication.getInstance().addToRequestQueue(request);

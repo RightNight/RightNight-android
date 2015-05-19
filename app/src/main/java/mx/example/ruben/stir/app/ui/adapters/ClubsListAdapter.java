@@ -28,6 +28,8 @@ import static java.util.Collections.EMPTY_LIST;
 
 public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+    //Calcular la distancia entre el usuario y el venue, esto quiza lo deberia hacer el adapter...
+
     List<Venue> venues = EMPTY_LIST;
 
     Context context;
@@ -94,7 +96,6 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if (venues == null)
             return 0;
-
         return venues.size();
     }
 
@@ -113,7 +114,9 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     public void RemoveProgressView()
     {
+
         venues.remove(venues.size() - 1);
+        notifyDataSetChanged();
     }
 
     public void showOnLoadViewHolder()

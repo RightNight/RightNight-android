@@ -63,7 +63,7 @@ public class NavigationDrawerFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mCallbacks.onNavigationDrawerItemSelected(0);
+//        mCallbacks.onNavigationDrawerItemSelected(0);
     }
 
     @Override

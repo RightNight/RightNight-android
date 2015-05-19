@@ -28,6 +28,8 @@ import mx.example.ruben.stir.app.ui.fragments.SettingsFragment;
 
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    //Primera vez que se crea el bundle esta vacio
+
     protected static final String TAG = "basic-location-sample";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -53,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
 
         bundle = new Bundle();
+
         buildGoogleApiClient();
         mGoogleApiClient.connect(); //LLena mi bundle
 
@@ -66,10 +69,10 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
 
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-
-        if (mCurrentSelectedPositionpPresent != position) {
+    public void onNavigationDrawerItemSelected(int position)
+    {
+        if (mCurrentSelectedPositionpPresent != position)
+        {
             mCurrentSelectedPositionpPresent = position;
 
             setNewTitle(mCurrentSelectedPositionpPresent);
@@ -107,7 +110,8 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         }
     }
 
-    public void restoreActionBar(CharSequence title) {
+    public void restoreActionBar(CharSequence title)
+    {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(title);
     }
@@ -131,7 +135,9 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     @Override
     public void onConnected(Bundle bundle)
     {
+        Log.wtf("Connect","apenas me conecte");
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Log.wtf("Connect",String.valueOf(mLastLocation.getLatitude()));
 
         if (mLastLocation == null)
         {
@@ -141,6 +147,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         {
             position = new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude());
             setUpBundle();
+            onNavigationDrawerItemSelected(0);
         }
     }
 
