@@ -27,4 +27,5 @@ public class Constants
     public static final String CLUB_DESCRIPTION = "description";
     public static final String VENUE_PHOTOS = "&venuePhotos=1" ;
     public static final String SORT_BY_DISTANCE = "&sortByDistance=1" ;
+    public static final String CLUB_URL_IMAGE = "photo";
 }

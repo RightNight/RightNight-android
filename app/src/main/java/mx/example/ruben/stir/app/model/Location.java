@@ -1,5 +1,7 @@
 package mx.example.ruben.stir.app.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ruben on 5/12/15.
  */
@@ -12,7 +14,6 @@ public class Location
     private String state;
     private double lat;
     private double lng;
-
 
     public String getAddress() {
         return address;

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,14 +74,19 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {
             Venue currentVenue = venues.get(position);
 
-            //((CharacterViewHolder) viewHolder).setImg(currentCharacter.getUrlImage());
+            Log.wtf("La foto es ", currentVenue.getUrlImage().toString());
+            ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
+
             ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
+            Log.i("ID ", currentVenue.getId());
 
             final Bundle bundle = new Bundle();
 
             bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
             bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
             bundle.putString(Constants.CLUB_DESCRIPTION, String.valueOf(currentVenue.getHereNow()));
+            bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
+
 
             ((ClubViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
                 @Override

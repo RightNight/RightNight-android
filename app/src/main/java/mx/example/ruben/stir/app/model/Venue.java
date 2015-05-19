@@ -1,5 +1,10 @@
 package mx.example.ruben.stir.app.model;
 
+import android.net.Uri;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +19,10 @@ public class Venue
     private boolean verified;
     private HereNow hereNow;
     private String url;
+    private FeaturedPhotos featuredPhotos;
+    private Uri urlImage;
+
+
 
     public int getHereNow()
     {
@@ -23,6 +32,7 @@ public class Venue
     public void setUrl(String url) {
         this.url = url;
     }
+
     public String getId() {
         return id;
     }
@@ -38,6 +48,17 @@ public class Venue
     public boolean isVerified() {
         return verified;
     }
+    public FeaturedPhotos getFeaturedPhotos() {
+        return featuredPhotos;
+    }
+
+    public Uri getUrlImage() {
+        ItemsPhoto photo = getFeaturedPhotos().getItemPhoto();
+        Uri urlImage = photo.getFull();
+
+        return urlImage;
+    }
+
     public String getUrl() {
         return url;
     }
