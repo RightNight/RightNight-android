@@ -18,7 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.drawee.view.DraweeView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +40,15 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private View header;
 
     private int mCurrentSelectedPosition = 0;
-    String firstName;
-    String lastName;
-    Uri profileImage;
+    private String firstName;
+    private String lastName;
+    private Uri profileImage;
+    TextView nameProfile;
+    SimpleDraweeView imgProfile;
+
 
 
     public NavigationDrawerFragment() {
@@ -72,7 +80,9 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        header = (View) getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView.addHeaderView(header);
 
         getProfile();
 
@@ -108,13 +118,11 @@ public class NavigationDrawerFragment extends Fragment {
 
     }
 
-
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         mCallbacks.onNavigationDrawerItemSelected(position);
         mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
-
 
     public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar) {
         this.mFragmentContainerView = mFragmentContainerView;
@@ -162,7 +170,14 @@ public class NavigationDrawerFragment extends Fragment {
         lastName = sharedPreferences.getString("last_name", "");
         profileImage = Uri.parse(sharedPreferences.getString("img_profile", ""));
 
-        Toast.makeText(getActivity(), "Bienvenid@ " + firstName + " " + lastName, Toast.LENGTH_SHORT).show();
+        nameProfile = (TextView) header.findViewById(R.id.txt_profile_name);
+        nameProfile.setText(firstName + " " + lastName);
+
+        imgProfile = (SimpleDraweeView) header.findViewById(R.id.img_profile);
+        imgProfile.setImageURI(profileImage);
+
+
+        // Toast.makeText(getActivity(), "Bienvenid@ " + firstName + " " + lastName, Toast.LENGTH_SHORT).show();
 
     }
 

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -63,21 +64,24 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             setNewTitle(mCurrentSelectedPositionpPresent);
 
             Fragment fragment = null;
-
             switch (mCurrentSelectedPositionpPresent) {
                 case 0:
                     fragment = new ClubsFragment();
                     break;
                 case 1:
-                    fragment = new MapFragment();
+                    fragment = new ClubsFragment();
                     break;
                 case 2:
+                    fragment = new MapFragment();
+                    break;
+                case 3:
                     fragment = new SettingsFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, fragment)
                     .commit();
+
         }
     }
 
@@ -87,9 +91,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 mTitle = getString(R.string.title_section1);
                 break;
             case 1:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.title_section1);
                 break;
             case 2:
+                mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
         }

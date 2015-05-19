@@ -78,7 +78,7 @@ public class FaceFragment extends Fragment {
                         String firstName = infoProfile.getFirstName();
                         String lastName = infoProfile.getLastName();
                         String fbId = infoProfile.getId();
-                        Uri fbImageProfile = infoProfile.getProfilePictureUri(64, 64);
+                        Uri fbImageProfile = infoProfile.getProfilePictureUri(120, 120);
                         SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("first_name", firstName);
