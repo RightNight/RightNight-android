@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,8 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
+import mx.example.ruben.stir.app.ui.adapters.FragmentViewPagerAdapter;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import mx.example.ruben.stir.R;
@@ -38,6 +40,9 @@ public class FaceFragment extends Fragment {
     ProfileTracker profileTracker;
     FacebookCallback<LoginResult> mFacebookCallback;
     Profile infoProfile;
+    private ViewPager viewPager;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private FragmentViewPagerAdapter pagerAdapter;
 
 //    Estoy en git y funciono
 
@@ -101,6 +106,14 @@ public class FaceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_face, container, false);
+        viewPager = (ViewPager)rootView.findViewById(R.id.pager);
+
+        fragments.add(FragmentOne.getInstance(savedInstanceState));
+        fragments.add(FragmentTwo.getInstance(savedInstanceState));
+        fragments.add(FragmentThree.getInstance(savedInstanceState));
+
+        pagerAdapter = new FragmentViewPagerAdapter(getActivity().getSupportFragmentManager(), CONTEXT, fragments);
+        viewPager.setAdapter(pagerAdapter);
 
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
@@ -141,5 +154,7 @@ public class FaceFragment extends Fragment {
         accessTokenTracker.stopTracking();
         profileTracker.stopTracking();
     }
+
+
 
 }
