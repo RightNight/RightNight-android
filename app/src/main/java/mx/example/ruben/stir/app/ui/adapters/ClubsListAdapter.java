@@ -26,32 +26,36 @@ import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 import static java.util.Collections.EMPTY_LIST;
 
-public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private String noneContent = "None";
-
+public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     List<Venue> venues = EMPTY_LIST;
-
 
     Context context;
     private int DETAIL_FRAGMENT_ID = 0;
 
-    public ClubsListAdapter(Context context) {
+    public ClubsListAdapter(Context context)
+    {
         this.context = context;
+        venues = new ArrayList<>();
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
         return venues.get(position) != null ? R.layout.item_club : R.layout.item_progress;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        if (viewType == R.layout.item_club) {
+        if (viewType == R.layout.item_club)
+        {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_club, viewGroup, false);
 
             return new ClubViewHolder(itemView);
-        } else {
+        }
+        else
+        {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_progress, viewGroup, false);
 
@@ -61,16 +65,16 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if (viewHolder instanceof ClubViewHolder) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+    {
+        if (viewHolder instanceof ClubViewHolder)
+        {
             Venue currentVenue = venues.get(position);
+
             //((CharacterViewHolder) viewHolder).setImg(currentCharacter.getUrlImage());
             ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
 
             final Bundle bundle = new Bundle();
-
-            //bundle.putString(Constants.CLUB_URL_IMAGE_URL_IMAGE, String.valueOf(currentClub.getUrlImage()));
-            //bundle.putString(Constants.ID_KEY, String.valueOf(currentClub.getId()));
 
             bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
             bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
@@ -86,7 +90,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public int getItemCount() //-1 cuando se implemente el progress
+    public int getItemCount()
     {
         if (venues == null)
             return 0;
@@ -94,12 +98,26 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return venues.size();
     }
 
-    public void updateList(List<Venue> venues) {
-        this.venues = venues;
-        notifyDataSetChanged();
+    public int getVenuesItemsCount()
+    {
+        if (isProgressViewVisible())
+            return venues.size() - 1;
+
+        return venues.size();
     }
 
-    public void showOnLoadViewHolder() {
+    public void updateList(List<Venue> venues)
+    {
+        this.venues.addAll(venues);
+        notifyDataSetChanged();
+    }
+    public void RemoveProgressView()
+    {
+        venues.remove(venues.size() - 1);
+    }
+
+    public void showOnLoadViewHolder()
+    {
         venues.add(null);
         notifyDataSetChanged();
     }

@@ -33,11 +33,11 @@ public class SplashActivity extends Activity {
                     SharedPreferences sharedPref = getSharedPreferences("fb_user_prefs", MODE_PRIVATE);
                     boolean isLogin = sharedPref.getBoolean("is_login", false);
 
-                    if (isLogin){
+                   if (isLogin){
                         i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
-                    } else {
+                   } else {
                         i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
-                    }
+                   }
                     startActivity(i);
                 }
             }

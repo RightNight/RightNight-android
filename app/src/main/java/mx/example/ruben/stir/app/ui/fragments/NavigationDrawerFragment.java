@@ -112,7 +112,8 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar) {
+    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar)
+    {
         this.mFragmentContainerView = mFragmentContainerView;
         this.mDrawerLayout = drawerLayout;
 

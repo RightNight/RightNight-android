@@ -3,7 +3,6 @@ package mx.example.ruben.stir.app.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,15 +36,15 @@ import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 import mx.example.ruben.stir.app.ui.adapters.ClubsListAdapter;
-
+import mx.example.ruben.stir.app.ui.interfaces.EndlessRecyclerOnScrollListener;
 
 
 public class ClubsFragment extends Fragment
-    {
+    {//Implementar progress bar
+
         private static final String LOG_TAG = ClubsFragment.class.getCanonicalName();
 
         public Context CONTEXT;
-        int offset = 0;
         Bundle mBundle;
         LatLng location;
 
@@ -69,6 +68,7 @@ public class ClubsFragment extends Fragment
         {
             super.onAttach(activity);
             CONTEXT = activity;
+            adapter = new ClubsListAdapter(CONTEXT);
             mBundle = getArguments();
             location = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
         }
@@ -83,7 +83,7 @@ public class ClubsFragment extends Fragment
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState)
         {
-            requestMoreNearbyClubs();
+            requestMoreNearbyClubs(0);
             View rootView = inflater.inflate(R.layout.fragment_directory, container, false);
             ButterKnife.inject(this, rootView);
             initListClubs();
@@ -94,22 +94,31 @@ public class ClubsFragment extends Fragment
         public void onResume()
         {
             super.onResume();
-            requestMoreNearbyClubs();
+            requestMoreNearbyClubs(0);
         }
 
         private void initListClubs()
         {
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-            adapter = new ClubsListAdapter(CONTEXT);
             mListClubs.setLayoutManager(lm);
             mListClubs.setAdapter(adapter);
+            mListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
+            {
+                @Override
+                public void onLoadMore(int current_page)
+                {
+                    requestMoreNearbyClubs(adapter.getVenuesItemsCount());
+                }
+            });
+
         }
-        private void requestMoreNearbyClubs()
+        private void requestMoreNearbyClubs(int offset)
         {
+            adapter.showOnLoadViewHolder();
+
             final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
                     Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=20"+"&offset="+offset+
                     "&ll="+location.latitude+","+location.longitude);
-            //TEMPORAL añadir un Offset, quiza radio
 
             JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
             {
@@ -132,10 +141,12 @@ public class ClubsFragment extends Fragment
                             Type tipoListaItems = new TypeToken<List<Items>>(){}.getType();
                             itemList = gson.fromJson(items.toString(), tipoListaItems);
                             List<Venue> venues = new ArrayList<>();
+
                             for (int i = 0; i < itemList.size(); i++)
                             {
                                 venues.add(itemList.get(i).getVenue());
                             }
+                            adapter.RemoveProgressView();
                             adapter.updateList(venues);
                         }
                     } catch (JSONException e)

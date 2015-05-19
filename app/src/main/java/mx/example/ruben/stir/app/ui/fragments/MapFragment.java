@@ -44,7 +44,7 @@ import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 
 public class MapFragment extends Fragment
-{
+{ //Implementar offset, un boton que te posicione sobre ti si te pierdes,pedir mas clubes segun se mueva la camara
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
