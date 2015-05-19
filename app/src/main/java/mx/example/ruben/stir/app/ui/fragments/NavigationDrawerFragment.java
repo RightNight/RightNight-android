@@ -83,7 +83,6 @@ public class NavigationDrawerFragment extends Fragment {
         header = (View) getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.addHeaderView(header);
-
         getProfile();
 
         return mDrawerListView;
@@ -127,7 +126,6 @@ public class NavigationDrawerFragment extends Fragment {
     public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar) {
         this.mFragmentContainerView = mFragmentContainerView;
         this.mDrawerLayout = drawerLayout;
-
 
         enableHomeButton();
 
@@ -175,9 +173,6 @@ public class NavigationDrawerFragment extends Fragment {
 
         imgProfile = (SimpleDraweeView) header.findViewById(R.id.img_profile);
         imgProfile.setImageURI(profileImage);
-
-
-        // Toast.makeText(getActivity(), "Bienvenid@ " + firstName + " " + lastName, Toast.LENGTH_SHORT).show();
 
     }
 
