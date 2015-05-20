@@ -48,9 +48,10 @@ import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 
 public class MapFragment extends Fragment
-{ //pedir mas clubes segun se mueva la camara
+{
+    //Check how to not add the repeated venues to the list so it doesnt saturates de memory
+    //Maybe eliminate de offset
 
-    //mMap.getCameraPosition().target;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
 
@@ -88,9 +89,22 @@ public class MapFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setUpMapIfNeeded();
-        requestClubs(0);
+        //requestClubs(0, String.valueOf(mBundle.getDouble("latitude")), String.valueOf(mBundle.getDouble("longitude")));
         VenueMarkers();
         mMap.setMyLocationEnabled(true);
+
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
+        {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition)
+            {
+                Log.wtf("Posicion","Just made a request for "+String.valueOf(mMap.getCameraPosition().target));
+
+                requestClubs(   String.valueOf(mMap.getCameraPosition().target.latitude),
+                                String.valueOf(mMap.getCameraPosition().target.longitude));
+
+            }
+        });
 
         return rootView;
     }
@@ -132,16 +146,11 @@ public class MapFragment extends Fragment
                 title(name));
     }
 
-    private void requestClubs(int offset)
+    private void requestClubs(String lat, String lng)
     {
-        String lat = String.valueOf(mBundle.getDouble("latitude"));
-        String lng = String.valueOf(mBundle.getDouble("longitude"));
-        Log.d("latitude",lat);
 
         final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&offset="+offset+
-                "&ll="+lat+","+lng);
-        //TEMPORAL añadir un Offset, quiza radio
+                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&ll="+lat+","+lng);
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
