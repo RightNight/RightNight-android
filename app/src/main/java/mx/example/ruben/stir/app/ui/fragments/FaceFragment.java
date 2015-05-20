@@ -104,6 +104,7 @@ public class FaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_face, container, false);
 
+
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
 
@@ -133,6 +134,7 @@ public class FaceFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.i("onActivityResult", "Here");
 
     }
 

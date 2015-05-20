@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/btn_close"-->
-        <!--android:text="@string/txt_close"-->
-        <!--android:padding="@dimen/padd_txt_btn"-->
-        <!--android:layout_margin="@dimen/normal_margin"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:textColor="@color/com_facebook_blue"/>-->
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/img_profile_settings_width"
+        android:layout_height="@dimen/img_profile_settings_width"
+        android:paddingLeft="@dimen/padd_txt_btn"
+        app:roundAsCircle="true"
+        android:layout_gravity="center"
+        android:id="@+id/img_profile"/>
+
+    <TextView
+        android:id="@+id/txt_profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Nombre Perfil"
+        android:textColor="@color/black"
+        android:textSize="@dimen/txt_profile_size"
+        android:paddingLeft="@dimen/padd_txt_btn"
+        android:layout_gravity="center"/>
 
     <com.facebook.login.widget.LoginButton
+        style="@android:style/Widget"
         android:id="@+id/btn_close"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingRight="@dimen/padd_txt_btn"
-        android:paddingLeft="@dimen/padd_txt_btn"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
