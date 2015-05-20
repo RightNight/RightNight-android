@@ -58,6 +58,7 @@ public class MapFragment extends Fragment
     int radius = 400;
     int offset = 0;
     LatLng myPosition;
+    boolean mRequestDone = true;
 
     private Bundle mBundle;
     List<Venue> mVenues;
@@ -111,18 +112,25 @@ public class MapFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                if(radius == 400)
+                if (mRequestDone)
                 {
-                    mMap.clear();
-                    mVenues.clear();
+                    if (radius == 400)
+                    {
+                        mMap.clear();
+                        mVenues.clear();
+                    }
+
+                    mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
+
+                    requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
+                            String.valueOf(mMap.getCameraPosition().target.longitude));
+
+                    radius = radius + 400;
                 }
-
-                mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
-
-                requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
-                        String.valueOf(mMap.getCameraPosition().target.longitude));
-
-                radius = radius + 400;
+                else
+                {
+                    Toast.makeText(CONTEXT,"We are getting you more venues",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return rootView;
@@ -164,6 +172,7 @@ public class MapFragment extends Fragment
 
     private void requestClubs(String lat, String lng)
     {
+        mRequestDone = false;
 
         final String uri = (
                             Constants.API_URL_VENUES
@@ -172,10 +181,10 @@ public class MapFragment extends Fragment
                             +Constants.NIGHTLIFE_FILTER_PARAM
                             +Constants.VENUE_PHOTOS
                             +Constants.SORT_BY_DISTANCE
-                            +"&limit=50"
-                            +"&ll="+lat+","+lng
-                            +"&radius="+String.valueOf(radius)
-                            +"&offset="+String.valueOf(offset));
+                            +Constants.LIMIT_PARAM+"50"
+                            +Constants.LOCATION_PARAM+lat+","+lng
+                            +Constants.RADIUS_PARAM+String.valueOf(radius)
+                            +Constants.OFFSET_PARAM+String.valueOf(offset));
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
@@ -204,10 +213,12 @@ public class MapFragment extends Fragment
 
                         VenueMarkers();
                         offset = mVenues.size();
+                        mRequestDone = true;
                     }
                 } catch (JSONException e)
                 {
                     e.printStackTrace();
+                    mRequestDone = true;
                 }
             }
         }, new Response.ErrorListener()
@@ -220,7 +231,7 @@ public class MapFragment extends Fragment
             }
         });
 
-        Toast.makeText(CONTEXT,"Loading Venues",Toast.LENGTH_LONG).show();
+        Toast.makeText(CONTEXT,"Loading",Toast.LENGTH_SHORT).show();
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
 
