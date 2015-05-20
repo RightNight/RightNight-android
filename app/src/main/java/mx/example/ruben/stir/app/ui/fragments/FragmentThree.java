@@ -3,7 +3,6 @@ package mx.example.ruben.stir.app.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +42,5 @@ public class FragmentThree extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.wtf("Says", "Slide 3");
     }
 }
