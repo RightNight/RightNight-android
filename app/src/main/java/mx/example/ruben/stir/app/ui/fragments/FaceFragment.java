@@ -25,11 +25,13 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import mx.example.ruben.stir.app.ui.adapters.FragmentViewPagerAdapter;
+import com.viewpagerindicator.CirclePageIndicator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.ui.adapters.FragmentViewPagerAdapter;
 
 public class FaceFragment extends Fragment {
 
@@ -114,6 +116,9 @@ public class FaceFragment extends Fragment {
 
         pagerAdapter = new FragmentViewPagerAdapter(getActivity().getSupportFragmentManager(), CONTEXT, fragments);
         viewPager.setAdapter(pagerAdapter);
+
+        CirclePageIndicator circles = (CirclePageIndicator)rootView.findViewById(R.id.circles);
+        circles.setViewPager(viewPager);
 
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
