@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,6 +39,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import mx.example.ruben.stir.R;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
@@ -46,8 +50,13 @@ import mx.example.ruben.stir.app.model.Venue;
 public class MapFragment extends Fragment
 { //Implementar offset, un boton que te posicione sobre ti si te pierdes,pedir mas clubes segun se mueva la camara
 
+    @InjectView(R.id.button)
+    Button locationButton;
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
+
+    LatLng myPosition;
 
     private Bundle mBundle;
     int offset = 0;
@@ -81,7 +90,16 @@ public class MapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        ButterKnife.inject(this, rootView);
         setUpMapIfNeeded();
+        locationButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                MoveCameraTo(myPosition);
+            }
+        });
         requestClubs();
         VenueMarkers();
         return rootView;
@@ -109,9 +127,13 @@ public class MapFragment extends Fragment
      */
     private void setUpPosition()
     {
-        LatLng myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(myPosition, 15)));
+        myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
+        MoveCameraTo(myPosition);
         mMap.addMarker(new MarkerOptions().position(myPosition).title(String.valueOf(myPosition.latitude) + "," + String.valueOf(myPosition.longitude)));
+    }
+    private void MoveCameraTo(LatLng position)
+    {
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(position, 15)));
     }
 
     public void addMarker(double latitude, double longitude,String name)

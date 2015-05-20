@@ -62,8 +62,4 @@ public class Venue
         }
         return Uri.EMPTY;
     }
-
-    public String getUrl() {
-        return url;
-    }
 }
