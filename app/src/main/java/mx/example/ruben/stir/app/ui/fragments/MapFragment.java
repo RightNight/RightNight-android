@@ -49,11 +49,13 @@ import mx.example.ruben.stir.app.model.Venue;
 
 public class MapFragment extends Fragment
 {
-    //Check how to not add the repeated venues to the list so it doesnt saturates de memory
-    //Maybe eliminate de offset
+    @InjectView(R.id.moreButton)
+    Button mMoreVenuesButton;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
+
+    int radius = 400;
 
     LatLng myPosition;
 
@@ -88,8 +90,9 @@ public class MapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        ButterKnife.inject(this, rootView);
+
         setUpMapIfNeeded();
-        //requestClubs(0, String.valueOf(mBundle.getDouble("latitude")), String.valueOf(mBundle.getDouble("longitude")));
         VenueMarkers();
         mMap.setMyLocationEnabled(true);
 
@@ -98,13 +101,25 @@ public class MapFragment extends Fragment
             @Override
             public void onCameraChange(CameraPosition cameraPosition)
             {
-                Log.wtf("Posicion","Just made a request for "+String.valueOf(mMap.getCameraPosition().target));
-
-                requestClubs(   String.valueOf(mMap.getCameraPosition().target.latitude),
-                                String.valueOf(mMap.getCameraPosition().target.longitude));
-
+                radius = 400;
             }
         });
+
+        mMoreVenuesButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
+
+                requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
+                        String.valueOf(mMap.getCameraPosition().target.longitude));
+
+                radius = radius + 400;
+            }
+        });
+
+
 
         return rootView;
     }
@@ -126,9 +141,6 @@ public class MapFragment extends Fragment
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera.
-     */
     private void setUpPosition()
     {
         myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
@@ -150,7 +162,7 @@ public class MapFragment extends Fragment
     {
 
         final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&ll="+lat+","+lng);
+                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&ll="+lat+","+lng+"&radius="+String.valueOf(radius));
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
