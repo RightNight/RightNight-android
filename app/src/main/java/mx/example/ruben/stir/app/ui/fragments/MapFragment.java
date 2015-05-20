@@ -48,18 +48,15 @@ import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 
 public class MapFragment extends Fragment
-{ //Implementar offset, un boton que te posicione sobre ti si te pierdes,pedir mas clubes segun se mueva la camara
+{ //pedir mas clubes segun se mueva la camara
 
-    @InjectView(R.id.button)
-    Button locationButton;
-
+    //mMap.getCameraPosition().target;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
 
     LatLng myPosition;
 
     private Bundle mBundle;
-    int offset = 0;
     List<Venue> mVenues;
 
     public MapFragment(){}
@@ -90,18 +87,11 @@ public class MapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        ButterKnife.inject(this, rootView);
         setUpMapIfNeeded();
-        locationButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                MoveCameraTo(myPosition);
-            }
-        });
-        requestClubs();
+        requestClubs(0);
         VenueMarkers();
+        mMap.setMyLocationEnabled(true);
+
         return rootView;
     }
 
@@ -129,7 +119,6 @@ public class MapFragment extends Fragment
     {
         myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
         MoveCameraTo(myPosition);
-        mMap.addMarker(new MarkerOptions().position(myPosition).title(String.valueOf(myPosition.latitude) + "," + String.valueOf(myPosition.longitude)));
     }
     private void MoveCameraTo(LatLng position)
     {
@@ -143,14 +132,14 @@ public class MapFragment extends Fragment
                 title(name));
     }
 
-    private void requestClubs()
+    private void requestClubs(int offset)
     {
         String lat = String.valueOf(mBundle.getDouble("latitude"));
         String lng = String.valueOf(mBundle.getDouble("longitude"));
         Log.d("latitude",lat);
 
         final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=45"+"&offset="+offset+
+                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&offset="+offset+
                 "&ll="+lat+","+lng);
         //TEMPORAL añadir un Offset, quiza radio
 
@@ -166,7 +155,6 @@ public class MapFragment extends Fragment
                     List<Items> itemList;
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     int returnCode = response.getJSONObject("meta").getInt("code");
-
                     if (returnCode == 200)
                     {
                         JSONArray items = response.getJSONObject("response").getJSONArray("groups").
@@ -195,6 +183,7 @@ public class MapFragment extends Fragment
                 VolleyLog.e("Error: ", error.getMessage());
             }
         });
+        Toast.makeText(CONTEXT,"We are getting the best venues for you",Toast.LENGTH_SHORT).show();
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
 
@@ -204,7 +193,6 @@ public class MapFragment extends Fragment
         {
             for (int i = 0; i < mVenues.size(); ++i)
             {
-
                 Venue current = mVenues.get(i);
                 if (current.isVerified())
                 addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
