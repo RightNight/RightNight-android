@@ -72,28 +72,30 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if (viewHolder instanceof ClubViewHolder)
         {
-            Venue currentVenue = venues.get(position);
+            if(venues.get(position) != null)
+            {
+                Venue currentVenue = venues.get(position);
+                Log.wtf("La foto es ", currentVenue.getUrlImage().toString());
+                ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
 
-            Log.wtf("La foto es ", currentVenue.getUrlImage().toString());
-            ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
+                ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
+                Log.i("ID ", currentVenue.getId());
 
-            ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
-            Log.i("ID ", currentVenue.getId());
+                final Bundle bundle = new Bundle();
 
-            final Bundle bundle = new Bundle();
-
-            bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
-            bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
-            bundle.putString(Constants.CLUB_DESCRIPTION, String.valueOf(currentVenue.getHereNow()));
-            bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
+                bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
+                bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
+                bundle.putString(Constants.CLUB_DESCRIPTION, String.valueOf(currentVenue.getHereNow()));
+                bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
 
 
-            ((ClubViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    NavigationHelper.startClubDetail(((ActionBarActivity) context), bundle);
-                }
-            });
+                ((ClubViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        NavigationHelper.startClubDetail(((ActionBarActivity) context), bundle);
+                    }
+                });
+            }
         }
     }
 

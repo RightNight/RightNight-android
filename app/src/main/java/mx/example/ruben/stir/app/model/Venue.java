@@ -52,11 +52,15 @@ public class Venue
         return featuredPhotos;
     }
 
-    public Uri getUrlImage() {
-        ItemsPhoto photo = getFeaturedPhotos().getItemPhoto();
-        Uri urlImage = photo.getFull();
-
-        return urlImage;
+    public Uri getUrlImage()
+    {
+        if (getFeaturedPhotos() != null)
+        {
+            ItemsPhoto photo = getFeaturedPhotos().getItemPhoto();
+            Uri urlImage = photo.getFull();
+            return urlImage;
+        }
+        return Uri.EMPTY;
     }
 
     public String getUrl() {
