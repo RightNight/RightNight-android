@@ -56,7 +56,7 @@ public class MapFragment extends Fragment
     public Context CONTEXT;
 
     int radius = 400;
-
+    int offset = 0;
     LatLng myPosition;
 
     private Bundle mBundle;
@@ -102,6 +102,7 @@ public class MapFragment extends Fragment
             public void onCameraChange(CameraPosition cameraPosition)
             {
                 radius = 400;
+                offset = 0;
             }
         });
 
@@ -110,6 +111,12 @@ public class MapFragment extends Fragment
             @Override
             public void onClick(View view)
             {
+                if(radius == 400)
+                {
+                    mMap.clear();
+                    mVenues.clear();
+                }
+
                 mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
 
                 requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
@@ -118,9 +125,6 @@ public class MapFragment extends Fragment
                 radius = radius + 400;
             }
         });
-
-
-
         return rootView;
     }
 
@@ -161,8 +165,17 @@ public class MapFragment extends Fragment
     private void requestClubs(String lat, String lng)
     {
 
-        final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=50"+"&ll="+lat+","+lng+"&radius="+String.valueOf(radius));
+        final String uri = (
+                            Constants.API_URL_VENUES
+                            +Constants.EXPLORE
+                            +Constants.API_OB_PARAMS
+                            +Constants.NIGHTLIFE_FILTER_PARAM
+                            +Constants.VENUE_PHOTOS
+                            +Constants.SORT_BY_DISTANCE
+                            +"&limit=50"
+                            +"&ll="+lat+","+lng
+                            +"&radius="+String.valueOf(radius)
+                            +"&offset="+String.valueOf(offset));
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
@@ -188,8 +201,9 @@ public class MapFragment extends Fragment
                         {
                             mVenues.add(itemList.get(i).getVenue());
                         }
-                        VenueMarkers();
 
+                        VenueMarkers();
+                        offset = mVenues.size();
                     }
                 } catch (JSONException e)
                 {
@@ -201,10 +215,12 @@ public class MapFragment extends Fragment
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                Toast.makeText(CONTEXT,"Volley error",Toast.LENGTH_LONG).show();
                 VolleyLog.e("Error: ", error.getMessage());
             }
         });
-        Toast.makeText(CONTEXT,"We are getting the best venues for you",Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(CONTEXT,"Loading Venues",Toast.LENGTH_LONG).show();
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
 
@@ -212,10 +228,10 @@ public class MapFragment extends Fragment
     {
         if (mVenues!=null)
         {
-            for (int i = 0; i < mVenues.size(); ++i)
+            for (int i = offset; i < mVenues.size(); ++i)
             {
                 Venue current = mVenues.get(i);
-                if (current.isVerified())
+                //if (current.isVerified())
                 addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
                         String.valueOf(current.getHereNow())+" "+current.getCategories().getName());
             }
