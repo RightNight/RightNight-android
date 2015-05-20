@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -137,7 +136,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class ClubViewHolder extends RecyclerView.ViewHolder
     {
         @InjectView(R.id.itemMain)
-        LinearLayout item;
+        RelativeLayout item;
 
         @InjectView(R.id.img_club)
         SimpleDraweeView imgCharacter;
