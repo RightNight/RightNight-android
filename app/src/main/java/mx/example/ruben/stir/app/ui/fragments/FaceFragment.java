@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.IntentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,17 +79,19 @@ public class FaceFragment extends Fragment {
                         String firstName = infoProfile.getFirstName();
                         String lastName = infoProfile.getLastName();
                         String fbId = infoProfile.getId();
-                        Uri fbImageProfile = infoProfile.getProfilePictureUri(64, 64);
+                        Uri fbImageProfile = infoProfile.getProfilePictureUri(200, 200);
                         SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("first_name", firstName);
                         editor.putString("last_name", lastName);
                         editor.putString("fb_id", fbId);
                         editor.putString("img_profile", fbImageProfile.toString());
+                        editor.putInt("ratio_map", 400);
                         editor.putBoolean("is_login", true);
                         editor.apply();
                         Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);
                     } else {
                         Toast.makeText(CONTEXT, "ERROR: No existe un perfil", Toast.LENGTH_SHORT).show();
@@ -106,10 +109,17 @@ public class FaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_face, container, false);
 
+
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
 
         loginButton.setFragment(this);
+
+        loginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        loginButton.setCompoundDrawablePadding(0);
+        loginButton.setPadding(24, 14, 24, 14);
+        loginButton.setText("Log in with Facebook");
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -135,6 +145,7 @@ public class FaceFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.i("onActivityResult", "Here");
 
     }
 
