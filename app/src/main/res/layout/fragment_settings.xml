@@ -4,30 +4,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_gravity="center">
 
+
+    <!--
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="@dimen/img_profile_settings_width"
         android:layout_height="@dimen/img_profile_settings_width"
         android:paddingLeft="@dimen/padd_txt_btn"
         app:roundAsCircle="true"
-        android:layout_gravity="center"
         android:id="@+id/img_profile"/>
-
+        -->
     <TextView
         android:id="@+id/txt_profile_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Nombre Perfil"
         android:textColor="@color/black"
         android:textSize="@dimen/txt_profile_size"
-        android:paddingLeft="@dimen/padd_txt_btn"
-        android:layout_gravity="center"/>
+        android:paddingLeft="@dimen/padd_txt_btn"/>
 
     <com.facebook.login.widget.LoginButton
-        style="@android:style/Widget"
         android:id="@+id/btn_close"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/normal_padding"
+        android:paddingBottom="@dimen/normal_padding"
+        android:paddingLeft="@dimen/big_padding"
+        android:paddingRight="@dimen/big_padding"/>
 
 </LinearLayout>

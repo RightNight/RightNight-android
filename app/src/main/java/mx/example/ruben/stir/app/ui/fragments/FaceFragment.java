@@ -78,13 +78,14 @@ public class FaceFragment extends Fragment {
                         String firstName = infoProfile.getFirstName();
                         String lastName = infoProfile.getLastName();
                         String fbId = infoProfile.getId();
-                        Uri fbImageProfile = infoProfile.getProfilePictureUri(120, 120);
+                        Uri fbImageProfile = infoProfile.getProfilePictureUri(200, 200);
                         SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("first_name", firstName);
                         editor.putString("last_name", lastName);
                         editor.putString("fb_id", fbId);
                         editor.putString("img_profile", fbImageProfile.toString());
+                        editor.putInt("ratio_map", 400);
                         editor.putBoolean("is_login", true);
                         editor.apply();
                         Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
