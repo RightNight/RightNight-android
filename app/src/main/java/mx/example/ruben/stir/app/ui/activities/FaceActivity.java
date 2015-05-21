@@ -15,7 +15,7 @@ import android.os.Build;
 import mx.example.ruben.stir.R;
 import mx.example.ruben.stir.app.ui.fragments.FaceFragment;
 
-public class FaceActivity extends AppCompatActivity {
+public class FaceActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
