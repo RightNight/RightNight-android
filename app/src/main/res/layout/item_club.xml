@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/primary_textList"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:text="Bar-Antro"
-            android:layout_marginTop="-8dp"
+            android:layout_marginTop="-10dp"
             android:paddingLeft="15dp"
             android:maxLines="2"
             android:layout_below="@+id/txt_club_name"
@@ -77,18 +77,21 @@
         android:id="@+id/button"
         android:background="#8054386C"
         android:layout_alignBottom="@+id/img_club"
-        android:layout_toRightOf="@+id/img_club"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="-10dp"
-        android:layout_alignParentEnd="true" />
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#ff4a8ab5"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15dp"
         android:text="35 Estan Ahí"
         android:id="@+id/textView"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="-5dp"
         android:textColor="@color/primary_text"
         android:layout_alignBottom="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
@@ -97,7 +100,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15dp"
         android:text="20 Quieren Ir"
         android:id="@+id/textView2"
         android:textColor="@color/primary_text"
@@ -105,6 +108,21 @@
         android:layout_alignRight="@+id/button"
         android:layout_marginRight="8dp"
         android:layout_alignEnd="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quiero Ir"
+        android:id="@+id/button2"
+        android:background="#8054386C"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#ff4a8ab5"
+        android:layout_alignBottom="@+id/img_club"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_toRightOf="@+id/img_club"
+        android:layout_toEndOf="@+id/img_club" />
 
 
 </RelativeLayout>
