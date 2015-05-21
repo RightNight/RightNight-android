@@ -19,6 +19,7 @@
         fresco:actualImageScaleType="focusCrop"
         fresco:placeholderImage="@drawable/ic_more_bar"
         fresco:placeholderImageScaleType="focusCrop"
+
         android:layout_marginBottom="83dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
