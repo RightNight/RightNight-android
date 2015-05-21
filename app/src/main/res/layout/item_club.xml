@@ -12,7 +12,7 @@
             android:id="@+id/img_club"
             android:layout_gravity="center"
             android:layout_width="@dimen/listview_image"
-            android:layout_height="@dimen/listview_image"
+            android:layout_height="200dp"
             fresco:overlayImage="@color/overlay_image"
             fresco:actualImageScaleType="focusCrop"
             fresco:placeholderImage="@drawable/happy_disco"
@@ -28,6 +28,7 @@
             android:textSize="@dimen/listview_nameBar"
             android:text="CHIDO"
             android:layout_alignParentTop="true"
+            android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/img_club"
             android:layout_toEndOf="@+id/img_club" />
 
@@ -37,43 +38,73 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/primary_textList"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:text="Bar-Antro"
+            android:layout_marginTop="-8dp"
+            android:paddingLeft="15dp"
             android:maxLines="2"
-            android:layout_marginTop="-17dp"
             android:layout_below="@+id/txt_club_name"
             android:layout_toRightOf="@+id/img_club"
             android:layout_toEndOf="@+id/img_club" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:paddingLeft="15dp"
         android:id="@+id/imageView"
-        android:layout_below="@+id/txt_type_name"
-        android:layout_toRightOf="@+id/img_club"
         android:background="@drawable/ic_group_white_48dp"
-        android:layout_toEndOf="@+id/img_club" />
+        android:layout_marginBottom="16dp"
+        android:layout_above="@+id/button"
+        android:layout_toRightOf="@+id/img_club"
+        android:layout_toEndOf="@+id/img_club"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_alignRight="@+id/txt_club_name"
         android:background="@drawable/ic_group_white_48dp"
-        android:layout_alignEnd="@+id/txt_club_name" />
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_marginRight="5dp"
+        android:layout_toStartOf="@+id/textView2" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quiero Ir"
         android:id="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/img_club"
-        android:layout_toEndOf="@+id/img_club"
         android:background="#8054386C"
-        android:layout_below="@+id/imageView" />
+        android:layout_alignBottom="@+id/img_club"
+        android:layout_toRightOf="@+id/img_club"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="-10dp"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="35 Estan Ahí"
+        android:id="@+id/textView"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/primary_text"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="20 Quieren Ir"
+        android:id="@+id/textView2"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignRight="@+id/button"
+        android:layout_marginRight="8dp"
+        android:layout_alignEnd="@+id/button" />
 
 
 </RelativeLayout>
