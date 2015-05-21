@@ -48,6 +48,7 @@ import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
 {
@@ -134,6 +135,7 @@ public class MapFragment extends Fragment
             public void onInfoWindowClick(Marker marker)
             {
                 Toast.makeText(CONTEXT,marker.getTitle(),Toast.LENGTH_SHORT).show();
+                //NavigationHelper.startClubDetail(CONTEXT), bundle);
             }
         });
 
@@ -232,6 +234,7 @@ public class MapFragment extends Fragment
             {
                 Toast.makeText(CONTEXT,"Volley error",Toast.LENGTH_LONG).show();
                 VolleyLog.e("Error: ", error.getMessage());
+                mRequestDone = true;
             }
         });
 
