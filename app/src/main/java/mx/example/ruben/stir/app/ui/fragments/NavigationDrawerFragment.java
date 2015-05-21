@@ -81,11 +81,9 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        header = getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
                              Bundle savedInstanceState)
     {
+        header = getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.addHeaderView(header);
         getProfile();
