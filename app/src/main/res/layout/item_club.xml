@@ -6,6 +6,7 @@
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
     android:id="@+id/itemMain" >
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -91,7 +92,6 @@
         android:text="35 Estan Ahí"
         android:id="@+id/textView"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="-5dp"
         android:textColor="@color/primary_text"
         android:layout_alignBottom="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
