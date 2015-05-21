@@ -37,6 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.Parser;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,10 +61,13 @@ public class MapFragment extends Fragment
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
 
+    int idCounter = 0;
     int radius = 400;
     int offset = 0;
     LatLng myPosition;
     boolean mRequestDone = true;
+
+
 
     private Bundle mBundle;
     List<Venue> mVenues;
@@ -106,17 +110,21 @@ public class MapFragment extends Fragment
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
                 radius = 400;
-                offset = 0;
+
             }
         });
 
         mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mRequestDone) {
-                    if (radius == 400) {
+                if (mRequestDone)
+                {
+                    if (radius == 400)
+                    {
+                        idCounter = idCounter+offset;
                         mMap.clear();
                         mVenues.clear();
+                        offset = 0;
                     }
 
                     mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
@@ -136,11 +144,19 @@ public class MapFragment extends Fragment
             @Override
             public void onInfoWindowClick(Marker marker)
             {
-                Bundle markerBundle = new Bundle();
-                Toast.makeText(CONTEXT,marker.getTitle(),Toast.LENGTH_SHORT).show();
+                int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
 
-                markerBundle.putString(Constants.CLUB_URL_IMAGE, "Aqui va la URI de foto");
-                markerBundle.putString(Constants.CLUB_NAME, "Titulo del lugar");
+                Venue currentVenue;
+                if (markerId>mVenues.size())
+                    currentVenue = mVenues.get(markerId-idCounter);
+                else
+                {   currentVenue = mVenues.get(markerId);}
+
+
+                Bundle markerBundle = new Bundle();
+
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString() );
+                markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
                 markerBundle.putString(Constants.CLUB_DESCRIPTION, "Description");
 
                 Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
@@ -183,7 +199,7 @@ public class MapFragment extends Fragment
     {
         LatLng newMarkLatLng = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
-                title(name));
+                title(name) );
     }
 
     private void requestClubs(String lat, String lng)
@@ -242,7 +258,7 @@ public class MapFragment extends Fragment
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Toast.makeText(CONTEXT,"Volley error",Toast.LENGTH_LONG).show();
+                Toast.makeText(CONTEXT,"Internet error",Toast.LENGTH_LONG).show();
                 VolleyLog.e("Error: ", error.getMessage());
                 mRequestDone = true;
             }
