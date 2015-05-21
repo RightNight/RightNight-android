@@ -80,7 +80,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        header = (View) getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
+        header = getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.addHeaderView(header);
         getProfile();
