@@ -1,5 +1,6 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -48,6 +49,7 @@ import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
 import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
@@ -134,8 +136,16 @@ public class MapFragment extends Fragment
             @Override
             public void onInfoWindowClick(Marker marker)
             {
+                Bundle markerBundle = new Bundle();
                 Toast.makeText(CONTEXT,marker.getTitle(),Toast.LENGTH_SHORT).show();
-                //NavigationHelper.startClubDetail(CONTEXT), bundle);
+
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, "Aqui va la URI de foto");
+                markerBundle.putString(Constants.CLUB_NAME, "Titulo del lugar");
+                markerBundle.putString(Constants.CLUB_DESCRIPTION, "Description");
+
+                Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
+                intent.putExtras(markerBundle);
+                startActivity(intent);
             }
         });
 
