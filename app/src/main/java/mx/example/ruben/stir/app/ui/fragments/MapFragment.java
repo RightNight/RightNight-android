@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -50,7 +51,7 @@ import mx.example.ruben.stir.app.model.Venue;
 public class MapFragment extends Fragment
 {
     @InjectView(R.id.moreButton)
-    Button mMoreVenuesButton;
+    SimpleDraweeView mMoreVenuesButton;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
