@@ -38,4 +38,5 @@ dependencies
             compile 'com.google.android.gms:play-services:6.5.87'
             compile 'com.foursquare:foursquare-android-oauth:1.0.3'
             compile 'me.neavo:volley:2014.12.09'
+            compile 'fr.baloomba:viewpagerindicator:2.4.2'
         }
