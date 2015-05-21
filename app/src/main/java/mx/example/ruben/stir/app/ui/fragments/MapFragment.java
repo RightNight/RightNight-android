@@ -28,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -98,25 +99,19 @@ public class MapFragment extends Fragment
         VenueMarkers();
         mMap.setMyLocationEnabled(true);
 
-        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
-        {
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
-            public void onCameraChange(CameraPosition cameraPosition)
-            {
+            public void onCameraChange(CameraPosition cameraPosition) {
                 radius = 400;
                 offset = 0;
             }
         });
 
-        mMoreVenuesButton.setOnClickListener(new View.OnClickListener()
-        {
+        mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                if (mRequestDone)
-                {
-                    if (radius == 400)
-                    {
+            public void onClick(View view) {
+                if (mRequestDone) {
+                    if (radius == 400) {
                         mMap.clear();
                         mVenues.clear();
                     }
@@ -127,13 +122,21 @@ public class MapFragment extends Fragment
                             String.valueOf(mMap.getCameraPosition().target.longitude));
 
                     radius = radius + 400;
-                }
-                else
-                {
-                    Toast.makeText(CONTEXT,"We are getting you more venues",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CONTEXT, "We are getting you more venues", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                Toast.makeText(CONTEXT,marker.getTitle(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return rootView;
     }
 
@@ -245,7 +248,7 @@ public class MapFragment extends Fragment
                 Venue current = mVenues.get(i);
                 //if (current.isVerified())
                 addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
-                        String.valueOf(current.getHereNow())+" "+current.getCategories().getName());
+                        String.valueOf(current.getHereNow()) + " " + current.getCategories().getName());
             }
         }
     }
