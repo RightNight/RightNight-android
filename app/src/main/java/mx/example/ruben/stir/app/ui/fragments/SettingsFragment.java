@@ -46,6 +46,12 @@ public class SettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         btnClose = (LoginButton) rootView.findViewById(R.id.btn_close);
         btnClose.setFragment(this);
+
+        btnClose.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        btnClose.setCompoundDrawablePadding(0);
+        btnClose.setPadding(20, 14, 20, 14);
+        btnClose.setText("CERRAR SESIÓN");
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

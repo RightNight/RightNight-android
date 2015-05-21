@@ -110,6 +110,12 @@ public class FaceFragment extends Fragment {
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
 
         loginButton.setFragment(this);
+
+        loginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        loginButton.setCompoundDrawablePadding(0);
+        loginButton.setPadding(24, 14, 24, 14);
+        loginButton.setText("Log in with Facebook");
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

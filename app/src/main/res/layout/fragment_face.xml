@@ -17,10 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="@dimen/normal_padding"
-        android:paddingBottom="@dimen/normal_padding"
-        android:paddingLeft="@dimen/big_padding"
-        android:paddingRight="@dimen/big_padding"
+        android:textStyle="normal"
         android:textSize="@dimen/txt_login_size"
         android:layout_marginTop="@dimen/margin_default"
         android:layout_marginBottom="@dimen/margin_default" />
