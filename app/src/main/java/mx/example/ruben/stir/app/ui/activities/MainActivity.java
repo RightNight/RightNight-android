@@ -35,9 +35,14 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private int mCurrentSelectedPositionpPresent = -1;
+    private String noFragment = "header";
+    private String newFragment = null;
+    private boolean headerFragment = false;
+    private int previousPosition = 0;
     private Bundle bundle;
     LatLng position;
     GoogleApiClient mGoogleApiClient;
+
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -78,33 +83,52 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             setNewTitle(mCurrentSelectedPositionpPresent);
 
             Fragment fragment = null;
-
             switch (mCurrentSelectedPositionpPresent) {
                 case 0:
                     fragment = ClubsFragment.getInstance(bundle);
+                    newFragment = "header";
                     break;
                 case 1:
-                    fragment = MapFragment.getInstance(bundle);
+                    fragment = ClubsFragment.getInstance(bundle);
+                    newFragment = "directorio";
                     break;
                 case 2:
+                    fragment = MapFragment.getInstance(bundle);
+                    newFragment = "mapa";
+                    break;
+                case 3:
                     fragment = new SettingsFragment();
+                    newFragment = "settings";
                     break;
             }
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_container, fragment)
-                    .commit();
+            if (!headerFragment){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, fragment)
+                        .commit();
+
+                headerFragment = true;
+            } else if (newFragment != noFragment) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, fragment)
+                        .commit();
+            }
         }
     }
 
     public void setNewTitle(int number) {
         switch (number) {
             case 0:
-                mTitle = getString(R.string.title_section1);
+                if (!headerFragment) {
+                    mTitle = getString(R.string.title_section1);
+                }
                 break;
             case 1:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.title_section1);
                 break;
             case 2:
+                mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
         }
