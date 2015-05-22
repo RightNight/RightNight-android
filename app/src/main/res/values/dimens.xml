@@ -21,6 +21,8 @@
     <dimen name="txt_login_size">18sp</dimen>
     <dimen name="listview_image">110dp</dimen>
     <dimen name="listview_nameBar">60dp</dimen>
+    <dimen name="club_details_superiorIcons">30dp</dimen>
+    <dimen name="club_details_inferiorIcons">36dp</dimen>
 <!--    <dimen name="padd_txt_btn">12dp</dimen>  -->
     <dimen name="listview_nameBarPadding">12dp</dimen>
 <!--    <dimen name="face_up">12dp</dimen>  -->
