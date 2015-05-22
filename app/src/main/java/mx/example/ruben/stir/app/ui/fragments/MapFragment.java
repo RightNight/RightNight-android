@@ -157,7 +157,13 @@ public class MapFragment extends Fragment
 
                 markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString() );
                 markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
-                markerBundle.putString(Constants.CLUB_DESCRIPTION, "Description");
+                markerBundle.putString(Constants.CLUB_DESCRIPTION, currentVenue.getContact().getPhone());
+
+
+                Log.d("datos", String.valueOf(currentVenue.getPrice().getTier()));
+                Log.d("datos",String.valueOf(currentVenue.getRating()));
+                Log.d("datos",String.valueOf(currentVenue.getRatingColor()));
+                Log.d("datos",String.valueOf(currentVenue.getHours().getStatus()));
 
                 Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
                 intent.putExtras(markerBundle);
