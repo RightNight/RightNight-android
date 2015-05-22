@@ -11,6 +11,7 @@ import android.support.v4.content.IntentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -24,6 +25,9 @@ public class SettingsFragment extends Fragment {
 
     Context CONTEXT;
     LoginButton btnClose;
+    TextView nameProfile;
+    SimpleDraweeView imageProfile;
+    EditText inputRadio;
 
     public SettingsFragment() {
     }
@@ -78,12 +82,16 @@ public class SettingsFragment extends Fragment {
     private void getProfile(View v) {
         SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
 
-        TextView nameProfile = (TextView) v.findViewById(R.id.txt_profile_name);
-        SimpleDraweeView imageProfile = (SimpleDraweeView) v.findViewById(R.id.img_profile);
+        nameProfile = (TextView) v.findViewById(R.id.txt_profile_name);
+        imageProfile = (SimpleDraweeView) v.findViewById(R.id.img_profile);
+        inputRadio = (EditText) v.findViewById(R.id.txt_input_radio);
+
         String fbName = sharedPreferences.getString("first_name", "") + " " + sharedPreferences.getString("last_name", "");
         Uri fbImageProfile = Uri.parse(sharedPreferences.getString("img_profile", ""));
+        int radio = sharedPreferences.getInt("ratio_map", 400);
         nameProfile.setText(fbName);
         imageProfile.setImageURI(fbImageProfile);
+        inputRadio.setText(String.valueOf(radio));
     }
 
     @Override

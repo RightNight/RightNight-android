@@ -25,4 +25,8 @@
     <string name="txt_close">CERRAR SESIÓN</string>
     <string name="txt_login">Inicia sesión con Facebook</string>
     <string name="txt_name_pro">Profile Name</string>
+
+    <string name="txt_settings_radio">Radio de búsqueda:</string>
+    <string name="txt_edit">GUARDAR</string>
+
 </resources>
