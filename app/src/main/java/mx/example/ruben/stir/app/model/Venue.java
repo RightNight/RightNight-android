@@ -22,7 +22,21 @@ public class Venue
     private FeaturedPhotos featuredPhotos;
     private Uri urlImage;
 
+    private double rating;
+    private String ratingColor;
 
+
+    public String getUrl() {
+        return url;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getRatingColor() {
+        return ratingColor;
+    }
 
     public int getHereNow()
     {
