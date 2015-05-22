@@ -161,7 +161,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     {
         Log.wtf("Connect","apenas me conecte");
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.wtf("Connect",String.valueOf(mLastLocation.getLatitude()));
 
         if (mLastLocation == null)
         {

@@ -102,8 +102,6 @@ public class ClubsFragment extends Fragment
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             mListClubs.setLayoutManager(lm);
             mListClubs.setAdapter(adapter);
-
-
             mListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
             {
                 @Override
