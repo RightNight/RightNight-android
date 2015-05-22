@@ -22,7 +22,40 @@ public class Venue
     private FeaturedPhotos featuredPhotos;
     private Uri urlImage;
 
+    private double rating;
+    private String ratingColor;
 
+    private Contact contact;
+    private Price price;
+    private Hours hours;
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public Hours getHours()
+    {
+    if (hours != null)
+        return hours;
+
+    return new Hours(false,"");
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getRatingColor() {
+        return ratingColor;
+    }
 
     public int getHereNow()
     {

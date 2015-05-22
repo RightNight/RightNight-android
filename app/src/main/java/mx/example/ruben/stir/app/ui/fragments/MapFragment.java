@@ -1,5 +1,6 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.Parser;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -47,6 +50,8 @@ import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
+import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
 {
@@ -56,10 +61,13 @@ public class MapFragment extends Fragment
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
 
+    int idCounter = 0;
     int radius = 400;
     int offset = 0;
     LatLng myPosition;
     boolean mRequestDone = true;
+
+
 
     private Bundle mBundle;
     List<Venue> mVenues;
@@ -98,27 +106,25 @@ public class MapFragment extends Fragment
         VenueMarkers();
         mMap.setMyLocationEnabled(true);
 
-        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
-        {
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
-            public void onCameraChange(CameraPosition cameraPosition)
-            {
+            public void onCameraChange(CameraPosition cameraPosition) {
                 radius = 400;
-                offset = 0;
+
             }
         });
 
-        mMoreVenuesButton.setOnClickListener(new View.OnClickListener()
-        {
+        mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 if (mRequestDone)
                 {
                     if (radius == 400)
                     {
+                        idCounter = idCounter+offset;
                         mMap.clear();
                         mVenues.clear();
+                        offset = 0;
                     }
 
                     mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
@@ -127,13 +133,44 @@ public class MapFragment extends Fragment
                             String.valueOf(mMap.getCameraPosition().target.longitude));
 
                     radius = radius + 400;
-                }
-                else
-                {
-                    Toast.makeText(CONTEXT,"We are getting you more venues",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CONTEXT, "We are getting you more venues", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
+
+                Venue currentVenue;
+                if (markerId>mVenues.size())
+                    currentVenue = mVenues.get(markerId-idCounter);
+                else
+                {   currentVenue = mVenues.get(markerId);}
+
+
+                Bundle markerBundle = new Bundle();
+
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString() );
+                markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
+                markerBundle.putString(Constants.CLUB_DESCRIPTION, currentVenue.getContact().getPhone());
+
+
+                Log.d("datos", String.valueOf(currentVenue.getPrice().getTier()));
+                Log.d("datos",String.valueOf(currentVenue.getRating()));
+                Log.d("datos",String.valueOf(currentVenue.getRatingColor()));
+                Log.d("datos",String.valueOf(currentVenue.getHours().getStatus()));
+
+                Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
+                intent.putExtras(markerBundle);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 
@@ -168,7 +205,7 @@ public class MapFragment extends Fragment
     {
         LatLng newMarkLatLng = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
-                title(name));
+                title(name) );
     }
 
     private void requestClubs(String lat, String lng)
@@ -227,8 +264,9 @@ public class MapFragment extends Fragment
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Toast.makeText(CONTEXT,"Volley error",Toast.LENGTH_LONG).show();
+                Toast.makeText(CONTEXT,"Internet error",Toast.LENGTH_LONG).show();
                 VolleyLog.e("Error: ", error.getMessage());
+                mRequestDone = true;
             }
         });
 
@@ -245,7 +283,7 @@ public class MapFragment extends Fragment
                 Venue current = mVenues.get(i);
                 //if (current.isVerified())
                 addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
-                        String.valueOf(current.getHereNow())+" "+current.getCategories().getName());
+                        String.valueOf(current.getHereNow()) + " " + current.getCategories().getName());
             }
         }
     }
