@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/itemMain" >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/window_img_club"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+        fresco:actualImageScaleType="focusCrop"
+        fresco:placeholderImage="@drawable/happy_disco"
+        fresco:placeholderImageScaleType="focusCrop"/>
+
+
+    <TextView
+        android:id="@+id/venue_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/text_primary_black"
+        android:textSize="@dimen/listview_nameBar"
+        android:text="Title"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@+id/img_club"
+        android:layout_toEndOf="@+id/img_club" />
+
+    <TextView
+        android:id="@+id/venue_categorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/text_primary_black"
+        android:textSize="18dp"
+        android:text="Bar-Antro"
+        android:paddingLeft="15dp"
+        android:maxLines="2"
+
+        android:layout_below="@+id/venue_name"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/iconNowHere"
+        android:background="@drawable/ic_group_white_48dp"
+
+        android:layout_alignBottom="@+id/NowHereInfoWindow"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="Aqui ahora: "
+        android:id="@+id/NowHereInfoWindow"
+        android:textColor="@color/text_primary_black"
+
+        android:layout_alignBottom="@+id/img_club"
+        android:layout_alignRight="@+id/venue_categorie"
+        android:layout_alignEnd="@+id/venue_categorie" />
+
+</RelativeLayout>

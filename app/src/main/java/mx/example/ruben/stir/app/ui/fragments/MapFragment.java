@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -55,6 +58,9 @@ import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
 {
+ //FALTA AGREGAR EL ADAPTER, CHECAR VIDEO https://www.youtube.com/watch?v=g7rvqxn8SLg
+
+
     @InjectView(R.id.moreButton)
     SimpleDraweeView mMoreVenuesButton;
 
@@ -66,8 +72,6 @@ public class MapFragment extends Fragment
     int offset = 0;
     LatLng myPosition;
     boolean mRequestDone = true;
-
-
 
     private Bundle mBundle;
     List<Venue> mVenues;
@@ -117,11 +121,9 @@ public class MapFragment extends Fragment
         mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mRequestDone)
-                {
-                    if (radius == 400)
-                    {
-                        idCounter = idCounter+offset;
+                if (mRequestDone) {
+                    if (radius == 400) {
+                        idCounter = idCounter + offset;
                         mMap.clear();
                         mVenues.clear();
                         offset = 0;
@@ -139,31 +141,32 @@ public class MapFragment extends Fragment
             }
         });
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
-        {
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker)
             {
                 int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
 
                 Venue currentVenue;
-                if (markerId>mVenues.size())
-                    currentVenue = mVenues.get(markerId-idCounter);
+                if (markerId > mVenues.size())
+                    currentVenue = mVenues.get(markerId - idCounter);
                 else
-                {   currentVenue = mVenues.get(markerId);}
+                {
+                    currentVenue = mVenues.get(markerId);
+                }
 
 
                 Bundle markerBundle = new Bundle();
 
-                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString() );
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString());
                 markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
                 markerBundle.putString(Constants.CLUB_DESCRIPTION, currentVenue.getContact().getPhone());
 
 
                 Log.d("datos", String.valueOf(currentVenue.getPrice().getTier()));
-                Log.d("datos",String.valueOf(currentVenue.getRating()));
-                Log.d("datos",String.valueOf(currentVenue.getRatingColor()));
-                Log.d("datos",String.valueOf(currentVenue.getHours().getStatus()));
+                Log.d("datos", String.valueOf(currentVenue.getRating()));
+                Log.d("datos", String.valueOf(currentVenue.getRatingColor()));
+                Log.d("datos", String.valueOf(currentVenue.getHours().getStatus()));
 
                 Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
                 intent.putExtras(markerBundle);
@@ -187,7 +190,43 @@ public class MapFragment extends Fragment
         {
             mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            setUpPosition();
+            if(mMap != null)
+            {
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+                {
+                    @Override
+                    public View getInfoWindow(Marker marker)
+                    {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker)
+                    {
+                        View view = getLayoutInflater(mBundle).inflate(R.layout.item_venue_info_window ,null);
+
+                        int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
+                        Venue currentVenue;
+                        if (markerId > mVenues.size())
+                            currentVenue = mVenues.get(markerId - idCounter);
+                        else
+                        {   currentVenue = mVenues.get(markerId);}
+
+                        SimpleDraweeView venuePhoto = (SimpleDraweeView) view.findViewById(R.id.window_img_club);
+                        TextView venueTitle = (TextView) view.findViewById(R.id.venue_name);
+                        TextView venueCategorie = (TextView) view.findViewById(R.id.venue_categorie);
+
+                        venuePhoto.setImageURI(currentVenue.getUrlImage());
+                        venueTitle.setText(currentVenue.getName());
+                        venueCategorie.setText(currentVenue.getCategories().getName());
+
+                        return view;
+                    }
+                });
+
+                setUpPosition();
+
+            }
         }
     }
 
@@ -199,13 +238,6 @@ public class MapFragment extends Fragment
     private void MoveCameraTo(LatLng position)
     {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(position, 15)));
-    }
-
-    public void addMarker(double latitude, double longitude,String name)
-    {
-        LatLng newMarkLatLng = new LatLng(latitude,longitude);
-        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
-                title(name) );
     }
 
     private void requestClubs(String lat, String lng)
@@ -286,5 +318,11 @@ public class MapFragment extends Fragment
                         String.valueOf(current.getHereNow()) + " " + current.getCategories().getName());
             }
         }
+    }
+    public void addMarker(double latitude, double longitude,String name)
+    {
+        LatLng newMarkLatLng = new LatLng(latitude,longitude);
+        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
+                title(name) );
     }
 }
