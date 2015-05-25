@@ -28,10 +28,10 @@
         android:textColor="@color/text_primary_black"
         android:textSize="@dimen/listview_nameBar"
         android:text="Title"
-        android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
-        android:layout_toRightOf="@+id/img_club"
-        android:layout_toEndOf="@+id/img_club" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/window_img_club"
+        android:layout_toEndOf="@+id/window_img_club" />
 
     <TextView
         android:id="@+id/venue_categorie"

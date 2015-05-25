@@ -1,6 +1,7 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -129,7 +131,8 @@ public class MapFragment extends Fragment
                         offset = 0;
                     }
 
-                    mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
+                    mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius)
+                            .strokeColor(Color.rgb(112,31,119)));
 
                     requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
                             String.valueOf(mMap.getCameraPosition().target.longitude));
@@ -322,7 +325,7 @@ public class MapFragment extends Fragment
     public void addMarker(double latitude, double longitude,String name)
     {
         LatLng newMarkLatLng = new LatLng(latitude,longitude);
-        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
-                title(name) );
+        mMap.addMarker(new MarkerOptions().position(newMarkLatLng).title(name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 }
