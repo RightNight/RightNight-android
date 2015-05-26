@@ -24,8 +24,8 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     SimpleDraweeView clubImage;
     @InjectView(R.id.clubName)
     TextView clubName;
-    @InjectView(R.id.seeMore)
-    TextView clubDescription;
+
+
 
 
     public ClubDetailsFragment() {}
@@ -55,12 +55,9 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
         return rootView;
     }
-
     private void initView()
     {
         clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
         clubName.setText(getArguments().getString(Constants.CLUB_NAME));
-        clubDescription.setText(getArguments().getString(Constants.CLUB_DESCRIPTION));
     }
-
 }

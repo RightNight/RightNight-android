@@ -75,11 +75,13 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if(venues.get(position) != null)
             {
                 Venue currentVenue = venues.get(position);
-                Log.wtf("La foto es ", currentVenue.getUrlImage().toString());
-                ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
 
+                ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
                 ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
-                Log.i("ID ", currentVenue.getId());
+                ((ClubViewHolder) viewHolder).setCategory(currentVenue.getCategories().getName());
+
+                ((ClubViewHolder) viewHolder).setGoingThere("0"); //Gotta do the request
+                ((ClubViewHolder) viewHolder).setRightNow(String.valueOf(currentVenue.getHereNow()));
 
                 final Bundle bundle = new Bundle();
 
@@ -137,33 +139,50 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return venues.contains(null);
     }
 
-    public class ClubViewHolder extends RecyclerView.ViewHolder {
+    public class ClubViewHolder extends RecyclerView.ViewHolder
+    {
         @InjectView(R.id.itemMain)
         RelativeLayout item;
 
         @InjectView(R.id.img_club)
-        SimpleDraweeView imgCharacter;
+        SimpleDraweeView venueImage;
 
         @InjectView(R.id.txt_club_name)
-        TextView txtName;
+        TextView venueTitle;
+        @InjectView(R.id.txt_goingThere)
+        TextView goingThere;
+        @InjectView(R.id.txt_rightNow)
+        TextView rightNow;
+        @InjectView(R.id.txt_type_name)
+        TextView venueCategory;
 
-        public void setImg(Uri urlImage) {
+        public void setImg(Uri urlImage)
+        {
             if (!urlImage.equals(Uri.EMPTY))
-                imgCharacter.setImageURI(urlImage);
-        }
+                venueImage.setImageURI(urlImage);}
 
+        public void setCategory(String category)
+        {venueCategory.setText(category);}
+
+        public void setGoingThere(String peopleGoing)
+        {goingThere.setText(peopleGoing+" Quieren ir");}
+
+        public void setRightNow(String peopleThere)
+        {rightNow.setText(peopleThere+" Estan Ahi");}
 
         public void setName(String name) {
-            txtName.setText(name);
+            venueTitle.setText(name);
         }
 
-        public ClubViewHolder(View itemView) {
+        public ClubViewHolder(View itemView)
+        {
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
     }
 
-    public class ProgressViewHolder extends RecyclerView.ViewHolder {
+    public class ProgressViewHolder extends RecyclerView.ViewHolder
+    {
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
