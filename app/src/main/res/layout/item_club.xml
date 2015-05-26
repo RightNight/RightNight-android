@@ -14,7 +14,7 @@
             android:layout_gravity="center"
             android:layout_width="@dimen/listview_image"
             android:layout_height="200dp"
-
+            fresco:overlayImage="@color/overlay_image"
             fresco:actualImageScaleType="focusCrop"
             fresco:placeholderImage="@drawable/happy_disco"
             fresco:placeholderImageScaleType="focusCrop"/>
@@ -27,7 +27,10 @@
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/primary_textList"
             android:textSize="@dimen/listview_nameBar"
-            android:text="Title"
+            android:text="CHIDO"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
             android:layout_alignParentTop="true"
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/img_club"
