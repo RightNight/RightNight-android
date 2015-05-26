@@ -69,10 +69,10 @@
         android:layout_height="25dp"
         android:id="@+id/imageView2"
         android:background="@drawable/ic_group_white_48dp"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_toLeftOf="@+id/textView2"
+        android:layout_alignBottom="@+id/txt_rightNow"
+        android:layout_toLeftOf="@+id/txt_goingThere"
         android:layout_marginRight="5dp"
-        android:layout_toStartOf="@+id/textView2" />
+        android:layout_toStartOf="@+id/txt_goingThere" />
 
     <Button
         android:layout_width="wrap_content"
@@ -86,14 +86,14 @@
         android:textStyle="bold"
         android:textColor="#ff4a8ab5"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_toEndOf="@+id/txt_rightNow" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:text="35 Estan Ahí"
-        android:id="@+id/textView"
+        android:id="@+id/txt_rightNow"
         android:layout_marginLeft="5dp"
         android:textColor="@color/primary_text"
         android:layout_alignBottom="@+id/imageView"
@@ -105,9 +105,9 @@
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:text="20 Quieren Ir"
-        android:id="@+id/textView2"
+        android:id="@+id/txt_goingThere"
         android:textColor="@color/primary_text"
-        android:layout_alignTop="@+id/textView"
+        android:layout_alignTop="@+id/txt_rightNow"
         android:layout_alignRight="@+id/button"
         android:layout_marginRight="8dp"
         android:layout_alignEnd="@+id/button" />
@@ -115,15 +115,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quiero Ir"
+        android:text="Review"
         android:id="@+id/button2"
         android:background="#8054386C"
         android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="#ff4a8ab5"
         android:layout_alignBottom="@+id/img_club"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
+        android:layout_alignRight="@+id/txt_rightNow"
+        android:layout_alignEnd="@+id/txt_rightNow"
         android:layout_toRightOf="@+id/img_club"
         android:layout_toEndOf="@+id/img_club" />
 </RelativeLayout>
