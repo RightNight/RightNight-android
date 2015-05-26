@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.IntentCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,6 +30,8 @@ public class SettingsFragment extends Fragment {
     TextView nameProfile;
     SimpleDraweeView imageProfile;
     EditText inputRadio;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public SettingsFragment() {
     }
@@ -42,6 +46,8 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(CONTEXT.getApplicationContext());
+        sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
+
     }
 
     @Override
@@ -49,8 +55,12 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         btnClose = (LoginButton) rootView.findViewById(R.id.btn_close);
-        btnClose.setFragment(this);
+        nameProfile = (TextView) rootView.findViewById(R.id.txt_profile_name);
+        imageProfile = (SimpleDraweeView) rootView.findViewById(R.id.img_profile);
+        inputRadio = (EditText) rootView.findViewById(R.id.txt_input_radio);
+        editor = sharedPreferences.edit();
 
+        btnClose.setFragment(this);
         btnClose.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         btnClose.setCompoundDrawablePadding(0);
         btnClose.setPadding(20, 14, 20, 14);
@@ -60,8 +70,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logOut();
-                SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("first_name", "");
                 editor.putString("last_name", "");
                 editor.putString("fb_id", "");
@@ -74,21 +82,18 @@ public class SettingsFragment extends Fragment {
                 startActivity(i);
             }
         });
-        getProfile(rootView);
+
+        getProfile();
 
         return rootView;
     }
 
-    private void getProfile(View v) {
-        SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
-
-        nameProfile = (TextView) v.findViewById(R.id.txt_profile_name);
-        imageProfile = (SimpleDraweeView) v.findViewById(R.id.img_profile);
-        inputRadio = (EditText) v.findViewById(R.id.txt_input_radio);
-
+    private void getProfile() {
         String fbName = sharedPreferences.getString("first_name", "") + " " + sharedPreferences.getString("last_name", "");
         Uri fbImageProfile = Uri.parse(sharedPreferences.getString("img_profile", ""));
-        int radio = sharedPreferences.getInt("ratio_map", 400);
+        int radio = sharedPreferences.getInt("radio_map", 400);
+        Log.i("Aqui es ", String.valueOf(radio));
+
         nameProfile.setText(fbName);
         imageProfile.setImageURI(fbImageProfile);
         inputRadio.setText(String.valueOf(radio));
@@ -97,5 +102,14 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        int radioValue = Integer.parseInt(inputRadio.getText().toString());
+        editor.putInt("radio_map", radioValue);
+
+        editor.apply();
     }
 }

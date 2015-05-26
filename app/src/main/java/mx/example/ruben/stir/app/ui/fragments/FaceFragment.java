@@ -92,7 +92,7 @@ public class FaceFragment extends Fragment {
                         editor.putString("last_name", lastName);
                         editor.putString("fb_id", fbId);
                         editor.putString("img_profile", fbImageProfile.toString());
-                        editor.putInt("ratio_map", 400);
+                        editor.putInt("radio_map", 400);
                         editor.putBoolean("is_login", true);
                         editor.apply();
                         Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
@@ -103,8 +103,8 @@ public class FaceFragment extends Fragment {
                         Toast.makeText(CONTEXT, "ERROR: No existe un perfil", Toast.LENGTH_SHORT).show();
                     }
 
-                Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
-                startActivity(i);
+                    Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
+                    startActivity(i);
                 }
             };
         };
@@ -125,7 +125,7 @@ public class FaceFragment extends Fragment {
 
         CirclePageIndicator circles = (CirclePageIndicator)rootView.findViewById(R.id.circles);
         circles.setViewPager(viewPager);
-        
+
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
 

@@ -2,66 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:facebook="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_profile"
         android:layout_width="@dimen/img_profile_settings_width"
         android:layout_height="@dimen/img_profile_settings_width"
-        android:paddingLeft="@dimen/padd_txt_btn"
-        app:roundAsCircle="true"
         android:layout_gravity="center"
-        android:id="@+id/img_profile"/>
+        android:paddingLeft="@dimen/padd_txt_btn"
+        app:roundAsCircle="true" />
 
     <TextView
         android:id="@+id/txt_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/secondary_text"
-        android:text="@string/txt_name_pro"
         android:layout_gravity="center"
-        android:textSize="@dimen/txt_profile_size"/>
+        android:text="@string/txt_name_pro"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/txt_profile_size" />
 
     <com.facebook.login.widget.LoginButton
-        style="@android:style/Widget"
         android:id="@+id/btn_close"
-        android:layout_marginTop="@dimen/margin_normal"
+        style="@android:style/Widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_normal"
         android:background="@color/divider"
         android:textSize="@dimen/txt_profile_size"
-        android:textStyle="normal"
-        android:layout_gravity="center" />
+        android:textStyle="normal" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/txt_profile_size"
-        android:background="@color/light_grey"
-        android:padding="@dimen/mini_padding"
-        android:textColor="@color/black"
-        android:layout_margin="@dimen/mini_margin"
-        android:text="@string/txt_settings_radio"/>
-    <EditText
-        android:id="@+id/txt_input_radio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/input_setting_size"
-        android:textColor="@color/black"
-        android:padding="@dimen/mini_padding"
-        android:layout_margin="@dimen/mini_margin"
-        android:layout_gravity="center"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_edit"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:background="@color/divider"
-        android:textSize="@dimen/txt_profile_size"
-        android:paddingLeft="@dimen/normal_padding"
-        android:paddingRight="@dimen/normal_padding"
-        android:textStyle="normal"
-        android:layout_gravity="center" />
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_normal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mini_margin"
+            android:background="@color/light_grey"
+            android:padding="@dimen/mini_padding"
+            android:text="@string/txt_settings_radio"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_profile_size" />
+        <EditText
+            android:id="@+id/txt_input_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:padding="@dimen/mini_padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/input_setting_size" />
+    </LinearLayout>
+
 </LinearLayout>
