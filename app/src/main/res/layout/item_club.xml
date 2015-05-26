@@ -14,7 +14,6 @@
             android:layout_gravity="center"
             android:layout_width="@dimen/listview_image"
             android:layout_height="200dp"
-            fresco:overlayImage="@color/overlay_image"
             fresco:actualImageScaleType="focusCrop"
             fresco:placeholderImage="@drawable/happy_disco"
             fresco:placeholderImageScaleType="focusCrop"/>
