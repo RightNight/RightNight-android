@@ -208,7 +208,7 @@ public class MapFragment extends Fragment
                     @Override
                     public View getInfoContents(Marker marker)
                     {
-                        View view = getLayoutInflater(mBundle).inflate(R.layout.item_venue_info_window ,null);
+                        View view = getLayoutInflater(mBundle).inflate(R.layout.item_venue_info_window, null);
 
                         int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
                         Venue currentVenue;
@@ -220,10 +220,12 @@ public class MapFragment extends Fragment
                         SimpleDraweeView venuePhoto = (SimpleDraweeView) view.findViewById(R.id.window_img_club);
                         TextView venueTitle = (TextView) view.findViewById(R.id.venue_name);
                         TextView venueCategorie = (TextView) view.findViewById(R.id.venue_categorie);
+                        TextView nowHere = (TextView) view.findViewById(R.id.NowHereInfoWindow);
 
                         venuePhoto.setImageURI(currentVenue.getUrlImage());
                         venueTitle.setText(currentVenue.getName());
                         venueCategorie.setText(currentVenue.getCategories().getName());
+                        nowHere.setText(String.valueOf(currentVenue.getHereNow()));
 
                         return view;
                     }
