@@ -18,8 +18,6 @@ public class RightNightApplication extends Application
     public static final String TAG = "VolleyPatterns";
     private static RightNightApplication sInstance;
 
-
-
     @Override
     public void onCreate()
     {

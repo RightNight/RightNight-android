@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.IntentCompat;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +26,13 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.ui.adapters.FragmentViewPagerAdapter;
 
 public class FaceFragment extends Fragment {
 
@@ -38,6 +43,9 @@ public class FaceFragment extends Fragment {
     ProfileTracker profileTracker;
     FacebookCallback<LoginResult> mFacebookCallback;
     Profile infoProfile;
+    private ViewPager viewPager;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private FragmentViewPagerAdapter pagerAdapter;
 
 //    Estoy en git y funciono
 
@@ -77,23 +85,28 @@ public class FaceFragment extends Fragment {
                         String firstName = infoProfile.getFirstName();
                         String lastName = infoProfile.getLastName();
                         String fbId = infoProfile.getId();
-                        Uri fbImageProfile = infoProfile.getProfilePictureUri(64, 64);
+                        Uri fbImageProfile = infoProfile.getProfilePictureUri(200, 200);
                         SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("first_name", firstName);
                         editor.putString("last_name", lastName);
                         editor.putString("fb_id", fbId);
                         editor.putString("img_profile", fbImageProfile.toString());
+                        editor.putInt("radio_map", 400);
                         editor.putBoolean("is_login", true);
                         editor.apply();
                         Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);
                     } else {
                         Toast.makeText(CONTEXT, "ERROR: No existe un perfil", Toast.LENGTH_SHORT).show();
                     }
+
+                    Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
+                    startActivity(i);
                 }
-            }
+            };
         };
     }
 
@@ -101,11 +114,28 @@ public class FaceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_face, container, false);
+        viewPager = (ViewPager)rootView.findViewById(R.id.pager);
+
+        fragments.add(FragmentOne.getInstance(savedInstanceState));
+        fragments.add(FragmentTwo.getInstance(savedInstanceState));
+        fragments.add(FragmentThree.getInstance(savedInstanceState));
+
+        pagerAdapter = new FragmentViewPagerAdapter(getActivity().getSupportFragmentManager(), CONTEXT, fragments);
+        viewPager.setAdapter(pagerAdapter);
+
+        CirclePageIndicator circles = (CirclePageIndicator)rootView.findViewById(R.id.circles);
+        circles.setViewPager(viewPager);
 
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, user_friends"));
 
         loginButton.setFragment(this);
+
+        loginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        loginButton.setCompoundDrawablePadding(0);
+        loginButton.setPadding(24, 14, 24, 14);
+        loginButton.setText("Log in with Facebook");
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

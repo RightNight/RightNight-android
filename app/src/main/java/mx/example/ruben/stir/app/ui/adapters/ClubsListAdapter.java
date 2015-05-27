@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
-import mx.example.ruben.stir.app.model.Club;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
+import mx.example.ruben.stir.app.model.Venue;
 import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
 import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
@@ -28,25 +29,26 @@ import static java.util.Collections.EMPTY_LIST;
 
 public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    private String noneContent = "None";
+    //Calcular la distancia entre el usuario y el venue, esto quiza lo deberia hacer el adapter...
 
-    List<Club> clubs = EMPTY_LIST;
+    List<Venue> venues = EMPTY_LIST;
+
     Context context;
     private int DETAIL_FRAGMENT_ID = 0;
 
     public ClubsListAdapter(Context context)
     {
         this.context = context;
+        venues = new ArrayList<>();
     }
 
     @Override
     public int getItemViewType(int position)
     {
-        return clubs.get(position) != null ? R.layout.item_club : R.layout.item_progress;
+        return venues.get(position) != null ? R.layout.item_club : R.layout.item_progress;
     }
 
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         if (viewType == R.layout.item_club)
         {
@@ -70,71 +72,70 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if (viewHolder instanceof ClubViewHolder)
         {
-            Club currentClub = clubs.get(position);
-            //((CharacterViewHolder) viewHolder).setImg(currentCharacter.getUrlImage());
-            ((ClubViewHolder) viewHolder).setName(currentClub.getName());
+            Venue currentVenue = venues.get(position);
+
+            Log.wtf("La foto es ", currentVenue.getUrlImage().toString());
+            ((ClubViewHolder) viewHolder).setImg(currentVenue.getUrlImage());
+
+            ((ClubViewHolder) viewHolder).setName(currentVenue.getName());
+            Log.i("ID ", currentVenue.getId());
 
             final Bundle bundle = new Bundle();
 
-            //bundle.putString(Constants.CLUB_URL_IMAGE_URL_IMAGE, String.valueOf(currentClub.getUrlImage()));
-            //bundle.putString(Constants.ID_KEY, String.valueOf(currentClub.getId()));
-
-            bundle.putString(Constants.CLUB_NAME, currentClub.getName());
+            bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
             bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
-            bundle.putString(Constants.CLUB_DESCRIPTION, noneContent);
+            bundle.putString(Constants.CLUB_DESCRIPTION, String.valueOf(currentVenue.getHereNow()));
+            bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
+
 
             ((ClubViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
+                public void onClick(View view) {
                     NavigationHelper.startClubDetail(((ActionBarActivity) context), bundle);
                 }
             });
-
-
         }
     }
 
-
     @Override
-    public int getItemCount() //-1 cuando se implemente el progress
+    public int getItemCount()
     {
-        if (clubs == null)
+        if (venues == null)
             return 0;
-
-        return clubs.size();
+        return venues.size();
     }
 
-    public void updateList(List<Club> clubs)
+    public int getVenuesItemsCount()
     {
-        this.clubs = clubs;
+        if (isProgressViewVisible())
+            return venues.size() - 1;
+
+        return venues.size();
+    }
+
+    public void updateList(List<Venue> venues)
+    {
+        this.venues.addAll(venues);
+        notifyDataSetChanged();
+    }
+    public void RemoveProgressView()
+    {
+
+        venues.remove(venues.size() - 1);
         notifyDataSetChanged();
     }
 
-    private void showOnLoadViewHolder() {
-        clubs.add(null);
+    public void showOnLoadViewHolder()
+    {
+        venues.add(null);
         notifyDataSetChanged();
     }
 
     public boolean isProgressViewVisible() {
-        return clubs.contains(null);
+        return venues.contains(null);
     }
 
-    public void DummyContent()
-    {
-        clubs = new ArrayList<>();
-        Club temp;
-        for (int i = 0; i < 40; i++)
-        {
-            String name = "Club "+i;
-            temp = new Club(2,name,name,Uri.EMPTY);
-            clubs.add(temp);
-        }
-        clubs.add(null);
-    }
-
-    public class ClubViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ClubViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.itemMain)
         RelativeLayout item;
 
@@ -144,29 +145,26 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @InjectView(R.id.txt_club_name)
         TextView txtName;
 
-        public void setImg(Uri urlImage)
-        {
+        public void setImg(Uri urlImage) {
             if (!urlImage.equals(Uri.EMPTY))
                 imgCharacter.setImageURI(urlImage);
         }
 
 
-        public void setName(String name)
-        {
+        public void setName(String name) {
             txtName.setText(name);
         }
 
-        public ClubViewHolder(View itemView)
-        {
+        public ClubViewHolder(View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
     }
-    public class ProgressViewHolder extends RecyclerView.ViewHolder
-    {
+
+    public class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
     }
-
 }
+

@@ -5,7 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import mx.example.ruben.stir.app.ui.adapters.ClubsListAdapter;
 
-public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener
+{
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
 
     private int previousTotal = 0; // The total number of items in the dataset after the last load
@@ -27,12 +28,15 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         super.onScrolled(recyclerView, dx, dy);
 
         visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = ((ClubsListAdapter)recyclerView.getAdapter()).getItemCount();
+        totalItemCount = ((ClubsListAdapter)recyclerView.getAdapter()).getVenuesItemsCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
 
-        if (loading) {
-            if (totalItemCount > previousTotal) {
+        if (loading)
+        {
+
+            if (totalItemCount > previousTotal)
+            {
                 loading = false;
                 previousTotal = totalItemCount;
             }
