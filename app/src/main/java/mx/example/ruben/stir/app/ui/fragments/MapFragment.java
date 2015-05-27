@@ -1,5 +1,6 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -10,21 +11,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,25 +37,39 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.Parser;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import mx.example.ruben.stir.R;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
+import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
-{ //Implementar offset, un boton que te posicione sobre ti si te pierdes,pedir mas clubes segun se mueva la camara
+{
+    @InjectView(R.id.moreButton)
+    SimpleDraweeView mMoreVenuesButton;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     public Context CONTEXT;
 
-    private Bundle mBundle;
+    int idCounter = 0;
+    int radius = 400;
     int offset = 0;
+    LatLng myPosition;
+    boolean mRequestDone = true;
+
+
+
+    private Bundle mBundle;
     List<Venue> mVenues;
 
     public MapFragment(){}
@@ -81,9 +100,77 @@ public class MapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        ButterKnife.inject(this, rootView);
+
         setUpMapIfNeeded();
-        requestClubs();
         VenueMarkers();
+        mMap.setMyLocationEnabled(true);
+
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                radius = 400;
+
+            }
+        });
+
+        mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mRequestDone)
+                {
+                    if (radius == 400)
+                    {
+                        idCounter = idCounter+offset;
+                        mMap.clear();
+                        mVenues.clear();
+                        offset = 0;
+                    }
+
+                    mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius));
+
+                    requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
+                            String.valueOf(mMap.getCameraPosition().target.longitude));
+
+                    radius = radius + 400;
+                } else {
+                    Toast.makeText(CONTEXT, "We are getting you more venues", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                int markerId = Integer.parseInt(marker.getId().replace('m', '0'));
+
+                Venue currentVenue;
+                if (markerId>mVenues.size())
+                    currentVenue = mVenues.get(markerId-idCounter);
+                else
+                {   currentVenue = mVenues.get(markerId);}
+
+
+                Bundle markerBundle = new Bundle();
+
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString() );
+                markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
+                markerBundle.putString(Constants.CLUB_DESCRIPTION, currentVenue.getContact().getPhone());
+
+
+                Log.d("datos", String.valueOf(currentVenue.getPrice().getTier()));
+                Log.d("datos",String.valueOf(currentVenue.getRating()));
+                Log.d("datos",String.valueOf(currentVenue.getRatingColor()));
+                Log.d("datos",String.valueOf(currentVenue.getHours().getStatus()));
+
+                Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
+                intent.putExtras(markerBundle);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 
@@ -104,33 +191,38 @@ public class MapFragment extends Fragment
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera.
-     */
     private void setUpPosition()
     {
-        LatLng myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(myPosition, 15)));
-        mMap.addMarker(new MarkerOptions().position(myPosition).title(String.valueOf(myPosition.latitude) + "," + String.valueOf(myPosition.longitude)));
+        myPosition = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
+        MoveCameraTo(myPosition);
+    }
+    private void MoveCameraTo(LatLng position)
+    {
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(position, 15)));
     }
 
     public void addMarker(double latitude, double longitude,String name)
     {
         LatLng newMarkLatLng = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(newMarkLatLng).
-                title(name));
+                title(name) );
     }
 
-    private void requestClubs()
+    private void requestClubs(String lat, String lng)
     {
-        String lat = String.valueOf(mBundle.getDouble("latitude"));
-        String lng = String.valueOf(mBundle.getDouble("longitude"));
-        Log.d("latitude",lat);
+        mRequestDone = false;
 
-        final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=45"+"&offset="+offset+
-                "&ll="+lat+","+lng);
-        //TEMPORAL añadir un Offset, quiza radio
+        final String uri = (
+                            Constants.API_URL_VENUES
+                            +Constants.EXPLORE
+                            +Constants.API_OB_PARAMS
+                            +Constants.NIGHTLIFE_FILTER_PARAM
+                            +Constants.VENUE_PHOTOS
+                            +Constants.SORT_BY_DISTANCE
+                            +Constants.LIMIT_PARAM+"50"
+                            +Constants.LOCATION_PARAM+lat+","+lng
+                            +Constants.RADIUS_PARAM+String.valueOf(radius)
+                            +Constants.OFFSET_PARAM+String.valueOf(offset));
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
@@ -144,7 +236,6 @@ public class MapFragment extends Fragment
                     List<Items> itemList;
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     int returnCode = response.getJSONObject("meta").getInt("code");
-
                     if (returnCode == 200)
                     {
                         JSONArray items = response.getJSONObject("response").getJSONArray("groups").
@@ -157,12 +248,15 @@ public class MapFragment extends Fragment
                         {
                             mVenues.add(itemList.get(i).getVenue());
                         }
-                        VenueMarkers();
 
+                        VenueMarkers();
+                        offset = mVenues.size();
+                        mRequestDone = true;
                     }
                 } catch (JSONException e)
                 {
                     e.printStackTrace();
+                    mRequestDone = true;
                 }
             }
         }, new Response.ErrorListener()
@@ -170,9 +264,13 @@ public class MapFragment extends Fragment
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                Toast.makeText(CONTEXT,"Internet error",Toast.LENGTH_LONG).show();
                 VolleyLog.e("Error: ", error.getMessage());
+                mRequestDone = true;
             }
         });
+
+        Toast.makeText(CONTEXT,"Loading",Toast.LENGTH_SHORT).show();
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
 
@@ -180,13 +278,12 @@ public class MapFragment extends Fragment
     {
         if (mVenues!=null)
         {
-            for (int i = 0; i < mVenues.size(); ++i)
+            for (int i = offset; i < mVenues.size(); ++i)
             {
-
                 Venue current = mVenues.get(i);
-                if (current.isVerified())
+                //if (current.isVerified())
                 addMarker(current.getLocation().getLat(), current.getLocation().getLng(), current.getName() + " " +
-                        String.valueOf(current.getHereNow())+" "+current.getCategories().getName());
+                        String.valueOf(current.getHereNow()) + " " + current.getCategories().getName());
             }
         }
     }

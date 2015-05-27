@@ -15,6 +15,13 @@ public class Constants
     public static final String EXPLORE = "/explore";
     public static final String SEARCH = "/search";
 
+    public static final String LIMIT_PARAM = "&limit=";
+    public static final String LOCATION_PARAM = "&ll=";
+    public static final String RADIUS_PARAM = "&radius=";
+    public static final String OFFSET_PARAM = "&offset=";
+
+
+
     public static final String API_OB_PARAMS = "?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&v="+API_DATE_VERSION;
     public static final String NIGHTLIFE_FILTER_PARAM = "&categoryId=4d4b7105d754a06376d81259";
 
