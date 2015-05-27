@@ -18,11 +18,18 @@ public class Contact
 
     public Uri getTwitter()
     {
+        if (twitter!= null)
         return Uri.parse("www.twitter.com/"+twitter);
+        else {return Uri.EMPTY;}
     }
 
     public Uri getFacebook()
     {
+        if (facebook!=null)
         return Uri.parse("www.facebook.com/"+facebook);
+        else
+        {
+            return Uri.EMPTY;
+        }
     }
 }

@@ -33,7 +33,8 @@ public class Venue
         return contact;
     }
 
-    public Price getPrice() {
+    public Price getPrice()
+    {
         return price;
     }
 
@@ -45,8 +46,12 @@ public class Venue
     return new Hours(false,"");
     }
 
-    public String getUrl() {
+    public String getUrl()
+    {
+        if (url!=null)
         return url;
+
+        return " ";
     }
 
     public double getRating() {

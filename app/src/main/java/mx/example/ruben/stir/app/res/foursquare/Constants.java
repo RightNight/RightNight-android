@@ -24,15 +24,30 @@ public class Constants
 
     public static final String API_OB_PARAMS = "?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&v="+API_DATE_VERSION;
     public static final String NIGHTLIFE_FILTER_PARAM = "&categoryId=4d4b7105d754a06376d81259";
+    public static final String VENUE_PHOTOS = "&venuePhotos=1" ;
+    public static final String SORT_BY_DISTANCE = "&sortByDistance=1" ;
+    public static final String CLUB_URL_IMAGE = "photo";
 
     public static final String CALLBACK_URL = "http://localhost:8888";
     public static final String SHARED_PREF_FILE = "shared_pref";
     public static final String ACCESS_TOKEN = "access_token";
     public static final String USER_INFO = "user_info";
 
+///BUNDLE STUFF
     public static final String CLUB_NAME = "name";
     public static final String CLUB_DESCRIPTION = "description";
-    public static final String VENUE_PHOTOS = "&venuePhotos=1" ;
-    public static final String SORT_BY_DISTANCE = "&sortByDistance=1" ;
-    public static final String CLUB_URL_IMAGE = "photo";
+    public static final String VENUE_LOCATION = "location";
+    public static final String VENUE_COST = "cost";
+    public static final String VENUE_HOURS = "hours";
+
+    public static final String VENUE_LINK = "link";
+    public static final String VENUE_PHONE = "phone";
+    public static final String VENUE_FB = "fb";
+    public static final String VENUE_TWITTER = "twitter";
+
+
+
+
+
+
 }

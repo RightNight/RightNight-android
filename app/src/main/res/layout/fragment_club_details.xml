@@ -60,7 +60,7 @@
             <ImageButton
                 android:layout_width="@dimen/club_details_superiorIcons"
                 android:layout_height="@dimen/club_details_superiorIcons"
-                android:id="@+id/detaillDirection"
+                android:id="@+id/mapButton"
                 android:background="@drawable/ic_directions_white_48dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
@@ -87,8 +87,8 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/detaillDirection"
-                android:layout_toStartOf="@+id/detaillDirection" />
+                android:layout_toLeftOf="@+id/mapButton"
+                android:layout_toStartOf="@+id/mapButton" />
 
         </RelativeLayout>
 
@@ -119,8 +119,8 @@
                 android:id="@+id/imageView3"
                 android:layout_marginTop="22dp"
                 android:layout_below="@+id/imageView4"
-                android:layout_toLeftOf="@+id/detaillDirection"
-                android:layout_toStartOf="@+id/detaillDirection" />
+                android:layout_toLeftOf="@+id/txt_location"
+                android:layout_toStartOf="@+id/txt_location" />
 
             <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
@@ -154,7 +154,7 @@
                 tools:ignore="RtlCompat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/detaillDirection"
+                android:id="@+id/txt_location"
                 android:gravity="top"
                 android:text="Titulo"
                 android:textSize="@dimen/club_details_generalDescription"
@@ -177,8 +177,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:layout_above="@+id/imageView5"
-                android:layout_alignLeft="@+id/detaillDirection"
-                android:layout_alignStart="@+id/detaillDirection" />
+                android:layout_alignLeft="@+id/txt_location"
+                android:layout_alignStart="@+id/txt_location" />
 
             <TextView
                 tools:ignore="RtlCompat"
