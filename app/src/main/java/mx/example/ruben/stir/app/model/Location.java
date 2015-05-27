@@ -45,6 +45,15 @@ public class Location
     public String toString()
     {
 
-        return (address+" "+city+" "+state);
+        if (address== null)
+            return " ";
+        else if(city == null)
+            return address;
+        else if(state == null)
+            return address+" "+city;
+        else
+        {
+            return (address+" "+city+" "+state);
+        }
     }
 }

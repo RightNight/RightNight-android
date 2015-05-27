@@ -46,8 +46,12 @@ public class Venue
     return new Hours(false,"");
     }
 
-    public String getUrl() {
+    public String getUrl()
+    {
+        if (url!=null)
         return url;
+
+        return " ";
     }
 
     public double getRating() {
