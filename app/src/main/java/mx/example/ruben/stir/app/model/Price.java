@@ -15,4 +15,22 @@ public class Price
     public String getCurrency() {
         return currency;
     }
+
+    @Override
+    public String toString()
+    {
+        switch (tier)
+        {
+            case 1:
+                return "Barato";
+            case 2:
+                return "Moderado";
+            case 3:
+                return "Caro";
+            case 4:
+                return  "Muy Caro";
+            default:
+                return "Sin Dato";
+        }
+    }
 }

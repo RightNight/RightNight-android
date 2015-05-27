@@ -90,7 +90,14 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
                 bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
 
+                bundle.putString(Constants.VENUE_HOURS,currentVenue.getHours().getStatus());
+                bundle.putString(Constants.VENUE_LOCATION,currentVenue.getLocation().toString());
+                bundle.putString(Constants.VENUE_COST,currentVenue.getPrice().toString());
 
+                bundle.putString(Constants.VENUE_LINK,currentVenue.getUrl());
+                bundle.putString(Constants.VENUE_FB,currentVenue.getContact().getFacebook().toString());
+                bundle.putString(Constants.VENUE_TWITTER,currentVenue.getContact().getTwitter().toString());
+                bundle.putString(Constants.VENUE_PHONE,currentVenue.getContact().getPhone());
 
                 ((ClubViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
                     @Override

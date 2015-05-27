@@ -33,7 +33,8 @@ public class Venue
         return contact;
     }
 
-    public Price getPrice() {
+    public Price getPrice()
+    {
         return price;
     }
 

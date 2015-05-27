@@ -14,6 +14,12 @@ public class Location
     private String state;
     private double lat;
     private double lng;
+    private double distance;
+
+    public double getDistance()
+    {
+        return distance;
+    }
 
     public String getAddress() {
         return address;
@@ -35,4 +41,10 @@ public class Location
         return lng;
     }
 
+    @Override
+    public String toString()
+    {
+
+        return (address+" "+city+" "+state);
+    }
 }
