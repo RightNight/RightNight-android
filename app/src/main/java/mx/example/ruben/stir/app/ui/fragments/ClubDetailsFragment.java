@@ -22,11 +22,20 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
     @InjectView(R.id.img_detail_club)
     SimpleDraweeView clubImage;
+
     @InjectView(R.id.clubName)
-    TextView clubName;
+    TextView venueName;
 
-
-
+    @InjectView(R.id.txt_location)
+    TextView venueLocation;
+    @InjectView(R.id.detaillSchedule)
+    TextView venueHours;
+    @InjectView(R.id.detaillCost)
+    TextView venueCost;
+    @InjectView(R.id.detaillDescription)
+    TextView venueDetails;
+    @InjectView(R.id.detaillLink)
+    TextView venueLinks;
 
     public ClubDetailsFragment() {}
 
@@ -58,6 +67,12 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     private void initView()
     {
         clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
-        clubName.setText(getArguments().getString(Constants.CLUB_NAME));
+        venueName.setText(getArguments().getString(Constants.CLUB_NAME));
+        venueLocation.setText("");
+        venueHours.setText("");
+        venueCost.setText("");
+        venueDetails.setText("Description");
+        venueLinks.setText("");
+        //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
     }
 }
