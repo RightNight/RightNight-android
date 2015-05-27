@@ -92,8 +92,6 @@ public class SettingsFragment extends Fragment {
         String fbName = sharedPreferences.getString("first_name", "") + " " + sharedPreferences.getString("last_name", "");
         Uri fbImageProfile = Uri.parse(sharedPreferences.getString("img_profile", ""));
         int radio = sharedPreferences.getInt("radio_map", 400);
-        Log.i("Aqui es ", String.valueOf(radio));
-
         nameProfile.setText(fbName);
         imageProfile.setImageURI(fbImageProfile);
         inputRadio.setText(String.valueOf(radio));
@@ -109,7 +107,6 @@ public class SettingsFragment extends Fragment {
         super.onDestroy();
         int radioValue = Integer.parseInt(inputRadio.getText().toString());
         editor.putInt("radio_map", radioValue);
-
         editor.apply();
     }
 }
