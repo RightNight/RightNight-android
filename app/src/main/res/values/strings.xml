@@ -27,4 +27,5 @@
     <string name="txt_name_pro">Profile Name</string>
     <string name="txt_settings_radio">Radio de búsqueda:</string>
     <string name="txt_radio_metros">metros</string>
+    <string name="title_activity_search_activity">Busqueda</string>
 </resources>

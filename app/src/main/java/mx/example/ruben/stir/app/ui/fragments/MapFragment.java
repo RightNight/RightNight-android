@@ -131,14 +131,15 @@ public class MapFragment extends Fragment
             @Override
             public void onClick(View view) {
                 Log.i("Radius = ", radius + " vs " + userRadius);
-                if (mRequestDone) {
-                    if (radius == userRadius) {
+                if (mRequestDone)
+                {
+                    if (radius == userRadius)
+                    {
                         idCounter = idCounter + offset;
                         mMap.clear();
                         mVenues.clear();
                         offset = 0;
                     }
-
                     mMap.addCircle(new CircleOptions().center(mMap.getCameraPosition().target).radius(radius)
                             .strokeColor(Color.rgb(112,31,119)));
 
@@ -146,7 +147,8 @@ public class MapFragment extends Fragment
                             String.valueOf(mMap.getCameraPosition().target.longitude));
 
                     radius = radius + userRadius;
-                } else {
+                } else
+                {
                     Toast.makeText(CONTEXT, "We are getting you more venues", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -238,9 +240,7 @@ public class MapFragment extends Fragment
                         return view;
                     }
                 });
-
                 setUpPosition();
-
             }
         }
     }

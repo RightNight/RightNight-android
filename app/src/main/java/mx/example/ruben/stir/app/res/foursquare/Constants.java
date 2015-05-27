@@ -45,6 +45,9 @@ public class Constants
     public static final String VENUE_FB = "fb";
     public static final String VENUE_TWITTER = "twitter";
 
+//SEARCH ACTIVITY BUNDLE
+    public static final String QUERY_SEARCH = "busqueda";
+
 
 
 
