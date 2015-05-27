@@ -1,6 +1,7 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.Fragment;
@@ -70,10 +71,13 @@ public class MapFragment extends Fragment
     public Context CONTEXT;
 
     int idCounter = 0;
-    int radius = 400;
+    int radius;
+    int userRadius;
     int offset = 0;
     LatLng myPosition;
     boolean mRequestDone = true;
+
+    SharedPreferences sharedPreferences;
 
     private Bundle mBundle;
     List<Venue> mVenues;
@@ -99,6 +103,9 @@ public class MapFragment extends Fragment
         super.onCreate(savedInstanceState);
         mBundle = getArguments();
         mVenues = new ArrayList<>();
+        sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
+        userRadius = sharedPreferences.getInt("radio_map", 400);
+        radius = userRadius;
     }
 
     @Nullable
@@ -115,7 +122,7 @@ public class MapFragment extends Fragment
         mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
-                radius = 400;
+                radius = userRadius;
 
             }
         });
@@ -123,8 +130,9 @@ public class MapFragment extends Fragment
         mMoreVenuesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Radius = ", radius + " vs " + userRadius);
                 if (mRequestDone) {
-                    if (radius == 400) {
+                    if (radius == userRadius) {
                         idCounter = idCounter + offset;
                         mMap.clear();
                         mVenues.clear();
@@ -137,7 +145,7 @@ public class MapFragment extends Fragment
                     requestClubs(String.valueOf(mMap.getCameraPosition().target.latitude),
                             String.valueOf(mMap.getCameraPosition().target.longitude));
 
-                    radius = radius + 400;
+                    radius = radius + userRadius;
                 } else {
                     Toast.makeText(CONTEXT, "We are getting you more venues", Toast.LENGTH_SHORT).show();
                 }
