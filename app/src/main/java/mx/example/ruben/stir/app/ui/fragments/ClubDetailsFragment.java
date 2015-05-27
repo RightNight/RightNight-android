@@ -68,11 +68,13 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     {
         clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
         venueName.setText(getArguments().getString(Constants.CLUB_NAME));
-        venueLocation.setText("");
-        venueHours.setText("");
-        venueCost.setText("");
+        venueLocation.setText(getArguments().getString(Constants.VENUE_LOCATION));
+        venueHours.setText(getArguments().getString(Constants.VENUE_HOURS));
+        venueCost.setText(getArguments().getString(Constants.VENUE_COST));
         venueDetails.setText("Description");
-        venueLinks.setText("");
+
+        venueLinks.setText(getArguments().getString(Constants.VENUE_LINK));
+        //LINK + TWITTER + FB
         //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
     }
 }
