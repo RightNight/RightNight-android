@@ -161,15 +161,17 @@ public class MapFragment extends Fragment
 
                 Bundle markerBundle = new Bundle();
 
-                markerBundle.putString(Constants.CLUB_URL_IMAGE, currentVenue.getUrlImage().toString());
                 markerBundle.putString(Constants.CLUB_NAME, currentVenue.getName());
-                markerBundle.putString(Constants.CLUB_DESCRIPTION, currentVenue.getContact().getPhone());
+                markerBundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
 
+                markerBundle.putString(Constants.VENUE_HOURS,currentVenue.getHours().getStatus());
+                markerBundle.putString(Constants.VENUE_LOCATION,currentVenue.getLocation().toString());
+                markerBundle.putString(Constants.VENUE_COST,currentVenue.getPrice().toString());
 
-                Log.d("datos", String.valueOf(currentVenue.getPrice().getTier()));
-                Log.d("datos", String.valueOf(currentVenue.getRating()));
-                Log.d("datos", String.valueOf(currentVenue.getRatingColor()));
-                Log.d("datos", String.valueOf(currentVenue.getHours().getStatus()));
+                markerBundle.putString(Constants.VENUE_LINK,currentVenue.getUrl());
+                markerBundle.putString(Constants.VENUE_FB,currentVenue.getContact().getFacebook().toString());
+                markerBundle.putString(Constants.VENUE_TWITTER,currentVenue.getContact().getTwitter().toString());
+                markerBundle.putString(Constants.VENUE_PHONE,currentVenue.getContact().getPhone());
 
                 Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
                 intent.putExtras(markerBundle);

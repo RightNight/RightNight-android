@@ -77,7 +77,6 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         venueLinks.setText(getArguments().getString(Constants.VENUE_LINK)+"\n"+
                            getArguments().getString(Constants.VENUE_TWITTER)+"\n"+
                            getArguments().getString(Constants.VENUE_FB));
-        //LINK + TWITTER + FB
         //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
     }
 }
