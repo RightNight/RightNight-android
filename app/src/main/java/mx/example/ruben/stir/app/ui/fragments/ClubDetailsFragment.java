@@ -43,16 +43,12 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     @InjectView(R.id.linkSite)
     ImageView linkSite;
     @InjectView(R.id.linkFB)
-    ImageView linkGB;
+    ImageView linkFB;
     @InjectView(R.id.linkTwitter)
     ImageView linkTwitter;
 
-    String mVenueHours;
-    String mVenueSite;
-    String mVenueLocation;
-    String mVenueCost;
-    String mVenueFacebook;
-    String mVenueTwitter;
+    @InjectView(R.id.detaillPhone)
+    ImageView venuePhone;
 
 
     public ClubDetailsFragment() {}
@@ -84,46 +80,46 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     }
     private void initView()
     {
-
         clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
-        venueName.setText(getArguments().getString(Constants.CLUB_NAME));
+
+        doStringDetail(getArguments().getString(Constants.CLUB_NAME), venueName);
+        doStringDetail(getArguments().getString(Constants.VENUE_LOCATION), venueLocation);
+        doStringDetail(getArguments().getString(Constants.VENUE_HOURS), venueHours);
+        doStringDetail(getArguments().getString(Constants.VENUE_COST), venueCost);
+
+        doLinkButton(getArguments().getString(Constants.VENUE_LINK), linkSite);
+        doLinkButton(getArguments().getString(Constants.VENUE_FB), linkFB);
+        doLinkButton(getArguments().getString(Constants.VENUE_TWITTER), linkTwitter);
 
 
-        Log.i("OK ", "go link " + getArguments().getString(Constants.VENUE_LINK).trim());
-        mVenueHours = Objects.equals(getArguments().getString(Constants.VENUE_HOURS).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_HOURS);
-        mVenueLocation = Objects.equals(getArguments().getString(Constants.VENUE_LOCATION).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_LOCATION);
-        mVenueCost = Objects.equals(getArguments().getString(Constants.VENUE_COST).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_COST);
-        mVenueSite = Objects.equals(getArguments().getString(Constants.VENUE_LINK).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_LINK);
-        mVenueFacebook = Objects.equals(getArguments().getString(Constants.VENUE_FB).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_FB);
-        mVenueTwitter = Objects.equals(getArguments().getString(Constants.VENUE_TWITTER).trim(), "") ? Constants.EMPTY_STRING : getArguments().getString(Constants.VENUE_TWITTER);
 
-        venueHours.setText(mVenueHours);
-        venueLocation.setText(mVenueLocation);
-        venueCost.setText(mVenueCost);
-        venueHours.setText(mVenueHours);
+        venueDetails.setText(Constants.EMPTY_STRING);
 
-        Log.i("OK ", "go link " + mVenueSite);
-        if (!Objects.equals(mVenueSite, Constants.EMPTY_STRING)){
-            linkSite.setOnClickListener(new View.OnClickListener() {
+        //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
+    }
+
+    public void doLinkButton(final String venue_string, ImageView image)
+    {
+        final String venue_link = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
+        if (!Objects.equals(venue_link, Constants.EMPTY_STRING)){
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        Uri uLinkSite = Uri.parse(mVenueSite);
-                        Intent goSite = new Intent(Intent.ACTION_VIEW, uLinkSite);
-                        startActivity(goSite);
+                    Uri uLinkSite = Uri.parse(venue_link);
+                    Intent goSite = new Intent(Intent.ACTION_VIEW, uLinkSite);
+                    startActivity(goSite);
                 }
             });
         } else {
-            linkSite.setAlpha((float) .50);
+            image.setAlpha((float) .30);
         }
+    }
 
-//        venueLocation.setText(getArguments().getString(Constants.VENUE_LOCATION));
-//        venueCost.setText(getArguments().getString(Constants.VENUE_COST));
 
-        venueDetails.setText("Description");
+    public void doStringDetail(String detail, TextView textField)
+    {
+        String venue_detail = Objects.equals(detail.trim(), "") ? Constants.EMPTY_STRING : detail;
+        textField.setText(venue_detail);
 
-//        venueLinks.setText(getArguments().getString(Constants.VENUE_LINK)+"\n"+
-//                           getArguments().getString(Constants.VENUE_TWITTER)+"\n"+
-//                           getArguments().getString(Constants.VENUE_FB));
-        //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
     }
 }

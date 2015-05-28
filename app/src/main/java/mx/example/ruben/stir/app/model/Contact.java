@@ -13,20 +13,22 @@ public class Contact
 
     public String getPhone()
     {
-        return phone;
+        if (phone!= null)
+            return phone;
+        else return "";
     }
 
     public Uri getTwitter()
     {
         if (twitter!= null)
-        return Uri.parse("www.twitter.com/"+twitter);
+        return Uri.parse("https://www.twitter.com/"+twitter);
         else {return Uri.EMPTY;}
     }
 
     public Uri getFacebook()
     {
         if (facebook!=null)
-        return Uri.parse("www.facebook.com/"+facebook);
+        return Uri.parse("https://www.facebook.com/"+facebook);
         else
         {
             return Uri.EMPTY;

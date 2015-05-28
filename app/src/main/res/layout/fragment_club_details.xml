@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/img_lista_detalle"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@drawable/img_lista_detalle">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -18,78 +18,78 @@
             android:layout_gravity="center_vertical"
             fresco:actualImageScaleType="focusCrop"
             fresco:placeholderImage="@drawable/happy_disco"
-            fresco:placeholderImageScaleType="focusCrop"/>
+            fresco:placeholderImageScaleType="focusCrop" />
 
         <TextView
+            android:id="@+id/clubName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/clubName"
+            android:layout_marginBottom="38dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:gravity="top"
             android:text="Titulo"
+            android:textColor="@color/abc_primary_text_material_dark"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:layout_marginBottom="38dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
             tools:ignore="RtlCompat" />
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/descTitle"
-                android:text="Description"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:textSize="20sp"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/img_detail_club"
-                android:layout_toEndOf="@+id/img_detail_club" />
+            android:id="@+id/descTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/img_detail_club"
+            android:layout_toRightOf="@+id/img_detail_club"
+            android:text="Description"
+            android:textSize="20sp" />
 
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="@color/cardview_dark_background"
-            android:layout_below="@+id/img_detail_club"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout">
+            android:layout_below="@+id/img_detail_club"
+            android:background="@color/cardview_dark_background">
 
             <ImageButton
+                android:id="@+id/detaillRating"
                 android:layout_width="@dimen/club_details_superiorIcons"
                 android:layout_height="@dimen/club_details_superiorIcons"
-                android:id="@+id/detaillRating"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/detaillPhone"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/detaillPhone"
                 android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp" />
+                android:layout_marginStart="20dp"
+                android:background="@drawable/ic_grade_white_48dp" />
 
             <ImageButton
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
                 android:id="@+id/mapButton"
-                android:background="@drawable/ic_directions_white_48dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_centerVertical="true"
+                android:layout_width="@dimen/club_details_superiorIcons"
+                android:layout_height="@dimen/club_details_superiorIcons"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_directions_white_48dp" />
 
 
             <ImageButton
+                android:id="@+id/detaillPhone"
                 android:layout_width="@dimen/club_details_superiorIcons"
                 android:layout_height="@dimen/club_details_superiorIcons"
-                android:id="@+id/detaillPhone"
-                android:background="@drawable/ic_phone_white_48dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginEnd="12dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_toLeftOf="@+id/mapButton"
-                android:layout_toStartOf="@+id/mapButton" />
+                android:layout_toStartOf="@+id/mapButton"
+                android:background="@drawable/ic_phone_white_48dp" />
 
         </RelativeLayout>
 
@@ -97,140 +97,140 @@
             android:id="@+id/relative_layout_details"
             android:layout_width="fill_parent"
             android:layout_height="510dp"
-            android:background="@color/RelativeTransparency"
-            android:layout_below="@+id/relativeLayout"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relativeLayout"
+            android:background="@color/RelativeTransparency">
 
             <ImageView
+                android:id="@+id/imageView4"
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_pin_drop_grey600_48dp"
-                android:id="@+id/imageView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="29dp"
                 android:layout_marginStart="29dp"
                 android:layout_marginTop="42dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:background="@drawable/ic_pin_drop_grey600_48dp" />
 
             <ImageView
-                android:layout_width="@dimen/club_details_inferiorIcons"
-                android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_query_builder_grey600_48dp"
                 android:id="@+id/imageView3"
-                android:layout_marginTop="22dp"
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
                 android:layout_below="@+id/imageView4"
+                android:layout_marginTop="22dp"
                 android:layout_toLeftOf="@+id/txt_location"
-                android:layout_toStartOf="@+id/txt_location" />
+                android:layout_toStartOf="@+id/txt_location"
+                android:background="@drawable/ic_query_builder_grey600_48dp" />
 
             <ImageView
-                android:layout_width="@dimen/club_details_inferiorIcons"
-                android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_attach_money_grey600_48dp"
                 android:id="@+id/imageView5"
-                android:layout_marginTop="24dp"
-                android:layout_below="@+id/imageView3"
-                android:layout_alignRight="@+id/imageView4"
-                android:layout_alignEnd="@+id/imageView4" />
-
-            <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_textsms_grey600_48dp"
+                android:layout_alignEnd="@+id/imageView4"
+                android:layout_alignRight="@+id/imageView4"
+                android:layout_below="@+id/imageView3"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ic_attach_money_grey600_48dp" />
+
+            <ImageView
                 android:id="@+id/imageView6"
-                android:layout_alignTop="@+id/detaillDescription"
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
                 android:layout_alignLeft="@+id/imageView5"
-                android:layout_alignStart="@+id/imageView5" />
+                android:layout_alignStart="@+id/imageView5"
+                android:layout_alignTop="@+id/detaillDescription"
+                android:background="@drawable/ic_textsms_grey600_48dp" />
 
             <TextView
-                tools:ignore="RtlCompat"
+                android:id="@+id/txt_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_location"
-                android:gravity="top"
-                android:text="Titulo"
-                android:textSize="@dimen/club_details_generalDescription"
-                android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
+                android:layout_above="@+id/imageView3"
                 android:layout_marginLeft="26dp"
                 android:layout_marginStart="26dp"
-                android:layout_above="@+id/imageView3"
+                android:layout_toEndOf="@+id/imageView4"
                 android:layout_toRightOf="@+id/imageView4"
-                android:layout_toEndOf="@+id/imageView4" />
-
-            <TextView
-                tools:ignore="RtlCompat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detaillSchedule"
                 android:gravity="top"
                 android:text="Titulo"
+                android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="@dimen/club_details_generalDescription"
                 android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detaillSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/imageView5"
                 android:layout_alignLeft="@+id/txt_location"
-                android:layout_alignStart="@+id/txt_location" />
-
-            <TextView
-                tools:ignore="RtlCompat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detaillCost"
+                android:layout_alignStart="@+id/txt_location"
                 android:gravity="top"
                 android:text="Titulo"
+                android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="@dimen/club_details_generalDescription"
                 android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detaillCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/detaillDescription"
                 android:layout_alignLeft="@+id/detaillSchedule"
-                android:layout_alignStart="@+id/detaillSchedule" />
-
-            <TextView
-                tools:ignore="RtlCompat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detaillDescription"
+                android:layout_alignStart="@+id/detaillSchedule"
                 android:gravity="top"
                 android:text="Titulo"
+                android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="@dimen/club_details_generalDescription"
                 android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:layout_marginTop="33dp"
-                android:layout_below="@+id/imageView5"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detaillDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/detaillCost"
-                android:layout_alignStart="@+id/detaillCost" />
+                android:layout_alignStart="@+id/detaillCost"
+                android:layout_below="@+id/imageView5"
+                android:layout_marginTop="33dp"
+                android:gravity="top"
+                android:text="Titulo"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
 
             <ImageView
-                android:layout_width="@dimen/club_details_inferiorIcons"
-                android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_link_grey600_48dp"
                 android:id="@+id/linkSite"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/imageView6"
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
                 android:layout_alignLeft="@+id/imageView6"
-                android:layout_alignStart="@+id/imageView6" />
+                android:layout_alignStart="@+id/imageView6"
+                android:layout_below="@+id/imageView6"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_link_grey600_48dp" />
 
             <ImageView
-                android:layout_width="@dimen/club_details_inferiorIcons"
-                android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_link_grey600_48dp"
                 android:id="@+id/linkFB"
-                android:layout_alignTop="@+id/linkSite"
-                android:layout_toRightOf="@+id/linkSite"
-                android:layout_toEndOf="@+id/linkSite"
-                android:layout_marginLeft="30dp" />
-
-            <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_link_grey600_48dp"
+                android:layout_alignTop="@+id/linkSite"
+                android:layout_marginLeft="30dp"
+                android:layout_toEndOf="@+id/linkSite"
+                android:layout_toRightOf="@+id/linkSite"
+                android:background="@drawable/ic_link_grey600_48dp" />
+
+            <ImageView
                 android:id="@+id/linkTwitter"
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
                 android:layout_alignTop="@+id/linkFB"
-                android:layout_toRightOf="@+id/linkFB"
+                android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/linkFB"
-                android:layout_marginLeft="30dp" />
+                android:layout_toRightOf="@+id/linkFB"
+                android:background="@drawable/ic_link_grey600_48dp" />
 
 
         </RelativeLayout>
