@@ -20,21 +20,21 @@
             fresco:placeholderImage="@drawable/happy_disco"
             fresco:placeholderImageScaleType="focusCrop"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/clubName"
-                android:gravity="top"
-                android:text="Titulo"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:layout_marginBottom="38dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                tools:ignore="RtlCompat" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clubName"
+            android:gravity="top"
+            android:text="Titulo"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:layout_marginBottom="38dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            tools:ignore="RtlCompat" />
 
-            <TextView
+        <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/descTitle"
@@ -60,6 +60,17 @@
             <ImageButton
                 android:layout_width="@dimen/club_details_superiorIcons"
                 android:layout_height="@dimen/club_details_superiorIcons"
+                android:id="@+id/detaillRating"
+                android:background="@drawable/ic_grade_white_48dp"
+                android:layout_alignTop="@+id/detaillPhone"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp" />
+
+            <ImageButton
+                android:layout_width="@dimen/club_details_superiorIcons"
+                android:layout_height="@dimen/club_details_superiorIcons"
                 android:id="@+id/mapButton"
                 android:background="@drawable/ic_directions_white_48dp"
                 android:layout_marginRight="20dp"
@@ -68,16 +79,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
-            <ImageButton
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:id="@+id/detaillRating"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/detaillPhone"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp" />
 
             <ImageButton
                 android:layout_width="@dimen/club_details_superiorIcons"
@@ -93,6 +94,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relative_layout_details"
             android:layout_width="fill_parent"
             android:layout_height="510dp"
             android:background="@color/RelativeTransparency"
@@ -140,15 +142,6 @@
                 android:layout_alignTop="@+id/detaillDescription"
                 android:layout_alignLeft="@+id/imageView5"
                 android:layout_alignStart="@+id/imageView5" />
-
-            <ImageView
-                android:layout_width="@dimen/club_details_inferiorIcons"
-                android:layout_height="@dimen/club_details_inferiorIcons"
-                android:background="@drawable/ic_link_grey600_48dp"
-                android:id="@+id/imageView7"
-                android:layout_alignTop="@+id/detaillLink"
-                android:layout_alignLeft="@+id/imageView6"
-                android:layout_alignStart="@+id/imageView6" />
 
             <TextView
                 tools:ignore="RtlCompat"
@@ -209,20 +202,35 @@
                 android:layout_alignLeft="@+id/detaillCost"
                 android:layout_alignStart="@+id/detaillCost" />
 
-            <TextView
-                tools:ignore="RtlCompat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detaillLink"
-                android:gravity="top"
-                android:text="Titulo"
-                android:textSize="@dimen/club_details_generalDescription"
-                android:textStyle="bold"
-                android:textColor="@color/abc_primary_text_material_dark"
-                android:layout_marginTop="27dp"
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_link_grey600_48dp"
+                android:id="@+id/linkSite"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/imageView6"
-                android:layout_alignLeft="@+id/detaillDescription"
-                android:layout_alignStart="@+id/detaillDescription" />
+                android:layout_alignLeft="@+id/imageView6"
+                android:layout_alignStart="@+id/imageView6" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_link_grey600_48dp"
+                android:id="@+id/linkFB"
+                android:layout_alignTop="@+id/linkSite"
+                android:layout_toRightOf="@+id/linkSite"
+                android:layout_toEndOf="@+id/linkSite"
+                android:layout_marginLeft="30dp" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_link_grey600_48dp"
+                android:id="@+id/linkTwitter"
+                android:layout_alignTop="@+id/linkFB"
+                android:layout_toRightOf="@+id/linkFB"
+                android:layout_toEndOf="@+id/linkFB"
+                android:layout_marginLeft="30dp" />
 
 
         </RelativeLayout>
