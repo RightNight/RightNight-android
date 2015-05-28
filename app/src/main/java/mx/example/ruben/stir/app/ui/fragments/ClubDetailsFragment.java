@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
@@ -52,6 +55,18 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     ImageView venuePhone;
     @InjectView(R.id.mapButton)
     ImageView mapButton;
+    @InjectView(R.id.relativeLayout)
+    RelativeLayout detailRaiting;
+    @InjectView(R.id.rating_star_1)
+    ImageButton star1;
+    @InjectView(R.id.rating_star_2)
+    ImageButton star2;
+    @InjectView(R.id.rating_star_3)
+    ImageButton star3;
+    @InjectView(R.id.rating_star_4)
+    ImageButton star4;
+    @InjectView(R.id.rating_star_5)
+    ImageButton star5;
 
 
     public ClubDetailsFragment() {}
@@ -96,12 +111,35 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
         doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
         doMapsbutton(getArguments().getDouble(Constants.VENUE_LAT), getArguments().getDouble(Constants.VENUE_LNG), mapButton);
-
+        doRatingStars(getArguments().getDouble(Constants.VENUE_RATING));
         venueDetails.setText(Constants.EMPTY_STRING);
 
         //Y MAPS LOCATION ASI COMO ESTRELLAS
     }
+    public void doRatingStars(Double rating)
+    {
+        int numStar = (int) Math.round(rating/2);
+        Log.i("stars ", String.valueOf(numStar));
+        ArrayList<ImageButton> allStars = new ArrayList<>();
 
+        allStars.add(star1);
+        allStars.add(star2);
+        allStars.add(star3);
+        allStars.add(star4);
+        allStars.add(star5);
+        Log.i("Lista ", String.valueOf(allStars.size()));
+
+        for (int i = numStar; i < allStars.size(); i++) {
+            allStars.get(i).setAlpha((float) .1);
+        }
+
+    }
+    public void doStringDetail(String detail, TextView textField)
+    {
+        String venue_detail = Objects.equals(detail.trim(), "") ? Constants.EMPTY_STRING : detail;
+        textField.setText(venue_detail);
+
+    }
     public void doLinkButton(final String venue_string, ImageView image)
     {
         final String venue_link = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
@@ -116,12 +154,10 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
             });
         } else image.setAlpha((float) .30);
     }
-
     public void doMapsbutton(final Double lat, final Double lng, ImageView image)
     {
         if (lat != null && lng != null)
         {
-            Log.i("X,Y ", lat.toString() + ", " + lng.toString());
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -144,13 +180,6 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
                 }
             });
         } else image.setAlpha((float) .0);
-
-    }
-
-    public void doStringDetail(String detail, TextView textField)
-    {
-        String venue_detail = Objects.equals(detail.trim(), "") ? Constants.EMPTY_STRING : detail;
-        textField.setText(venue_detail);
 
     }
 }
