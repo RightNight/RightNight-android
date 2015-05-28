@@ -57,7 +57,13 @@ public class SearchActivity extends ActionBarActivity
             @Override
             public boolean onQueryTextChange(String s)
             {
-                Log.d("search","New Letra");
+                if (mSearchView.getQuery().length()>4)
+                {
+                    Log.d("search",mSearchView.getQuery().toString());
+                    bundle.putString(Constants.QUERY_SEARCH, mSearchView.getQuery().toString());
+                    Fragment fragment = SearchListFragment.getInstance(bundle);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.search_main_container, fragment).commit();
+                }
                 return false;
             }
         });
