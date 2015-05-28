@@ -91,6 +91,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         doLinkButton(getArguments().getString(Constants.VENUE_FB), linkFB);
         doLinkButton(getArguments().getString(Constants.VENUE_TWITTER), linkTwitter);
 
+        doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
 
 
         venueDetails.setText(Constants.EMPTY_STRING);
@@ -115,6 +116,24 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         }
     }
 
+    public void doPhoneButton(final String venue_string, ImageView image)
+    {
+        final String venue_phone = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
+        if (!Objects.equals(venue_phone, Constants.EMPTY_STRING)){
+            Log.i("Number ", venue_phone);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Uri callNumber = Uri.parse("tel:" + venue_phone);
+                    Log.i("Number ", callNumber.toString());
+                    Intent goCall = new Intent(Intent.ACTION_CALL, callNumber);
+                    startActivity(goCall);
+                }
+            });
+        } else {
+            image.setAlpha((float) .0);
+        }
+    }
 
     public void doStringDetail(String detail, TextView textField)
     {
