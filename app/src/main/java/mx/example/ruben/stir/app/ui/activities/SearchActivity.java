@@ -3,12 +3,11 @@ package mx.example.ruben.stir.app.ui.activities;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import mx.example.ruben.stir.R;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.fragments.SearchListFragment;
@@ -18,27 +17,48 @@ import mx.example.ruben.stir.app.ui.fragments.SearchListFragment;
  */
 public class SearchActivity extends ActionBarActivity
 {
-    @InjectView(R.id.searchView)
-    SearchView mSearchView;
 
     Bundle bundle;
+    SearchView mSearchView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        ButterKnife.inject(this); bundle = new Bundle();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSearchView.setOnSearchClickListener(new View.OnClickListener()
+        bundle = new Bundle();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initSearchView();
+    }
+
+    private void initSearchView()
+    {
+        mSearchView = (SearchView) findViewById(R.id.searchView);
+        mSearchView.setSubmitButtonEnabled(true);
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setQueryHint("Que buscaremos hoy?");
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {
             @Override
-            public void onClick(View view)
+            public boolean onQueryTextSubmit(String s)
             {
-                bundle.putString(Constants.QUERY_SEARCH,mSearchView.getQuery().toString());
+                Log.d("search",mSearchView.getQuery().toString());
+
+                bundle.putString(Constants.QUERY_SEARCH, mSearchView.getQuery().toString());
                 Fragment fragment = SearchListFragment.getInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.search_main_container, fragment).commit();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s)
+            {
+                Log.d("search","New Letra");
+                return false;
             }
         });
     }

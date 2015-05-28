@@ -45,7 +45,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
 
     Context CONTEXT;
     ClubsListAdapter adapter;
-    String query;
+    String query = " ";
 
     public SearchListFragment() {}
 
@@ -107,14 +107,15 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         adapter.showOnLoadViewHolder();
 
         final String uri = (Constants.API_URL_VENUES+
-                            Constants.EXPLORE+
+                            Constants.SEARCH+
                             Constants.API_OB_PARAMS+
                             Constants.NIGHTLIFE_FILTER_PARAM+
                             Constants.VENUE_PHOTOS+
                             Constants.SORT_BY_DISTANCE+
                             Constants.LIMIT_PARAM+"20"+
                             Constants.OFFSET_PARAM+offset+
-                            Constants.NEAR_MEXICO_CITY_PARAM);
+                            Constants.NEAR_MEXICO_CITY_PARAM+
+                            Constants.QUERY_PARAM+query);
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
