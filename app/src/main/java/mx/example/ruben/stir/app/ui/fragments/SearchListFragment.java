@@ -93,8 +93,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mSearchListClubs.setLayoutManager(lm);
         mSearchListClubs.setAdapter(adapter);
-        mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
-        {
+        mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
             @Override
             public void onLoadMore(int current_page) {
                 requestMoreNearbyClubs(adapter.getVenuesItemsCount());
