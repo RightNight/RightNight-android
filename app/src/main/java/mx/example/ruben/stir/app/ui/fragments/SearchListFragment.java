@@ -1,21 +1,51 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.RightNightApplication;
+import mx.example.ruben.stir.app.model.Items;
+import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
+import mx.example.ruben.stir.app.ui.adapters.ClubsListAdapter;
+import mx.example.ruben.stir.app.ui.interfaces.EndlessRecyclerOnScrollListener;
 
 /**
  * Created by Ruben on 5/27/15.
  */
 public class SearchListFragment extends android.support.v4.app.Fragment
 {
-    @InjectView(R.id.search_list_clubs)
+    @InjectView(R.id.list_clubs)
     RecyclerView mSearchListClubs;
+
+    Context CONTEXT;
+    ClubsListAdapter adapter;
+    String query;
 
     public SearchListFragment() {}
 
@@ -27,54 +57,12 @@ public class SearchListFragment extends android.support.v4.app.Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View rootView = inflater.inflate(R.layout.fragment_search_list, container, false);
-        initView();
-
-
-        return rootView;
-    }
-    private void initView()
-    {
-        //AQUI LLENAR LA LIST (TextViews y asi)
-    }
-
-/*
-    private static final String LOG_TAG = ClubsFragment.class.getCanonicalName();
-
-    public Context CONTEXT;
-    Bundle mBundle;
-    LatLng location;
-
-    @InjectView(R.id.list_clubs)
-    RecyclerView mListClubs;
-
-    ClubsListAdapter adapter;
-
-    public ClubsFragment()
-    {}
-
-    public static ClubsFragment getInstance(Bundle bundle)
-    {
-        ClubsFragment club = new ClubsFragment();
-        club.setArguments(bundle);
-        return club;
-    }
-
-    @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
         CONTEXT = activity;
         adapter = new ClubsListAdapter(CONTEXT);
-        mBundle = getArguments();
-        location = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
+        query = getArguments().getString(Constants.QUERY_SEARCH); //Obtiene lo del bundle
     }
 
     @Override
@@ -103,25 +91,30 @@ public class SearchListFragment extends android.support.v4.app.Fragment
     private void initListClubs()
     {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mListClubs.setLayoutManager(lm);
-        mListClubs.setAdapter(adapter);
-        mListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
+        mSearchListClubs.setLayoutManager(lm);
+        mSearchListClubs.setAdapter(adapter);
+        mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm)
         {
             @Override
-            public void onLoadMore(int current_page)
-            {
+            public void onLoadMore(int current_page) {
                 requestMoreNearbyClubs(adapter.getVenuesItemsCount());
             }
         });
-
     }
+
     private void requestMoreNearbyClubs(int offset)
     {
         adapter.showOnLoadViewHolder();
 
-        final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=20"+"&offset="+offset+
-                "&ll="+location.latitude+","+location.longitude);
+        final String uri = (Constants.API_URL_VENUES+
+                            Constants.EXPLORE+
+                            Constants.API_OB_PARAMS+
+                            Constants.NIGHTLIFE_FILTER_PARAM+
+                            Constants.VENUE_PHOTOS+
+                            Constants.SORT_BY_DISTANCE+
+                            Constants.LIMIT_PARAM+"20"+
+                            Constants.OFFSET_PARAM+offset+
+                            Constants.NEAR_MEXICO_CITY_PARAM);
 
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
@@ -167,6 +160,5 @@ public class SearchListFragment extends android.support.v4.app.Fragment
             }
         });
         RightNightApplication.getInstance().addToRequestQueue(request);
-    }*/
-
+    }
 }
