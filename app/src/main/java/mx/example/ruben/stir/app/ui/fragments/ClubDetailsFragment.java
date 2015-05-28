@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -49,6 +50,8 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
     @InjectView(R.id.detaillPhone)
     ImageView venuePhone;
+    @InjectView(R.id.mapButton)
+    ImageView mapButton;
 
 
     public ClubDetailsFragment() {}
@@ -92,11 +95,11 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         doLinkButton(getArguments().getString(Constants.VENUE_TWITTER), linkTwitter);
 
         doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
-
+        doMapsbutton(getArguments().getDouble(Constants.VENUE_LAT), getArguments().getDouble(Constants.VENUE_LNG), mapButton);
 
         venueDetails.setText(Constants.EMPTY_STRING);
 
-        //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
+        //Y MAPS LOCATION ASI COMO ESTRELLAS
     }
 
     public void doLinkButton(final String venue_string, ImageView image)
@@ -111,16 +114,26 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
                     startActivity(goSite);
                 }
             });
-        } else {
-            image.setAlpha((float) .30);
-        }
+        } else image.setAlpha((float) .30);
     }
 
+    public void doMapsbutton(final Double lat, final Double lng, ImageView image)
+    {
+        if (lat != null && lng != null)
+        {
+            Log.i("X,Y ", lat.toString() + ", " + lng.toString());
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "Go to " + lat.toString() + ", " + lng.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else image.setAlpha((float) .0);
+    }
     public void doPhoneButton(final String venue_string, ImageView image)
     {
         final String venue_phone = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
         if (!Objects.equals(venue_phone, Constants.EMPTY_STRING)){
-            Log.i("Number ", venue_phone);
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,9 +143,8 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
                     startActivity(goCall);
                 }
             });
-        } else {
-            image.setAlpha((float) .0);
-        }
+        } else image.setAlpha((float) .0);
+
     }
 
     public void doStringDetail(String detail, TextView textField)

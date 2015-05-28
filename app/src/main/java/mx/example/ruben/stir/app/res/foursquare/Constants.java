@@ -39,6 +39,8 @@ public class Constants
     public static final String VENUE_LOCATION = "location";
     public static final String VENUE_COST = "cost";
     public static final String VENUE_HOURS = "hours";
+    public static final String VENUE_LNG = "lng";
+    public static final String VENUE_LAT = "lat";
 
     public static final String VENUE_LINK = "link";
     public static final String VENUE_PHONE = "phone";
