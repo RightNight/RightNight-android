@@ -122,26 +122,26 @@ public class SearchListFragment extends android.support.v4.app.Fragment
             @Override
             public void onResponse(JSONObject response)
             {
-                Log.d("URL", uri.toString());
+                Log.d("search", "request starts with "+query);
 
                 try
                 {
-                    List<Items> itemList;
+                    List<Venue> venueList;
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     int returnCode = response.getJSONObject("meta").getInt("code");
 
                     if (returnCode == 200)
                     {
-                        JSONArray items = response.getJSONObject("response").getJSONArray("groups").
-                                getJSONObject(0).getJSONArray("items");
-                        Gson gson = new Gson();
-                        Type tipoListaItems = new TypeToken<List<Items>>(){}.getType();
-                        itemList = gson.fromJson(items.toString(), tipoListaItems);
-                        List<Venue> venues = new ArrayList<>();
+                        JSONArray items = response.getJSONObject("response").getJSONArray("venues");
 
-                        for (int i = 0; i < itemList.size(); i++)
+                        Gson gson = new Gson();
+                        Type tipoListaItems = new TypeToken<List<Venue>>(){}.getType();
+                        venueList = gson.fromJson(items.toString(), tipoListaItems);
+
+                        List<Venue> venues = new ArrayList<>();
+                        for (int i = 0; i < venueList.size(); i++)
                         {
-                            venues.add(itemList.get(i).getVenue());
+                            venues.add(venueList.get(i));
                         }
                         adapter.RemoveProgressView();
                         adapter.updateList(venues);
