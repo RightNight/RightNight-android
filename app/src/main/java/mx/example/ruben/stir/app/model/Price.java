@@ -8,6 +8,12 @@ public class Price
     private int tier;
     private String currency;
 
+    Price(int tier,String currency)
+    {
+        this.tier = tier;
+        this.currency = currency;
+    }
+
     public int getTier() {
         return tier;
     }

@@ -19,7 +19,8 @@ public class Constants
     public static final String LOCATION_PARAM = "&ll=";
     public static final String RADIUS_PARAM = "&radius=";
     public static final String OFFSET_PARAM = "&offset=";
-
+    public static final String NEAR_MEXICO_CITY_PARAM = "&near=Mexico+City";
+    public static final String QUERY_PARAM = "&query=";
 
 
     public static final String API_OB_PARAMS = "?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&v="+API_DATE_VERSION;
@@ -44,6 +45,9 @@ public class Constants
     public static final String VENUE_PHONE = "phone";
     public static final String VENUE_FB = "fb";
     public static final String VENUE_TWITTER = "twitter";
+
+//SEARCH ACTIVITY BUNDLE
+    public static final String QUERY_SEARCH = "busqueda";
 
 
 
