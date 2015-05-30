@@ -1,14 +1,19 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,8 +60,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     ImageView venuePhone;
     @InjectView(R.id.mapButton)
     ImageView mapButton;
-    @InjectView(R.id.relativeLayout)
-    RelativeLayout detailRaiting;
+    /*
     @InjectView(R.id.rating_star_1)
     ImageButton star1;
     @InjectView(R.id.rating_star_2)
@@ -67,11 +71,11 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     ImageButton star4;
     @InjectView(R.id.rating_star_5)
     ImageButton star5;
-
+*/
+    @InjectView(R.id.rating_star)
+    RatingBar ratingStar;
 
     public ClubDetailsFragment() {}
-
-
 
     public static ClubDetailsFragment getInstance(Bundle bundle)
     {
@@ -93,6 +97,16 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         ButterKnife.inject(this, rootView);
         initView();
 
+        ratingStar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        ratingStar.setFocusable(false);
+
+        Drawable progress = ratingStar.getProgressDrawable();
+        DrawableCompat.setTint(progress, Color.WHITE);
 
         return rootView;
     }
@@ -111,33 +125,29 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
         doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
         doMapsbutton(getArguments().getDouble(Constants.VENUE_LAT), getArguments().getDouble(Constants.VENUE_LNG), mapButton);
+
         doRatingStars(getArguments().getDouble(Constants.VENUE_RATING));
+
         venueDetails.setText(Constants.EMPTY_STRING);
 
         //Y MAPS LOCATION ASI COMO ESTRELLAS
     }
     public void doRatingStars(Double rating)
     {
-        int numStar = (int) Math.round(rating/2);
-        Log.i("stars ", String.valueOf(numStar));
-        ArrayList<ImageButton> allStars = new ArrayList<>();
-
-        allStars.add(star1);
-        allStars.add(star2);
-        allStars.add(star3);
-        allStars.add(star4);
-        allStars.add(star5);
-        Log.i("Lista ", String.valueOf(allStars.size()));
-
-        for (int i = numStar; i < allStars.size(); i++) {
-            allStars.get(i).setAlpha((float) .1);
-        }
-
+        float num_stars = new Float(rating) / 2;
+        Log.i("Stars ", String.valueOf(num_stars));
+        ratingStar.setRating(num_stars);
     }
     public void doStringDetail(String detail, TextView textField)
     {
-        String venue_detail = Objects.equals(detail.trim(), "") ? Constants.EMPTY_STRING : detail;
-        textField.setText(venue_detail);
+        if(detail != null){
+
+            Log.i("Deatil ", detail);
+            String venue_detail = Objects.equals(detail.trim(), "") ? Constants.EMPTY_STRING : detail;
+            textField.setText(venue_detail);
+        } else {
+            textField.setText(Constants.EMPTY_STRING);
+        }
 
     }
     public void doLinkButton(final String venue_string, ImageView image)

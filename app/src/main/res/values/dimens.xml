@@ -30,4 +30,5 @@
     <dimen name="mini_margin">10dp</dimen>
     <dimen name="mini_padding">6dp</dimen>
     <dimen name="input_setting_size">20sp</dimen>
+    <dimen name="minus_marging">-30dp</dimen>
 </resources>

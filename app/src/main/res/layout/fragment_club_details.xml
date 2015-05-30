@@ -57,52 +57,15 @@
             android:layout_below="@+id/img_detail_club"
             android:background="@color/cardview_dark_background">
 
-            <ImageButton
-                android:id="@+id/rating_star_1"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/detaillPhone"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/ic_grade_white_48dp" />
-
-            <ImageButton
-                android:id="@+id/rating_star_2"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/rating_star_1"
-                android:layout_toRightOf="@+id/rating_star_1"
-                android:layout_toEndOf="@+id/rating_star_1" />
-
-            <ImageButton
-                android:id="@+id/rating_star_3"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/rating_star_2"
-                android:layout_toRightOf="@+id/rating_star_2"
-                android:layout_toEndOf="@+id/rating_star_2" />
-
-            <ImageButton
-                android:id="@+id/rating_star_4"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/rating_star_3"
-                android:layout_toRightOf="@+id/rating_star_3"
-                android:layout_toEndOf="@+id/rating_star_3" />
-
-            <ImageButton
-                android:id="@+id/rating_star_5"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:background="@drawable/ic_grade_white_48dp"
-                android:layout_alignTop="@+id/rating_star_4"
-                android:layout_toRightOf="@+id/rating_star_4"
-                android:layout_toEndOf="@+id/rating_star_4" />
+            <RatingBar
+                android:id="@+id/rating_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="@string/num_stars"
+                android:scaleX="0.50"
+                android:scaleY="0.50"
+                android:layout_marginLeft="@dimen/minus_marging"
+                android:stepSize="0.25" />
 
             <ImageButton
                 android:id="@+id/mapButton"
