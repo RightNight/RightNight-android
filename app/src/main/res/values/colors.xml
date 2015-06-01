@@ -21,4 +21,6 @@
     <color name="RelativeTransparency">#96000000</color>
     <color name="infoWindowBackground">#a0b0b0b0</color>
     <color name="light_grey">#ffe5e5e5</color>
+    <color name="detaill_club">#bfbfbf</color>
+    <color name="search_activity">#4C3262</color>
 </resources>

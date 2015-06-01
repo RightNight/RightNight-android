@@ -1,5 +1,7 @@
 package mx.example.ruben.stir.app.ui.activities;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -44,7 +46,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     LatLng position;
     GoogleApiClient mGoogleApiClient;
 
-
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -53,7 +54,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
 
     @InjectView(R.id.navigation_drawer)
     View mFragmentContainerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +73,16 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         mNavigationDrawerFragment.setUp(mFragmentContainerView, drawerLayoutND, toolbar);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+      if (item.getItemId() == R.id.search)
+      {
+          Intent intent = new Intent(this, SearchActivity.class);
+          startActivity(intent);
+      }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onNavigationDrawerItemSelected(int position)

@@ -35,7 +35,9 @@ public class Venue
 
     public Price getPrice()
     {
-        return price;
+        if (price!=null)
+            return price;
+        return new Price(0,"");
     }
 
     public Hours getHours()

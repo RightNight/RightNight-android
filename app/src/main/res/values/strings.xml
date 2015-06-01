@@ -29,4 +29,5 @@
     <string name="txt_radio_metros">metros</string>
     <string name="num_stars">5</string>
     <string name="step_stars">0.5</string>
+    <string name="title_activity_search_activity">Busqueda</string>
 </resources>
