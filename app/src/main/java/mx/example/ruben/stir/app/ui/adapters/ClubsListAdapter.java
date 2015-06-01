@@ -87,15 +87,20 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
 
+
                 bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
                 bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
 
-                bundle.putString(Constants.VENUE_HOURS,currentVenue.getHours().getStatus());
+                bundle.putString(Constants.VENUE_HOURS, currentVenue.getHours().getStatus());
                 bundle.putString(Constants.VENUE_LOCATION, currentVenue.getLocation().toString());
                 bundle.putDouble(Constants.VENUE_LNG, currentVenue.getLocation().getLng());
                 bundle.putDouble(Constants.VENUE_LAT, currentVenue.getLocation().getLat());
-                bundle.putString(Constants.VENUE_COST, currentVenue.getPrice().toString());
+                String realPrice = currentVenue.getPrice() != null ? currentVenue.getPrice().toString() : "";
+
+                bundle.putString(Constants.VENUE_COST, realPrice);
+                //bundle.putString(Constants.VENUE_COST, currentVenue.getPrice().toString());
                 bundle.putDouble(Constants.VENUE_RATING, currentVenue.getRating());
+
 
                 bundle.putString(Constants.VENUE_LINK,currentVenue.getUrl());
                 bundle.putString(Constants.VENUE_FB,currentVenue.getContact().getFacebook().toString());
