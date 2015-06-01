@@ -20,8 +20,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
-import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.model.Venue;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
 import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
@@ -35,6 +35,8 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     Context context;
     private int DETAIL_FRAGMENT_ID = 0;
+    int prende =0;
+
 
     public ClubsListAdapter(Context context)
     {
@@ -42,26 +44,40 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         venues = new ArrayList<>();
     }
 
+    public void setData(int pre) {
+        prende = pre;
+    }
+
     @Override
     public int getItemViewType(int position)
     {
+        if(prende == 1){
+            return venues.get(position) != null ? R.layout.item_club_search : R.layout.item_progress;
+        }
         return venues.get(position) != null ? R.layout.item_club : R.layout.item_progress;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
+        if(prende == 1){
+            View itemView = LayoutInflater.from(context)
+                    .inflate(R.layout.item_club_search, viewGroup, false);
+            Log.e("CHIDO RAZA", "CHIDO RAZA");
+            return new ClubViewHolder(itemView);
+        }
+
         if (viewType == R.layout.item_club)
         {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_club, viewGroup, false);
-
+            Log.e("NO CHIDO RAZA", "Paso por aui");
             return new ClubViewHolder(itemView);
         }
         else
         {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_progress, viewGroup, false);
-
+            Log.e("Paso po AQUI", "Paso por aui");
             return new ProgressViewHolder(itemView);
         }
 

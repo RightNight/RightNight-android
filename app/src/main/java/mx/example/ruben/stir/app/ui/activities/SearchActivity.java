@@ -47,7 +47,7 @@ public class SearchActivity extends ActionBarActivity
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setIconifiedByDefault(false);
-        mSearchView.setQueryHint("¿Qué buscaremos hoy?");
+        mSearchView.setQueryHint("¿Que buscaremos hoy?");
 
         mSearchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
