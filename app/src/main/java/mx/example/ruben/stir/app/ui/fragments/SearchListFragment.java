@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,6 +29,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.DistanceHelper;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
@@ -46,6 +48,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
     Context CONTEXT;
     ClubsListAdapter adapter;
     String query = " ";
+    LatLng userLocation;
 
     public SearchListFragment() {}
 
@@ -63,6 +66,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         CONTEXT = activity;
         adapter = new ClubsListAdapter(CONTEXT);
         query = getArguments().getString(Constants.QUERY_SEARCH); //Obtiene lo del bundle
+        userLocation = new LatLng(getArguments().getDouble("latitude"),getArguments().getDouble("longitude"));
     }
 
     @Override
@@ -93,12 +97,6 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mSearchListClubs.setLayoutManager(lm);
         mSearchListClubs.setAdapter(adapter);
-        mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
-            @Override
-            public void onLoadMore(int current_page) {
-                requestMoreNearbyClubs(adapter.getVenuesItemsCount());
-            }
-        });
     }
 
     private void requestMoreNearbyClubs(int offset)
@@ -140,7 +138,10 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                         List<Venue> venues = new ArrayList<>();
                         for (int i = 0; i < venueList.size(); i++)
                         {
-                            venues.add(venueList.get(i));
+                            Venue current = venueList.get(i);
+                            current.setDistance(new DistanceHelper().getDistanceBetween(userLocation.latitude, userLocation.longitude, current.getLocation().getLat(), current.getLocation().getLng()));
+                            venues.add(current);
+                            Log.d("Distance", current.getName() + " esta a " + current.getDistance() + " m");
                         }
                         adapter.RemoveProgressView();
                         adapter.updateList(venues);
