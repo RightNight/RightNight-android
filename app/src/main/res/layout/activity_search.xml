@@ -5,12 +5,10 @@
     android:layout_height="match_parent">
 
     <SearchView
-        android:layout_width="fill_parent"
+        android:layout_width="800dp"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/search_activity"
-        />
+        android:background="@color/search_activity" />
     <FrameLayout
         android:id="@+id/search_main_container"
         android:layout_width="match_parent"

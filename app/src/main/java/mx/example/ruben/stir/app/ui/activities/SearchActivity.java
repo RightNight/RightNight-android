@@ -1,11 +1,14 @@
 package mx.example.ruben.stir.app.ui.activities;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.SearchView;
 
 import mx.example.ruben.stir.R;
@@ -37,16 +40,22 @@ public class SearchActivity extends ActionBarActivity
 
     private void initSearchView()
     {
+        // Associate search configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setIconifiedByDefault(false);
-        mSearchView.setQueryHint("Que buscaremos hoy?");
+        mSearchView.setQueryHint("¿Qué buscaremos hoy?");
 
+        mSearchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
 
-        int linlayId = getResources().getIdentifier(R.id.searchView + "", null, null);
-        ViewGroup v = (ViewGroup) mSearchView.findViewById(linlayId);
-        v.setBackgroundResource(R.drawable.texfield_searchview_holo_light);
-        v.setPadding(0,20,0,0);
+        int linlayId = getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = mSearchView.findViewById(linlayId);
+        Drawable drawColor = getResources().getDrawable(R.drawable.background_item_search);
+        view.setBackground(drawColor);
 
 
 
