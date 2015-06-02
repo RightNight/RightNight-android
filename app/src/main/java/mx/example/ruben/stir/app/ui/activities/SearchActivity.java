@@ -47,7 +47,7 @@ public class SearchActivity extends ActionBarActivity
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setIconifiedByDefault(false);
-        mSearchView.setQueryHint("�Que buscaremos hoy?");
+        mSearchView.setQueryHint("¿Qué buscaremos hoy?");
 
         mSearchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
@@ -74,7 +74,7 @@ public class SearchActivity extends ActionBarActivity
             @Override
             public boolean onQueryTextChange(String s) {
                 if (mSearchView.getQuery().length() > 4) {
-                    Log.d("search", mSearchView.getQuery().toString());
+                    Log.d("search more ", mSearchView.getQuery().toString());
                     bundle.putString(Constants.QUERY_SEARCH, mSearchView.getQuery().toString());
                     Fragment fragment = SearchListFragment.getInstance(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.search_main_container, fragment).commit();

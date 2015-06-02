@@ -117,6 +117,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                             Constants.NEAR_MEXICO_CITY_PARAM+
                             Constants.QUERY_PARAM+query);
 
+        Log.i("URI ", uri);
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
             @Override
