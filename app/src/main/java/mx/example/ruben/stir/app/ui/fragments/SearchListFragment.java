@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,12 +24,17 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.DistanceHelper;
 import mx.example.ruben.stir.app.RightNightApplication;
+import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.adapters.ClubsListAdapter;
@@ -45,6 +51,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
     Context CONTEXT;
     ClubsListAdapter adapter;
     String query = " ";
+    LatLng userLocation;
 
     public SearchListFragment() {}
 
@@ -63,6 +70,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         adapter = new ClubsListAdapter(CONTEXT);
         adapter.setData(1);
         query = getArguments().getString(Constants.QUERY_SEARCH); //Obtiene lo del bundle
+        userLocation = new LatLng(getArguments().getDouble("latitude"),getArguments().getDouble("longitude"));
     }
 
     @Override
@@ -93,13 +101,6 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mSearchListClubs.setLayoutManager(lm);
         mSearchListClubs.setAdapter(adapter);
-
-        mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
-            @Override
-            public void onLoadMore(int current_page) {
-                requestMoreNearbyClubs(adapter.getVenuesItemsCount());
-            }
-        });
     }
 
     private void requestMoreNearbyClubs(int offset)
@@ -117,7 +118,6 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                             Constants.NEAR_MEXICO_CITY_PARAM+
                             Constants.QUERY_PARAM+query);
 
-        Log.i("URI ", uri);
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
             @Override
@@ -142,10 +142,13 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                         List<Venue> venues = new ArrayList<>();
                         for (int i = 0; i < venueList.size(); i++)
                         {
-                            venues.add(venueList.get(i));
+                            Venue current = venueList.get(i);
+                            current.setDistance(new DistanceHelper().getDistanceBetween(userLocation.latitude, userLocation.longitude, current.getLocation().getLat(), current.getLocation().getLng()));
+                            venues.add(current);
                         }
                         adapter.RemoveProgressView();
-                        adapter.updateList(venues);
+
+                        adapter.updateList(SortVenues(venues,0)); //0 MEANS BY DISTANCE
                     }
                 } catch (JSONException e)
                 {
@@ -163,4 +166,28 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         });
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
+
+    protected List<Venue> SortVenues(List<Venue> venues,int sortingType)
+    {
+        switch (sortingType)
+        {
+            case 0://BY DISTANCE
+                Collections.sort(venues, new Comparator<Venue>()
+                {
+                    @Override
+                    public int compare(Venue venue, Venue t1)
+                    {
+                        if (venue.getDistance()==t1.getDistance())
+                            return 0;
+
+                        return venue.getDistance()>t1.getDistance()?1:-1;
+                    }
+                });
+                return venues;
+            default:
+                return venues;
+        }
+
+    }
+
 }

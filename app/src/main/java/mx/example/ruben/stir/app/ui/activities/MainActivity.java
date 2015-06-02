@@ -41,7 +41,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private String noFragment = "header";
     private String newFragment = null;
     private boolean headerFragment = false;
-    private int previousPosition = 0;
     private Bundle bundle;
     LatLng position;
     GoogleApiClient mGoogleApiClient;

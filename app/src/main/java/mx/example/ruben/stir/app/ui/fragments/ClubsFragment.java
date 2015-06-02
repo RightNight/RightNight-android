@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,6 +31,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.DistanceHelper;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.RightNightApplication;
 import mx.example.ruben.stir.app.model.Items;
@@ -47,7 +47,7 @@ public class ClubsFragment extends Fragment
 
         public Context CONTEXT;
         Bundle mBundle;
-        LatLng location;
+        LatLng userLocation;
 
         @InjectView(R.id.list_clubs)
         RecyclerView mListClubs;
@@ -71,7 +71,7 @@ public class ClubsFragment extends Fragment
             CONTEXT = activity;
             adapter = new ClubsListAdapter(CONTEXT);
             mBundle = getArguments();
-            location = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
+            userLocation = new LatLng(mBundle.getDouble("latitude"),mBundle.getDouble("longitude"));
         }
 
         @Override
@@ -115,15 +115,18 @@ public class ClubsFragment extends Fragment
         private void requestMoreNearbyClubs(int offset)
         {
             adapter.showOnLoadViewHolder();
-            final String uri = (Constants.API_URL_VENUES+
-                    Constants.EXPLORE+
-                    Constants.API_OB_PARAMS+
-                    Constants.NIGHTLIFE_FILTER_PARAM+
-                    Constants.VENUE_PHOTOS+
-                    Constants.SORT_BY_DISTANCE+
-                    Constants.LIMIT_PARAM+"20"+
-                    Constants.OFFSET_PARAM+offset+
-                    "&ll="+location.latitude+","+location.longitude);
+
+            final String uri = (Constants.API_URL_VENUES
+                                +Constants.EXPLORE
+                                +Constants.API_OB_PARAMS
+                                +Constants.NIGHTLIFE_FILTER_PARAM
+                                +Constants.VENUE_PHOTOS
+                                +Constants.SORT_BY_DISTANCE
+                                +Constants.LIMIT_PARAM+"20"
+                                +Constants.OFFSET_PARAM+String.valueOf(offset)
+                                +Constants.LOCATION_PARAM
+                                +String.valueOf(userLocation.latitude) +","
+                                +String.valueOf(userLocation.longitude));
 
             JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
             {
@@ -149,7 +152,9 @@ public class ClubsFragment extends Fragment
 
                             for (int i = 0; i < itemList.size(); i++)
                             {
-                                venues.add(itemList.get(i).getVenue());
+                                Venue current = itemList.get(i).getVenue();
+                                current.setDistance(new DistanceHelper().getDistanceBetween(userLocation.latitude, userLocation.longitude, current.getLocation().getLat(), current.getLocation().getLng()));
+                                venues.add(current);
                             }
                             adapter.RemoveProgressView();
                             adapter.updateList(venues);

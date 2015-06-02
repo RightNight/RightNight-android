@@ -61,8 +61,6 @@ import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
 public class MapFragment extends Fragment
 {
- //FALTA AGREGAR EL ADAPTER, CHECAR VIDEO https://www.youtube.com/watch?v=g7rvqxn8SLg
-
 
     @InjectView(R.id.moreButton)
     SimpleDraweeView mMoreVenuesButton;

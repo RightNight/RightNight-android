@@ -29,6 +29,16 @@ public class Venue
     private Price price;
     private Hours hours;
 
+    private double distance; //Between User and Venue,if not set then it will be NULL
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public Contact getContact() {
         return contact;
     }
