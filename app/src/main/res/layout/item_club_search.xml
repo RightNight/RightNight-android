@@ -20,8 +20,6 @@
         fresco:placeholderImage="@drawable/happy_disco"
         fresco:placeholderImageScaleType="focusCrop"/>
 
-
-
     <TextView
         android:id="@+id/txt_club_name"
         android:layout_width="wrap_content"
@@ -133,6 +131,16 @@
         android:layout_marginTop="21dp"
         android:layout_toStartOf="@+id/button"
         android:layout_toLeftOf="@+id/button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:digits="00.00"
+        android:id="@+id/userVenueDistance"
+        android:textColor="@color/primary_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

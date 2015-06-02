@@ -92,8 +92,8 @@ public class FaceFragmont extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragmont_face, container, false);
-        Button loginButton = (Button) rootView.findViewById(R.id.btn_login);
+        final View rootView = inflater.inflate(R.layout.fragment_face, container, false);
+        Button loginButton = (Button) rootView.findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
