@@ -141,7 +141,6 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                             Venue current = venueList.get(i);
                             current.setDistance(new DistanceHelper().getDistanceBetween(userLocation.latitude, userLocation.longitude, current.getLocation().getLat(), current.getLocation().getLng()));
                             venues.add(current);
-                            Log.d("Distance", current.getName() + " esta a " + current.getDistance() + " m");
                         }
                         adapter.RemoveProgressView();
                         adapter.updateList(venues);
