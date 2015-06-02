@@ -24,6 +24,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -143,7 +146,8 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                             venues.add(current);
                         }
                         adapter.RemoveProgressView();
-                        adapter.updateList(venues);
+
+                        adapter.updateList(SortVenues(venues,0)); //0 MEANS BY DISTANCE
                     }
                 } catch (JSONException e)
                 {
@@ -161,4 +165,28 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         });
         RightNightApplication.getInstance().addToRequestQueue(request);
     }
+
+    protected List<Venue> SortVenues(List<Venue> venues,int sortingType)
+    {
+        switch (sortingType)
+        {
+            case 0://BY DISTANCE
+                Collections.sort(venues, new Comparator<Venue>()
+                {
+                    @Override
+                    public int compare(Venue venue, Venue t1)
+                    {
+                        if (venue.getDistance()==t1.getDistance())
+                            return 0;
+
+                        return venue.getDistance()>t1.getDistance()?1:-1;
+                    }
+                });
+                return venues;
+            default:
+                return venues;
+        }
+
+    }
+
 }
