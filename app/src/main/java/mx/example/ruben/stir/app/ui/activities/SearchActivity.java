@@ -61,6 +61,14 @@ public class SearchActivity extends ActionBarActivity implements GoogleApiClient
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setQueryHint("¿Qué buscaremos hoy?");
 
+        mSearchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        int linlayId = getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = mSearchView.findViewById(linlayId);
+        Drawable drawColor = getResources().getDrawable(R.drawable.background_item_search);
+        view.setBackground(drawColor);
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s)

@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,18 +50,14 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position)
     {
-        if(prende == 1){
-            return venues.get(position) != null ? R.layout.item_club_search : R.layout.item_progress;
-        }
         return venues.get(position) != null ? R.layout.item_club : R.layout.item_progress;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        if(prende == 1){
+        if(prende == 1 && (viewType == R.layout.item_club) ||  (viewType == R.layout.item_club_search)){
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_club_search, viewGroup, false);
-            Log.e("CHIDO RAZA", "CHIDO RAZA");
             return new ClubViewHolder(itemView);
         }
 
@@ -70,14 +65,12 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_club, viewGroup, false);
-            Log.e("NO CHIDO RAZA", "Paso por aui");
             return new ClubViewHolder(itemView);
         }
         else
         {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_progress, viewGroup, false);
-            Log.e("Paso po AQUI", "Paso por aui");
             return new ProgressViewHolder(itemView);
         }
 
