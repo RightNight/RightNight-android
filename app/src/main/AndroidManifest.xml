@@ -56,6 +56,11 @@
             android:label="@string/title_activity_character_detail_actiity" >
         </activity>
         <activity
+            android:name=".app.ui.activities.SearchActivity"
+            android:label="@string/title_activity_search_activity"
+            >
+        </activity>
+        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"

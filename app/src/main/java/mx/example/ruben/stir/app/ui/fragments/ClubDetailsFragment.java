@@ -1,5 +1,6 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,20 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
     @InjectView(R.id.img_detail_club)
     SimpleDraweeView clubImage;
-    @InjectView(R.id.clubName)
-    TextView clubName;
-    @InjectView(R.id.clubDescription)
-    TextView clubDescription;
 
+    @InjectView(R.id.clubName)
+    TextView venueName;
+
+    @InjectView(R.id.txt_location)
+    TextView venueLocation;
+    @InjectView(R.id.detaillSchedule)
+    TextView venueHours;
+    @InjectView(R.id.detaillCost)
+    TextView venueCost;
+    @InjectView(R.id.detaillDescription)
+    TextView venueDetails;
+    @InjectView(R.id.detaillLink)
+    TextView venueLinks;
 
     public ClubDetailsFragment() {}
 
@@ -54,12 +64,19 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
         return rootView;
     }
-
     private void initView()
     {
-        //clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
-        clubName.setText(getArguments().getString(Constants.CLUB_NAME));
-        clubDescription.setText(getArguments().getString(Constants.CLUB_DESCRIPTION));
-    }
+        clubImage.setImageURI(Uri.parse(getArguments().getString(Constants.CLUB_URL_IMAGE)));
+        venueName.setText(getArguments().getString(Constants.CLUB_NAME));
+        venueHours.setText(getArguments().getString(Constants.VENUE_HOURS));
+        venueLocation.setText(getArguments().getString(Constants.VENUE_LOCATION));
+        venueCost.setText(getArguments().getString(Constants.VENUE_COST));
 
+        venueDetails.setText("Description");
+
+        venueLinks.setText(getArguments().getString(Constants.VENUE_LINK)+"\n"+
+                           getArguments().getString(Constants.VENUE_TWITTER)+"\n"+
+                           getArguments().getString(Constants.VENUE_FB));
+        //FALTA PHONE Y MAPS LOCATION ASI COMO ESTRELLAS
+    }
 }

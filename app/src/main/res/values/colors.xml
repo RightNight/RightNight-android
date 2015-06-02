@@ -4,15 +4,23 @@
     <color name="text_primary_black">#212121</color>
     <color name="text_secondary_black">#727272</color>
 
-    <color name="primary">#9C27B0</color>
-    <color name="primary_dark">#7B1FA2</color>
+    <color name="primary">#54386C</color>
+    <color name="primary_dark">#4C3262</color>
     <color name="primary_light">#E1BEE7</color>
     <color name="accent">#7C4DFF</color>
     <color name="primary_text">#ffffffff</color>
+    <color name="primary_textList">#f3f3f3</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
 
     <color name="white">#FFF</color>
     <color name="back_navigation_select">#E8E8E8</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="black">#000</color>
+    <color name="RelativeTransparency">#96000000</color>
+    <color name="infoWindowBackground">#a0b0b0b0</color>
+    <color name="light_grey">#ffe5e5e5</color>
+    <color name="detaill_club">#bfbfbf</color>
+    <color name="search_activity">#4C3262</color>
 </resources>

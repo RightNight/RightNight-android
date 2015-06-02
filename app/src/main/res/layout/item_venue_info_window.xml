@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/background_material_dark"
+    android:id="@+id/itemMain" >
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/window_img_club"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/listview_image"
+        android:layout_height="130dp"
+        fresco:placeholderImage="@drawable/happy_disco"
+        fresco:placeholderImageScaleType="focusCrop"/>
+
+
+    <TextView
+        android:id="@+id/venue_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/club_details_superiorIcons"
+        android:text="Title"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/window_img_club"
+        android:layout_toEndOf="@+id/window_img_club"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:id="@+id/venue_categorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/primary_text"
+        android:textSize="18dp"
+        android:text="Bar-Antro"
+        android:paddingLeft="11dp"
+        android:maxLines="2"
+
+        android:layout_below="@+id/venue_name"
+        android:layout_toRightOf="@+id/window_img_club"
+        android:layout_toEndOf="@+id/window_img_club" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="20 Quieren Ir"
+        android:id="@+id/textView2"
+        android:textColor="@color/primary_text"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/venue_categorie"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_toEndOf="@+id/imageView2"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="35 Estan Ahí"
+        android:id="@+id/NowHereInfoWindow"
+        android:textColor="@color/primary_text"
+        android:layout_alignBottom="@+id/imageView8"
+        android:layout_toRightOf="@+id/imageView8"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/ic_group_white_48dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/window_img_club"
+        android:layout_toEndOf="@+id/window_img_club" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/imageView8"
+        android:background="@drawable/ic_group_white_48dp"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginLeft="20dp" />
+
+
+</RelativeLayout>

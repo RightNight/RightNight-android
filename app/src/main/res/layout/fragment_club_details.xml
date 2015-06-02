@@ -2,23 +2,23 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@drawable/img_lista_detalle"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_top"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="16dp"
-            android:layout_margin="10dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_detail_club"
+            android:layout_width="fill_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="center_vertical"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:placeholderImage="@drawable/happy_disco"
+            fresco:placeholderImageScaleType="focusCrop"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,36 +28,11 @@
                 android:text="Titulo"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/abc_primary_text_material_dark"
                 android:layout_marginBottom="38dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 tools:ignore="RtlCompat" />
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/img_detail_club"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                fresco:actualImageScaleType="focusCrop"
-                fresco:placeholderImage="@drawable/happy_disco"
-                fresco:placeholderImageScaleType="focusCrop"/>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_desc"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="16dp"
-            android:minHeight="150dp"
-            android:layout_below="@+id/card_top"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
 
             <TextView
                 android:layout_width="match_parent"
@@ -66,32 +41,199 @@
                 android:text="Description"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/img_detail_club"
+                android:layout_toEndOf="@+id/img_detail_club" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@color/cardview_dark_background"
+            android:layout_below="@+id/img_detail_club"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <ImageButton
+                android:layout_width="@dimen/club_details_superiorIcons"
+                android:layout_height="@dimen/club_details_superiorIcons"
+                android:id="@+id/mapButton"
+                android:background="@drawable/ic_directions_white_48dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageButton
+                android:layout_width="@dimen/club_details_superiorIcons"
+                android:layout_height="@dimen/club_details_superiorIcons"
+                android:id="@+id/detaillRating"
+                android:background="@drawable/ic_grade_white_48dp"
+                android:layout_alignTop="@+id/detaillPhone"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp" />
+
+            <ImageButton
+                android:layout_width="@dimen/club_details_superiorIcons"
+                android:layout_height="@dimen/club_details_superiorIcons"
+                android:id="@+id/detaillPhone"
+                android:background="@drawable/ic_phone_white_48dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/mapButton"
+                android:layout_toStartOf="@+id/mapButton" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/RelativeTransparency"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_pin_drop_grey600_48dp"
+                android:id="@+id/imageView4"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="41dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+
+
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_query_builder_grey600_48dp"
+                android:id="@+id/imageView3"
+                android:layout_below="@+id/txt_location"
+                android:layout_toLeftOf="@+id/txt_location"
+                android:layout_toStartOf="@+id/txt_location" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_attach_money_grey600_48dp"
+                android:id="@+id/imageView5"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/imageView3"
+                android:layout_alignRight="@+id/imageView4"
+                android:layout_alignEnd="@+id/imageView4" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_textsms_grey600_48dp"
+                android:id="@+id/imageView6"
+                android:layout_alignTop="@+id/detaillDescription"
+                android:layout_alignLeft="@+id/imageView5"
+                android:layout_alignStart="@+id/imageView5" />
+
+            <ImageView
+                android:layout_width="@dimen/club_details_inferiorIcons"
+                android:layout_height="@dimen/club_details_inferiorIcons"
+                android:background="@drawable/ic_link_grey600_48dp"
+                android:id="@+id/imageView7"
+                android:layout_alignTop="@+id/detaillLink"
+                android:layout_alignLeft="@+id/imageView6"
+                android:layout_alignStart="@+id/imageView6" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/clubDescription"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="35dp"/>
-
-            <TextView
+                tools:ignore="RtlCompat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/seeMore"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="see more"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:id="@+id/txt_location"
+                android:gravity="top"
+                android:text="kldsajfkldsajfkdlsajfdklsajfdklasjfldkasjklfdasjklfdjalks"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                android:textColor="@color/detaill_club"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:textAlignment="center"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView4"
+                android:layout_toEndOf="@+id/imageView4"
+                android:layout_marginTop="45dp" />
+
+            <TextView
+                tools:ignore="RtlCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detaillSchedule"
+                android:gravity="top"
+                android:text="Titulo"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                android:textColor="@color/detaill_club"
+                android:layout_alignTop="@+id/imageView3"
+                android:layout_alignLeft="@+id/txt_location"
+                android:layout_alignStart="@+id/txt_location" />
+
+            <TextView
+                tools:ignore="RtlCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detaillCost"
+                android:gravity="top"
+                android:text="Titulo"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                android:textColor="@color/detaill_club"
+                android:layout_alignTop="@+id/imageView5"
+                android:layout_alignLeft="@+id/detaillSchedule"
+                android:layout_alignStart="@+id/detaillSchedule"
+                android:layout_above="@+id/detaillDescription"
+                android:textAlignment="center" />
+
+            <TextView
+                tools:ignore="RtlCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detaillDescription"
+                android:gravity="top"
+                android:text="Titulo"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                android:textColor="@color/detaill_club"
+                android:layout_marginTop="34dp"
+                android:layout_below="@+id/imageView5"
+                android:layout_alignLeft="@+id/detaillCost"
+                android:layout_alignStart="@+id/detaillCost"
+                android:textAlignment="center" />
+
+            <TextView
+                tools:ignore="RtlCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detaillLink"
+                android:gravity="top"
+                android:text="Titulo"
+                android:textSize="@dimen/club_details_generalDescription"
+                android:textStyle="bold"
+                android:textColor="@color/detaill_club"
+                android:layout_marginTop="27dp"
+                android:layout_below="@+id/imageView6"
+                android:layout_alignLeft="@+id/detaillDescription"
+                android:layout_alignStart="@+id/detaillDescription"
+                android:layout_alignParentBottom="true"
+                android:textAlignment="center" />
 
 
-        </android.support.v7.widget.CardView>
+        </RelativeLayout>
 
     </RelativeLayout>
 
