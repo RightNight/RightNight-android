@@ -1,5 +1,8 @@
 package mx.example.ruben.stir.app.ui.activities;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +23,7 @@ public class SearchActivity extends ActionBarActivity
 
     Bundle bundle;
     SearchView mSearchView;
+    int id;
 
 
 
@@ -36,17 +40,30 @@ public class SearchActivity extends ActionBarActivity
 
     private void initSearchView()
     {
+        // Associate search configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
         mSearchView = (SearchView) findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setIconifiedByDefault(false);
-        mSearchView.setQueryHint("Que buscaremos hoy?");
+        mSearchView.setQueryHint("¿Qué buscaremos hoy?");
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-        {
+        mSearchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        int linlayId = getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = mSearchView.findViewById(linlayId);
+        Drawable drawColor = getResources().getDrawable(R.drawable.background_item_search);
+        view.setBackground(drawColor);
+
+
+
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s)
-            {
-                Log.d("search",mSearchView.getQuery().toString());
+            public boolean onQueryTextSubmit(String s) {
+                Log.d("search", mSearchView.getQuery().toString());
 
                 bundle.putString(Constants.QUERY_SEARCH, mSearchView.getQuery().toString());
                 Fragment fragment = SearchListFragment.getInstance(bundle);
@@ -55,11 +72,9 @@ public class SearchActivity extends ActionBarActivity
             }
 
             @Override
-            public boolean onQueryTextChange(String s)
-            {
-                if (mSearchView.getQuery().length()>4)
-                {
-                    Log.d("search",mSearchView.getQuery().toString());
+            public boolean onQueryTextChange(String s) {
+                if (mSearchView.getQuery().length() > 4) {
+                    Log.d("search more ", mSearchView.getQuery().toString());
                     bundle.putString(Constants.QUERY_SEARCH, mSearchView.getQuery().toString());
                     Fragment fragment = SearchListFragment.getInstance(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.search_main_container, fragment).commit();

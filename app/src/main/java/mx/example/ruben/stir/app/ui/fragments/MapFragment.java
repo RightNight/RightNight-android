@@ -176,8 +176,9 @@ public class MapFragment extends Fragment
 
                 markerBundle.putString(Constants.VENUE_HOURS,currentVenue.getHours().getStatus());
                 markerBundle.putString(Constants.VENUE_LOCATION,currentVenue.getLocation().toString());
-                markerBundle.putString(Constants.VENUE_COST,currentVenue.getPrice().toString());
 
+                String realPrice = currentVenue.getPrice() != null ? currentVenue.getPrice().toString() : "";
+                markerBundle.putString(Constants.VENUE_COST, realPrice);
                 markerBundle.putString(Constants.VENUE_LINK,currentVenue.getUrl());
                 markerBundle.putString(Constants.VENUE_FB,currentVenue.getContact().getFacebook().toString());
                 markerBundle.putString(Constants.VENUE_TWITTER,currentVenue.getContact().getTwitter().toString());

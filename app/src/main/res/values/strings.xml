@@ -14,7 +14,7 @@
     <string name="title_activity_map">Map</string>
 
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyBx2QgC17mwviA51P7s6Q-t6kT3VU-auvw
+        AIzaSyDjVUYSVKl-zwtzTp44rJp3jJOy34Gc_mA
     </string>
     <string name="facebook_app_id">1447072888924924</string>
     <string name="title_activity_splash">RightNight</string>
@@ -27,5 +27,7 @@
     <string name="txt_name_pro">Profile Name</string>
     <string name="txt_settings_radio">Radio de búsqueda:</string>
     <string name="txt_radio_metros">metros</string>
+    <string name="num_stars">5</string>
+    <string name="step_stars">0.5</string>
     <string name="title_activity_search_activity">Busqueda</string>
 </resources>

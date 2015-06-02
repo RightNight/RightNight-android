@@ -115,9 +115,14 @@ public class ClubsFragment extends Fragment
         private void requestMoreNearbyClubs(int offset)
         {
             adapter.showOnLoadViewHolder();
-
-            final String uri = (Constants.API_URL_VENUES+Constants.EXPLORE+Constants.API_OB_PARAMS+Constants.NIGHTLIFE_FILTER_PARAM+
-                    Constants.VENUE_PHOTOS+Constants.SORT_BY_DISTANCE+"&limit=20"+"&offset="+offset+
+            final String uri = (Constants.API_URL_VENUES+
+                    Constants.EXPLORE+
+                    Constants.API_OB_PARAMS+
+                    Constants.NIGHTLIFE_FILTER_PARAM+
+                    Constants.VENUE_PHOTOS+
+                    Constants.SORT_BY_DISTANCE+
+                    Constants.LIMIT_PARAM+"20"+
+                    Constants.OFFSET_PARAM+offset+
                     "&ll="+location.latitude+","+location.longitude);
 
             JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()

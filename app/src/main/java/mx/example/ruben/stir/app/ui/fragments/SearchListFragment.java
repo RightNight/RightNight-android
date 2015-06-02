@@ -29,7 +29,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import mx.example.ruben.stir.R;
 import mx.example.ruben.stir.app.RightNightApplication;
-import mx.example.ruben.stir.app.model.Items;
 import mx.example.ruben.stir.app.model.Venue;
 import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.adapters.ClubsListAdapter;
@@ -62,6 +61,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         super.onAttach(activity);
         CONTEXT = activity;
         adapter = new ClubsListAdapter(CONTEXT);
+        adapter.setData(1);
         query = getArguments().getString(Constants.QUERY_SEARCH); //Obtiene lo del bundle
     }
 
@@ -75,7 +75,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.fragment_directory, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_directory_search, container, false);
         ButterKnife.inject(this, rootView);
         initListClubs();
         return rootView;
@@ -93,6 +93,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mSearchListClubs.setLayoutManager(lm);
         mSearchListClubs.setAdapter(adapter);
+
         mSearchListClubs.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
             @Override
             public void onLoadMore(int current_page) {
@@ -116,6 +117,7 @@ public class SearchListFragment extends android.support.v4.app.Fragment
                             Constants.NEAR_MEXICO_CITY_PARAM+
                             Constants.QUERY_PARAM+query);
 
+        Log.i("URI ", uri);
         JsonObjectRequest request = new JsonObjectRequest(uri, null, new Response.Listener<JSONObject>()
         {
             @Override
