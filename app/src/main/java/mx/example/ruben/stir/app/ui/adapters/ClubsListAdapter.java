@@ -82,6 +82,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 ((ClubViewHolder) viewHolder).setGoingThere("0"); //Gotta do the request
                 ((ClubViewHolder) viewHolder).setRightNow(String.valueOf(currentVenue.getHereNow()));
+                ((ClubViewHolder) viewHolder).setDistance(currentVenue.getDistance());
 
                 final Bundle bundle = new Bundle();
 
@@ -154,6 +155,8 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @InjectView(R.id.img_club)
         SimpleDraweeView venueImage;
+        @InjectView(R.id.userVenueDistance)
+        TextView userVenueDistance;
 
         @InjectView(R.id.txt_club_name)
         TextView venueTitle;
@@ -168,6 +171,12 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {
             if (!urlImage.equals(Uri.EMPTY))
                 venueImage.setImageURI(urlImage);}
+
+        public void setDistance(double distance)
+        {
+            String dist = String.valueOf(distance);
+            userVenueDistance.setText(dist.substring(0,4)+"km");
+        }
 
         public void setCategory(String category)
         {venueCategory.setText(category);}

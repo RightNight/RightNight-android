@@ -132,5 +132,15 @@
         android:layout_toRightOf="@+id/img_club"
         android:layout_toEndOf="@+id/img_club" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:digits="00.00"
+        android:id="@+id/userVenueDistance"
+        android:textColor="@color/primary_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
