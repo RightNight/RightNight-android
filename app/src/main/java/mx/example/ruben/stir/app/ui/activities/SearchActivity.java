@@ -25,8 +25,6 @@ public class SearchActivity extends ActionBarActivity
     SearchView mSearchView;
     int id;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
