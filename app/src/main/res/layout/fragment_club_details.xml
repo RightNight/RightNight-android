@@ -78,7 +78,6 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/ic_directions_white_48dp" />
 
-
             <ImageButton
                 android:id="@+id/detaillPhone"
                 android:layout_width="@dimen/club_details_superiorIcons"
@@ -244,8 +243,6 @@
                 android:layout_toEndOf="@+id/linkFB"
                 android:layout_toRightOf="@+id/linkFB"
                 android:background="@drawable/ic_link_grey600_48dp" />
-
-
 
         </RelativeLayout>
 

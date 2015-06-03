@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.support.v7.app.ActionBarActivity;
+
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -34,6 +37,10 @@ import mx.example.ruben.stir.app.res.foursquare.Constants;
  */
 public class ClubDetailsFragment extends android.support.v4.app.Fragment
 {
+//WE HAVE A BUNDLE WITH THE NAME AND LOCATION
+//NOW WE NEED TO START A FRAGMENT OF MAP WITH THIS INFORMATION
+
+    Bundle mapBundle;
 
     @InjectView(R.id.img_detail_club)
     SimpleDraweeView clubImage;
@@ -58,8 +65,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
 
     @InjectView(R.id.detaillPhone)
     ImageView venuePhone;
-    @InjectView(R.id.mapButton)
-    ImageView mapButton;
+
     /*
     @InjectView(R.id.rating_star_1)
     ImageButton star1;
@@ -85,7 +91,8 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
@@ -124,13 +131,10 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         doLinkButton(getArguments().getString(Constants.VENUE_TWITTER), linkTwitter);
 
         doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
-        doMapsbutton(getArguments().getDouble(Constants.VENUE_LAT), getArguments().getDouble(Constants.VENUE_LNG), mapButton);
 
         doRatingStars(getArguments().getDouble(Constants.VENUE_RATING));
 
         venueDetails.setText(Constants.EMPTY_STRING);
-
-        //Y MAPS LOCATION ASI COMO ESTRELLAS
     }
     public void doRatingStars(Double rating)
     {
@@ -164,18 +168,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
             });
         } else image.setAlpha((float) .30);
     }
-    public void doMapsbutton(final Double lat, final Double lng, ImageView image)
-    {
-        if (lat != null && lng != null)
-        {
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getActivity(), "Go to " + lat.toString() + ", " + lng.toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else image.setAlpha((float) .0);
-    }
+
     public void doPhoneButton(final String venue_string, ImageView image)
     {
         final String venue_phone = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
@@ -192,4 +185,5 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         } else image.setAlpha((float) .0);
 
     }
+
 }
