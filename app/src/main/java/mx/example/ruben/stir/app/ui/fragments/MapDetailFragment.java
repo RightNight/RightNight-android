@@ -52,14 +52,11 @@ public class MapDetailFragment extends Fragment
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.activity_club_detail,container,false);
-
+        View rootView = inflater.inflate(R.layout.fragment_club_details,container,false);
         setUpMapIfNeeded();
-
         return rootView;
     }
     @Override
@@ -73,7 +70,6 @@ public class MapDetailFragment extends Fragment
         if (mMap == null)
         {
             mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_detail)).getMap();
-
             if(mMap != null)
             {
                 mMap.clear();
@@ -84,7 +80,6 @@ public class MapDetailFragment extends Fragment
     private void setUpPosition()
     {
         venueLocation = new LatLng(getArguments().getDouble("latitude"),getArguments().getDouble("longitude"));
-
         mMap.addMarker(new MarkerOptions().position(venueLocation).title(getArguments().getString(Constants.CLUB_NAME))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         MoveCameraTo(venueLocation);

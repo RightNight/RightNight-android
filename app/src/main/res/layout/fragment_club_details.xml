@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +18,6 @@
             fresco:actualImageScaleType="focusCrop"
             fresco:placeholderImage="@drawable/happy_disco"
             fresco:placeholderImageScaleType="focusCrop" />
-
         <TextView
             android:id="@+id/clubName"
             android:layout_width="wrap_content"
@@ -33,7 +31,6 @@
             android:textSize="30sp"
             android:textStyle="bold"
             tools:ignore="RtlCompat" />
-
         <TextView
             android:id="@+id/descTitle"
             android:layout_width="match_parent"
@@ -45,7 +42,6 @@
             android:layout_toRightOf="@+id/img_detail_club"
             android:text="Description"
             android:textSize="20sp" />
-
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="fill_parent"
@@ -90,7 +86,6 @@
                 android:background="@drawable/ic_phone_white_48dp" />
 
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/relative_layout_details"
             android:layout_width="fill_parent"
@@ -99,7 +94,6 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/relativeLayout"
             android:background="@color/RelativeTransparency">
-
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="@dimen/club_details_inferiorIcons"
@@ -110,8 +104,7 @@
                 android:layout_marginLeft="29dp"
                 android:layout_marginStart="29dp"
                 android:layout_marginTop="41dp"
-                android:background="@drawable/ic_pin_drop_grey600_48dp" /> />
-
+                android:background="@drawable/ic_pin_drop_grey600_48dp" />
             <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
@@ -121,7 +114,6 @@
                 android:layout_marginTop="22dp"
                 android:layout_toLeftOf="@+id/txt_location"
                 android:layout_toStartOf="@+id/txt_location" />
-
             <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
@@ -131,7 +123,6 @@
                 android:layout_below="@+id/imageView3"
                 android:layout_alignRight="@+id/imageView4"
                 android:layout_alignEnd="@+id/imageView4" />
-
             <ImageView
                 android:layout_width="@dimen/club_details_inferiorIcons"
                 android:layout_height="@dimen/club_details_inferiorIcons"
@@ -167,7 +158,6 @@
                 android:layout_toRightOf="@+id/imageView4"
                 android:layout_toEndOf="@+id/imageView4"
                 android:layout_marginTop="45dp" />
-
             <TextView
                 tools:ignore="RtlCompat"
                 android:layout_width="wrap_content"
@@ -181,7 +171,6 @@
                 android:layout_above="@+id/imageView5"
                 android:layout_alignLeft="@+id/txt_location"
                 android:layout_alignStart="@+id/txt_location" />
-
             <TextView
                 tools:ignore="RtlCompat"
                 android:layout_width="wrap_content"
@@ -197,7 +186,6 @@
                 android:layout_alignStart="@+id/detaillSchedule"
                 android:layout_above="@+id/detaillDescription"
                 android:textAlignment="center" />
-
             <TextView
                 tools:ignore="RtlCompat"
                 android:layout_width="wrap_content"
@@ -213,7 +201,6 @@
                 android:layout_alignLeft="@+id/detaillCost"
                 android:layout_alignStart="@+id/detaillCost"
                 android:textAlignment="center" />
-            
             <ImageView
                 android:id="@+id/linkSite"
                 android:layout_width="@dimen/club_details_inferiorIcons"
@@ -223,7 +210,6 @@
                 android:layout_below="@+id/imageView6"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/ic_link_grey600_48dp" />
-
             <ImageView
                 android:id="@+id/linkFB"
                 android:layout_width="@dimen/club_details_inferiorIcons"
@@ -233,7 +219,6 @@
                 android:layout_toEndOf="@+id/linkSite"
                 android:layout_toRightOf="@+id/linkSite"
                 android:background="@drawable/ic_link_grey600_48dp" />
-
             <ImageView
                 android:id="@+id/linkTwitter"
                 android:layout_width="@dimen/club_details_inferiorIcons"
@@ -243,8 +228,15 @@
                 android:layout_toEndOf="@+id/linkFB"
                 android:layout_toRightOf="@+id/linkFB"
                 android:background="@drawable/ic_link_grey600_48dp" />
-
         </RelativeLayout>
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/map_detail"
+            android:layout_marginTop="20dp"
+            tools:context="mx.example.ruben.stir.app.ui.fragments.MapFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_below="@+id/relative_layout_details"/>
 
     </RelativeLayout>
 

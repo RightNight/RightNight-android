@@ -6,22 +6,22 @@
     android:layout_height="wrap_content"
     tools:context="mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity"
               android:id="@+id/detailContainerA">
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailContainer">
     </RelativeLayout>
 
-    <fragment
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/map_detail"
-        tools:context="mx.example.ruben.stir.app.ui.fragments.MapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+    <!--<fragment-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="180dp"-->
+        <!--android:id="@+id/map_detail"-->
+        <!--tools:context="mx.example.ruben.stir.app.ui.fragments.MapFragment"-->
+        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--android:layout_below="@+id/detailContainer"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"/>-->
 </RelativeLayout>
 
 

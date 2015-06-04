@@ -25,10 +25,10 @@ public class ClubDetailsActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mapBundle = new Bundle();
+//        mapBundle = new Bundle();
         setContentView(R.layout.activity_club_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        StartMapFragment();
+        //StartMapFragment();
 
 
         if (savedInstanceState == null)

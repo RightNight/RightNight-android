@@ -66,18 +66,6 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     @InjectView(R.id.detaillPhone)
     ImageView venuePhone;
 
-    /*
-    @InjectView(R.id.rating_star_1)
-    ImageButton star1;
-    @InjectView(R.id.rating_star_2)
-    ImageButton star2;
-    @InjectView(R.id.rating_star_3)
-    ImageButton star3;
-    @InjectView(R.id.rating_star_4)
-    ImageButton star4;
-    @InjectView(R.id.rating_star_5)
-    ImageButton star5;
-*/
     @InjectView(R.id.rating_star)
     RatingBar ratingStar;
 
@@ -133,6 +121,7 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
         doPhoneButton(getArguments().getString(Constants.VENUE_PHONE), venuePhone);
 
         doRatingStars(getArguments().getDouble(Constants.VENUE_RATING));
+        StartMapFragment(getArguments().getDouble(Constants.VENUE_LAT), getArguments().getDouble(Constants.VENUE_LNG), getArguments().getString(Constants.CLUB_NAME));
 
         venueDetails.setText(Constants.EMPTY_STRING);
     }
@@ -168,7 +157,6 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
             });
         } else image.setAlpha((float) .30);
     }
-
     public void doPhoneButton(final String venue_string, ImageView image)
     {
         final String venue_phone = Objects.equals(venue_string.trim(), "") ? Constants.EMPTY_STRING : venue_string;
@@ -183,6 +171,26 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
                 }
             });
         } else image.setAlpha((float) .0);
+
+    }
+
+//    void SetBundle(Double lat, Double lng, String name)
+//    {
+//        mapBundle = new Bundle();
+//        mapBundle.putDouble("latitude", lat);
+//        mapBundle.putDouble("longitude", lng);
+//        mapBundle.putString(Constants.CLUB_NAME, name);
+//    }
+
+    void StartMapFragment(Double lat, Double lng, String name)
+    {
+        mapBundle = new Bundle();
+        mapBundle.putDouble("latitude", lat);
+        mapBundle.putDouble("longitude", lng);
+        mapBundle.putString(Constants.CLUB_NAME, name);
+
+//        Fragment fragment = MapDetailFragment.getInstance(mapBundle);
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.map_detail, fragment).commit();
 
     }
 
