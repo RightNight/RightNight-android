@@ -236,8 +236,10 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             if (Objects.equals(v1, venueId)){
                 quieroIr.setText(Constants.TXT_NO_QUIERO);
+                setGoingThere("1");
             } else if (Objects.equals(v2, venueId)){
                 quieroIr.setText(Constants.TXT_NO_QUIERO);
+                setGoingThere("1");
             }
 
             // Click listener
@@ -255,10 +257,20 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             editor.putString(Constants.QUIERO_VENUE_1, venueId);
                             editor.apply();
                             quieroIr.setText(Constants.TXT_NO_QUIERO);
+
+                            String estanAhi = (String) goingThere.getText();
+                            estanAhi = estanAhi.replace(" Quieren ir", "");
+                            int estaranAhi = Integer.parseInt(estanAhi) + 1;
+                            setGoingThere(String.valueOf(estaranAhi));
                         } else if (Objects.equals(v2, "0")){
                             editor.putString(Constants.QUIERO_VENUE_2, venueId);
                             editor.apply();
                             quieroIr.setText(Constants.TXT_NO_QUIERO);
+
+                            String estanAhi = (String) goingThere.getText();
+                            estanAhi = estanAhi.replace(" Quieren ir", "");
+                            int estaranAhi = Integer.parseInt(estanAhi) + 1;
+                            setGoingThere(String.valueOf(estaranAhi));
                         } else {
                             Toast.makeText(context, "Ya has elegido dos lguares esta noche", Toast.LENGTH_SHORT).show();
                         }
@@ -268,10 +280,21 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             editor.putString(Constants.QUIERO_VENUE_1, "0");
                             editor.apply();
                             quieroIr.setText(Constants.TXT_QUIERO);
+
+                            String estanAhi = (String) goingThere.getText();
+                            estanAhi = estanAhi.replace(" Quieren ir", "");
+                            int estaranAhi = Integer.parseInt(estanAhi) - 1;
+                            setGoingThere(String.valueOf(estaranAhi));
+
                         } else if (Objects.equals(v2, venueId)){
                             editor.putString(Constants.QUIERO_VENUE_2, "0");
                             editor.apply();
                             quieroIr.setText(Constants.TXT_QUIERO);
+
+                            String estanAhi = (String) goingThere.getText();
+                            estanAhi = estanAhi.replace(" Quieren ir", "");
+                            int estaranAhi = Integer.parseInt(estanAhi) - 1;
+                            setGoingThere(String.valueOf(estaranAhi));
                         }
                     }
                 }
