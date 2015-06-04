@@ -75,6 +75,8 @@ public class SettingsFragment extends Fragment {
                 editor.putString(Constants.FB_ID, "");
                 editor.putString(Constants.FB_IMAGE_PROFILE, "");
                 editor.putBoolean(Constants.FB_LOGIN, false);
+                editor.putString(Constants.QUIERO_VENUE_1, "");
+                editor.putString(Constants.QUIERO_VENUE_2, "");
                 editor.apply();
                 Intent i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
