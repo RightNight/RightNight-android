@@ -1,20 +1,25 @@
 package mx.example.ruben.stir.app.ui.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,6 +29,7 @@ import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.activities.ClubDetailsActivity;
 import mx.example.ruben.stir.app.ui.nav.NavigationHelper;
 
+import static android.content.Context.*;
 import static java.util.Collections.EMPTY_LIST;
 
 public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -35,12 +41,16 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context context;
     private int DETAIL_FRAGMENT_ID = 0;
     int prende =0;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
 
     public ClubsListAdapter(Context context)
     {
         this.context = context;
         venues = new ArrayList<>();
+        sharedPreferences = context.getSharedPreferences(Constants.SHARED_FB_PREFS, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     public void setData(int pre) {
@@ -92,12 +102,14 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((ClubViewHolder) viewHolder).setGoingThere("0"); //Gotta do the request
                 ((ClubViewHolder) viewHolder).setRightNow(String.valueOf(currentVenue.getHereNow()));
                 ((ClubViewHolder) viewHolder).setDistance(currentVenue.getDistance());
+                ((ClubViewHolder) viewHolder).setActionbutton(currentVenue.getId());
+
 
                 final Bundle bundle = new Bundle();
 
                 bundle.putInt(ClubDetailsActivity.CLUB_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
 
-
+                bundle.putString(Constants.CLUB_ID, currentVenue.getId());
                 bundle.putString(Constants.CLUB_NAME, currentVenue.getName());
                 bundle.putString(Constants.CLUB_URL_IMAGE, String.valueOf(currentVenue.getUrlImage()));
 
@@ -108,7 +120,6 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 String realPrice = currentVenue.getPrice() != null ? currentVenue.getPrice().toString() : "";
                 bundle.putString(Constants.VENUE_COST, realPrice);
-                //bundle.putString(Constants.VENUE_COST, currentVenue.getPrice().toString());
                 bundle.putDouble(Constants.VENUE_RATING, currentVenue.getRating());
 
 
@@ -183,6 +194,8 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView rightNow;
         @InjectView(R.id.txt_type_name)
         TextView venueCategory;
+        @InjectView(R.id.btn_quiero)
+        Button quieroIr;
 
         public void setImg(Uri urlImage)
         {
@@ -212,6 +225,57 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {
             super(itemView);
             ButterKnife.inject(this, itemView);
+        }
+        public void setActionbutton(final String venueId)
+        {
+            // Valor4es al crear el elemento
+            String quieroTxt = (String) quieroIr.getText();
+            String v1 = sharedPreferences.getString(Constants.QUIERO_VENUE_1, "0");
+            String v2 = sharedPreferences.getString(Constants.QUIERO_VENUE_2, "0");
+            Log.i("venues ", v1 + " - " + v2);
+
+            if (Objects.equals(v1, venueId)){
+                quieroIr.setText(Constants.TXT_NO_QUIERO);
+            } else if (Objects.equals(v2, venueId)){
+                quieroIr.setText(Constants.TXT_NO_QUIERO);
+            }
+
+            // Click listener
+            quieroIr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String quieroTxt = (String) quieroIr.getText();
+                    String userID = sharedPreferences.getString(Constants.FB_ID, "");
+                    String v1 = sharedPreferences.getString(Constants.QUIERO_VENUE_1, "0");
+                    String v2 = sharedPreferences.getString(Constants.QUIERO_VENUE_2, "0");
+
+                    if (Objects.equals(quieroTxt, Constants.TXT_QUIERO))
+                    {
+                        if (Objects.equals(v1, "0")){
+                            editor.putString(Constants.QUIERO_VENUE_1, venueId);
+                            editor.apply();
+                            quieroIr.setText(Constants.TXT_NO_QUIERO);
+                        } else if (Objects.equals(v2, "0")){
+                            editor.putString(Constants.QUIERO_VENUE_2, venueId);
+                            editor.apply();
+                            quieroIr.setText(Constants.TXT_NO_QUIERO);
+                        } else {
+                            Toast.makeText(context, "Ya has elegido dos lguares esta noche", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (Objects.equals(quieroTxt, Constants.TXT_NO_QUIERO))
+                    {
+                        if (Objects.equals(v1, venueId)){
+                            editor.putString(Constants.QUIERO_VENUE_1, "0");
+                            editor.apply();
+                            quieroIr.setText(Constants.TXT_QUIERO);
+                        } else if (Objects.equals(v2, venueId)){
+                            editor.putString(Constants.QUIERO_VENUE_2, "0");
+                            editor.apply();
+                            quieroIr.setText(Constants.TXT_QUIERO);
+                        }
+                    }
+                }
+            });
         }
     }
 

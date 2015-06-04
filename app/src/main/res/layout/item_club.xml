@@ -59,7 +59,7 @@
         android:id="@+id/imageView"
         android:background="@drawable/ic_group_white_48dp"
         android:layout_marginBottom="16dp"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/btn_quiero"
         android:layout_toRightOf="@+id/img_club"
         android:layout_toEndOf="@+id/img_club"
         android:layout_marginLeft="15dp"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:text="QUIERO IR"
         android:gravity="center"
-        android:id="@+id/button"
+        android:id="@+id/btn_quiero"
         android:background="#8054386C"
         android:layout_alignBottom="@+id/img_club"
         android:layout_alignParentRight="true"
@@ -110,9 +110,9 @@
         android:id="@+id/txt_goingThere"
         android:textColor="@color/primary_text"
         android:layout_alignTop="@+id/txt_rightNow"
-        android:layout_alignRight="@+id/button"
+        android:layout_alignRight="@+id/btn_quiero"
         android:layout_marginRight="8dp"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignEnd="@+id/btn_quiero" />
 
     <Button
         android:layout_width="wrap_content"

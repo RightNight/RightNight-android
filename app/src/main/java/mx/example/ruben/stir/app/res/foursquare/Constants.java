@@ -35,6 +35,7 @@ public class Constants
     public static final String USER_INFO = "user_info";
 
 ///BUNDLE STUFF
+    public static final String CLUB_ID = "id";
     public static final String CLUB_NAME = "name";
     public static final String CLUB_DESCRIPTION = "description";
     public static final String VENUE_LOCATION = "location";
@@ -54,8 +55,20 @@ public class Constants
 
     // GNERAL STUFF
     public static final String EMPTY_STRING = "---";
+    public static final String SETTINGS_RADIO = "radio_map";
+    public static final String QUIERO_VENUE_1 = "quiero_v1";
+    public static final String QUIERO_VENUE_2 = "quiero_v2";
+    public static final String TXT_QUIERO = "QUIERO IR";
+    public static final String TXT_NO_QUIERO = "NO QUIERO IR";
 
 
+    //FACEBOOK
+    public static final String SHARED_FB_PREFS = "fb_user_prefs";
+    public static final String FB_FIRST_NAME = "first_name";
+    public static final String FB_LAST_NAME = "last_name";
+    public static final String FB_ID = "fb_id";
+    public static final String FB_IMAGE_PROFILE = "img_profile";
+    public static final String FB_LOGIN = "is_login";
 
 
 

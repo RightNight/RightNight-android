@@ -157,13 +157,6 @@
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="drawee-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="foursquare-android-oauth-1.0.3" level="project" />
-    <orderEntry type="library" exported="" name="fresco-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="imagepipeline-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
-    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="imagepipeline-0.3.0" level="project" />
