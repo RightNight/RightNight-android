@@ -31,4 +31,9 @@
     <dimen name="mini_padding">6dp</dimen>
     <dimen name="input_setting_size">20sp</dimen>
     <dimen name="minus_marging">-30dp</dimen>
+
+    <dimen name="ViewPagerText">23dp</dimen>
+    <dimen name="ViewPagerPadding">8dp</dimen>
+    <dimen name="ViewPagerMarginTop">13dp</dimen>
+
 </resources>

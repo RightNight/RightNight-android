@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragmentOne"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_slide2"
+    android:scaleType="centerCrop"
     android:orientation="vertical">
 
     <TextView
@@ -11,9 +12,10 @@
         android:layout_height="wrap_content"
         android:text="@string/facefragment_secondtext"
         android:id="@+id/second_text"
-        android:textSize="25dp"
+        android:textSize="@dimen/ViewPagerText"
         android:textColor="#ffffff"
         android:textAlignment="center"
-        android:padding="15dp"
+        android:padding="@dimen/ViewPagerPadding"
+        android:layout_marginTop="@dimen/ViewPagerMarginTop"
         android:gravity="center"/>
-</LinearLayout>
+</RelativeLayout>

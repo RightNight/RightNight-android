@@ -33,6 +33,6 @@
 
     <!--Strings que la página principal-->
     <string name="facefragment_firstext">¡Conoce los diferentes Antros y Bares que hay cerca de ti!</string>
-    <string name="facefragment_secondtext">Enterate de cuanta gente va a ir a cada lugar y cuanta gente ya esta en el</string>
+    <string name="facefragment_secondtext">Conoce cuanta gente va a ir a cada lugar y cuanta gente ya esta en el</string>
     <string name="facefragment_thirdtext">Presiona el botón QUIERO IR cuando hayas decidido a cual lugar vas a ir</string>
 </resources>

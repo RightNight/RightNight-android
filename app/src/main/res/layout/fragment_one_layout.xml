@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragmentOne"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/img_slide"
-    android:orientation="vertical">
+    android:scaleType="centerCrop"
+    android:orientation="vertical" >
 
 
+                <TextView
+                    android:id="@+id/first_text"
+                    android:text="@string/facefragment_firstext"
+                    android:layout_width="fill_parent"
+                    android:layout_marginBottom="@dimen/ViewPagerText"
+                    android:textColor="#ffffff"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/ViewPagerText"
+                    android:padding="@dimen/ViewPagerPadding"
+                    android:layout_marginTop="@dimen/ViewPagerMarginTop"
+                    android:gravity="center"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/first_text"
-                android:text="@string/facefragment_firstext"
-                android:layout_width="match_parent"
-                android:textSize="25dp"
-                android:textColor="#ffffff"
-                android:textAlignment="center"
-                android:padding="15dp"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                 />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView7"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/img_phone" />
-
-
-</LinearLayout>
+</RelativeLayout>
