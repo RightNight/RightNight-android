@@ -21,6 +21,7 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
 
 public class SettingsFragment extends Fragment {
 
@@ -45,7 +46,7 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(CONTEXT.getApplicationContext());
-        sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
+        sharedPreferences = CONTEXT.getSharedPreferences(Constants.SHARED_FB_PREFS, CONTEXT.MODE_PRIVATE);
 
     }
 
@@ -69,11 +70,11 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logOut();
-                editor.putString("first_name", "");
-                editor.putString("last_name", "");
-                editor.putString("fb_id", "");
-                editor.putString("img_profile", "");
-                editor.putBoolean("is_login", false);
+                editor.putString(Constants.FB_FIRST_NAME, "");
+                editor.putString(Constants.FB_LAST_NAME, "");
+                editor.putString(Constants.FB_ID, "");
+                editor.putString(Constants.FB_IMAGE_PROFILE, "");
+                editor.putBoolean(Constants.FB_LOGIN, false);
                 editor.apply();
                 Intent i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
@@ -87,10 +88,9 @@ public class SettingsFragment extends Fragment {
     }
 
     private void getProfile() {
-        String fbName = sharedPreferences.getString("first_name", "") + " " + sharedPreferences.getString("last_name", "");
-        Uri fbImageProfile = Uri.parse(sharedPreferences.getString("img_profile", ""));
-        int radio = sharedPreferences.getInt("radio_map", 400);
-        Log.i("Aqui es ", String.valueOf(radio));
+        String fbName = sharedPreferences.getString(Constants.FB_FIRST_NAME, "") + " " + sharedPreferences.getString(Constants.FB_LAST_NAME, "");
+        Uri fbImageProfile = Uri.parse(sharedPreferences.getString(Constants.FB_IMAGE_PROFILE, ""));
+        int radio = sharedPreferences.getInt(Constants.SETTINGS_RADIO, 400);
 
         nameProfile.setText(fbName);
         imageProfile.setImageURI(fbImageProfile);
@@ -106,7 +106,7 @@ public class SettingsFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         int radioValue = Integer.parseInt(inputRadio.getText().toString());
-        editor.putInt("radio_map", radioValue);
+        editor.putInt(Constants.SETTINGS_RADIO, radioValue);
         editor.apply();
     }
 }

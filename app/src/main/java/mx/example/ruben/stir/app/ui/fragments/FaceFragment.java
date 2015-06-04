@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.adapters.FragmentViewPagerAdapter;
 
 public class FaceFragment extends Fragment {
@@ -84,14 +85,16 @@ public class FaceFragment extends Fragment {
                         String lastName = infoProfile.getLastName();
                         String fbId = infoProfile.getId();
                         Uri fbImageProfile = infoProfile.getProfilePictureUri(200, 200);
-                        SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences("fb_user_prefs", CONTEXT.MODE_PRIVATE);
+
+                        SharedPreferences sharedPreferences = CONTEXT.getSharedPreferences(Constants.SHARED_FB_PREFS, CONTEXT.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("first_name", firstName);
-                        editor.putString("last_name", lastName);
-                        editor.putString("fb_id", fbId);
-                        editor.putString("img_profile", fbImageProfile.toString());
-                        editor.putInt("radio_map", 400);
-                        editor.putBoolean("is_login", true);
+
+                        editor.putString(Constants.FB_FIRST_NAME, firstName);
+                        editor.putString(Constants.FB_LAST_NAME, lastName);
+                        editor.putString(Constants.FB_ID, fbId);
+                        editor.putString(Constants.FB_IMAGE_PROFILE, fbImageProfile.toString());
+                        editor.putInt(Constants.SETTINGS_RADIO, 400);
+                        editor.putBoolean(Constants.FB_LOGIN, true);
                         editor.apply();
                         Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");

@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="QUIERO IR"
         android:gravity="center"
-        android:id="@+id/button"
+        android:id="@+id/btn_quiero"
         android:background="#8054386C"
         android:textSize="15dp"
         android:textStyle="bold"

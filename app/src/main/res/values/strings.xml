@@ -14,7 +14,7 @@
     <string name="title_activity_map">Map</string>
 
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyDjVUYSVKl-zwtzTp44rJp3jJOy34Gc_mA
+        AIzaSyCjkTga6PrnF3m0vwH8J8ZQjdZVpcaAkYg
     </string>
     <string name="facebook_app_id">1447072888924924</string>
     <string name="title_activity_splash">RightNight</string>

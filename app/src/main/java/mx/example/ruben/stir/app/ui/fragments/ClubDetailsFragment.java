@@ -60,18 +60,6 @@ public class ClubDetailsFragment extends android.support.v4.app.Fragment
     ImageView venuePhone;
     @InjectView(R.id.mapButton)
     ImageView mapButton;
-    /*
-    @InjectView(R.id.rating_star_1)
-    ImageButton star1;
-    @InjectView(R.id.rating_star_2)
-    ImageButton star2;
-    @InjectView(R.id.rating_star_3)
-    ImageButton star3;
-    @InjectView(R.id.rating_star_4)
-    ImageButton star4;
-    @InjectView(R.id.rating_star_5)
-    ImageButton star5;
-*/
     @InjectView(R.id.rating_star)
     RatingBar ratingStar;
 
