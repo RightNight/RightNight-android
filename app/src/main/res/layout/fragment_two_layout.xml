@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_slide2"
-    android:scaleType="centerCrop"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scaleType="centerCrop">
 
     <TextView
+        android:id="@+id/second_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/facefragment_secondtext"
-        android:id="@+id/second_text"
-        android:textSize="@dimen/ViewPagerText"
-        android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:padding="@dimen/ViewPagerPadding"
         android:layout_marginTop="@dimen/ViewPagerMarginTop"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:padding="@dimen/ViewPagerPadding"
+        android:text="@string/facefragment_secondtext"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/ViewPagerText" />
 </RelativeLayout>
