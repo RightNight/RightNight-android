@@ -194,6 +194,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView rightNow;
         @InjectView(R.id.txt_type_name)
         TextView venueCategory;
+
         @InjectView(R.id.btn_quiero)
         Button quieroIr;
 
@@ -232,8 +233,6 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             String quieroTxt = (String) quieroIr.getText();
             String v1 = sharedPreferences.getString(Constants.QUIERO_VENUE_1, "0");
             String v2 = sharedPreferences.getString(Constants.QUIERO_VENUE_2, "0");
-            Log.i("venues ", v1 + " - " + v2);
-
             if (Objects.equals(v1, venueId)){
                 quieroIr.setText(Constants.TXT_NO_QUIERO);
                 setGoingThere("1");

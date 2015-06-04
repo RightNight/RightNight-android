@@ -96,7 +96,7 @@ public class FaceFragment extends Fragment {
                         editor.putInt(Constants.SETTINGS_RADIO, 400);
                         editor.putBoolean(Constants.FB_LOGIN, true);
                         editor.apply();
-                        Toast.makeText(CONTEXT, "Bienvenido " + firstName + "(" + fbId + ")", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CONTEXT, "Bienvenido " + firstName, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent("mx.example.ruben.stir.MAINACTIVITY");
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);
