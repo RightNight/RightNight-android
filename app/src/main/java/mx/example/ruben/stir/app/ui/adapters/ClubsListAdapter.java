@@ -216,7 +216,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         {goingThere.setText(peopleGoing+" Quieren ir");}
 
         public void setRightNow(String peopleThere)
-        {rightNow.setText(peopleThere+" Estan Ahi");}
+        {rightNow.setText(peopleThere+" Están Ahi");}
 
         public void setName(String name) {
             venueTitle.setText(name);

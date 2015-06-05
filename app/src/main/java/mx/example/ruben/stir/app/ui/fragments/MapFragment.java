@@ -182,9 +182,9 @@ public class MapFragment extends Fragment
                 markerBundle.putString(Constants.VENUE_TWITTER,currentVenue.getContact().getTwitter().toString());
                 markerBundle.putString(Constants.VENUE_PHONE,currentVenue.getContact().getPhone());
 
-                Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
-                intent.putExtras(markerBundle);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ClubDetailsActivity.class);
+//                intent.putExtras(markerBundle);
+//                startActivity(intent);
             }
         });
 
