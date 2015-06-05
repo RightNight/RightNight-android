@@ -67,16 +67,16 @@
                 android:layout_marginLeft="@dimen/minus_marging"
                 android:stepSize="0.25" />
 
-            <ImageButton
-                android:id="@+id/mapButton"
-                android:layout_width="@dimen/club_details_superiorIcons"
-                android:layout_height="@dimen/club_details_superiorIcons"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/ic_directions_white_48dp" />
+            <!--<ImageButton-->
+                <!--android:id="@+id/mapButton"-->
+                <!--android:layout_width="@dimen/club_details_superiorIcons"-->
+                <!--android:layout_height="@dimen/club_details_superiorIcons"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginEnd="20dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:background="@drawable/ic_directions_white_48dp" />-->
 
             <ImageButton
                 android:id="@+id/detaillPhone"
