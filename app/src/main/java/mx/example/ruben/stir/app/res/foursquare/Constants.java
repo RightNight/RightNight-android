@@ -58,6 +58,8 @@ public class Constants
     public static final String SETTINGS_RADIO = "radio_map";
     public static final String QUIERO_VENUE_1 = "quiero_v1";
     public static final String QUIERO_VENUE_2 = "quiero_v2";
+    public static final String QUIERO_VENUE_NAME_1 = "quiero_name_v1";
+    public static final String QUIERO_VENUE_NAME_2 = "quiero_name_v2";
     public static final String TXT_QUIERO = "QUIERO IR";
     public static final String TXT_NO_QUIERO = "NO QUIERO IR";
 

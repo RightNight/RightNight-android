@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -32,6 +34,11 @@ public class SettingsFragment extends Fragment {
     EditText inputRadio;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    LinearLayout quieresIr;
+    TextView txtVenue1;
+    TextView txtVenue2;
+    Button limpiar;
+
 
     public SettingsFragment() {
     }
@@ -59,6 +66,10 @@ public class SettingsFragment extends Fragment {
         imageProfile = (SimpleDraweeView) rootView.findViewById(R.id.img_profile);
         inputRadio = (EditText) rootView.findViewById(R.id.txt_input_radio);
         editor = sharedPreferences.edit();
+        quieresIr = (LinearLayout) rootView.findViewById(R.id.quieres_ir);
+        txtVenue1 = (TextView) rootView.findViewById(R.id.venue_1);
+        txtVenue2 = (TextView) rootView.findViewById(R.id.venue_2);
+        limpiar = (Button) rootView.findViewById(R.id.btn_limpiar);
 
         btnClose.setFragment(this);
         btnClose.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
@@ -75,17 +86,29 @@ public class SettingsFragment extends Fragment {
                 editor.putString(Constants.FB_ID, "");
                 editor.putString(Constants.FB_IMAGE_PROFILE, "");
                 editor.putBoolean(Constants.FB_LOGIN, false);
-                editor.putString(Constants.QUIERO_VENUE_1, "");
-                editor.putString(Constants.QUIERO_VENUE_2, "");
+                editor.putString(Constants.QUIERO_VENUE_1, "0");
+                editor.putString(Constants.QUIERO_VENUE_2, "0");
+                editor.putString(Constants.QUIERO_VENUE_NAME_1, "");
+                editor.putString(Constants.QUIERO_VENUE_NAME_2, "");
                 editor.apply();
                 Intent i = new Intent("mx.example.ruben.stir.FACEACTIVITY");
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
         });
-
+        limpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(Constants.QUIERO_VENUE_NAME_1, "");
+                editor.putString(Constants.QUIERO_VENUE_NAME_2, "");
+                editor.putString(Constants.QUIERO_VENUE_1, "0");
+                editor.putString(Constants.QUIERO_VENUE_2, "0");
+                quieresIr.setAlpha(0);
+                txtVenue1.setText("");
+                txtVenue2.setText("");
+            }
+        });
         getProfile();
-
         return rootView;
     }
 
@@ -93,7 +116,15 @@ public class SettingsFragment extends Fragment {
         String fbName = sharedPreferences.getString(Constants.FB_FIRST_NAME, "") + " " + sharedPreferences.getString(Constants.FB_LAST_NAME, "");
         Uri fbImageProfile = Uri.parse(sharedPreferences.getString(Constants.FB_IMAGE_PROFILE, ""));
         int radio = sharedPreferences.getInt(Constants.SETTINGS_RADIO, 400);
+        String v1 = sharedPreferences.getString(Constants.QUIERO_VENUE_NAME_1, "");
+        String v2 = sharedPreferences.getString(Constants.QUIERO_VENUE_NAME_2, "");
 
+        if (v1.isEmpty() && v2.isEmpty()){
+            quieresIr.setAlpha(0);
+        } else {
+            txtVenue1.setText(v1);
+            txtVenue2.setText(v2);
+        }
         nameProfile.setText(fbName);
         imageProfile.setImageURI(fbImageProfile);
         inputRadio.setText(String.valueOf(radio));

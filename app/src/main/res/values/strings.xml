@@ -35,4 +35,6 @@
     <string name="facefragment_firstext">¡Conoce los diferentes antros y bares que hay cerca de ti!</string>
     <string name="facefragment_secondtext">Conoce cuanta gente va a ir a cada lugar y cuanta gente ya esta en él</string>
     <string name="facefragment_thirdtext">Presiona el botón QUIERO IR cuando hayas decidido a cual lugar vas a ir</string>
+    <string name="txt_esta_noche">Esta noche quieres ir a:</string>
+    <string name="txt_limpiar">Borrar datos</string>
 </resources>

@@ -16,7 +16,7 @@
     <dimen name="img_profile_width">120dp</dimen>
     <dimen name="txt_profile_size">18sp</dimen>
     <dimen name="corner_img">48dp</dimen>
-    <dimen name="img_profile_settings_width">160dp</dimen>
+    <dimen name="img_profile_settings_width">140dp</dimen>
     <dimen name="margin_default">30dp</dimen>
     <dimen name="txt_login_size">18sp</dimen>
     <dimen name="listview_image">110dp</dimen>
@@ -35,5 +35,6 @@
     <dimen name="ViewPagerText">23dp</dimen>
     <dimen name="ViewPagerPadding">8dp</dimen>
     <dimen name="ViewPagerMarginTop">13dp</dimen>
+    <dimen name="one_dp">1dp</dimen>
 
 </resources>

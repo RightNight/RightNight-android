@@ -102,7 +102,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((ClubViewHolder) viewHolder).setGoingThere("0"); //Gotta do the request
                 ((ClubViewHolder) viewHolder).setRightNow(String.valueOf(currentVenue.getHereNow()));
                 ((ClubViewHolder) viewHolder).setDistance(currentVenue.getDistance());
-                ((ClubViewHolder) viewHolder).setActionbutton(currentVenue.getId());
+                ((ClubViewHolder) viewHolder).setActionbutton(currentVenue.getId(), currentVenue.getName());
 
 
                 final Bundle bundle = new Bundle();
@@ -227,7 +227,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
-        public void setActionbutton(final String venueId)
+        public void setActionbutton(final String venueId, final String venueName)
         {
             // Valor4es al crear el elemento
             String quieroTxt = (String) quieroIr.getText();
@@ -249,11 +249,13 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     String userID = sharedPreferences.getString(Constants.FB_ID, "");
                     String v1 = sharedPreferences.getString(Constants.QUIERO_VENUE_1, "0");
                     String v2 = sharedPreferences.getString(Constants.QUIERO_VENUE_2, "0");
+                    Log.i("Hay ", v1 + " - " +v2);
 
                     if (Objects.equals(quieroTxt, Constants.TXT_QUIERO))
                     {
                         if (Objects.equals(v1, "0")){
                             editor.putString(Constants.QUIERO_VENUE_1, venueId);
+                            editor.putString(Constants.QUIERO_VENUE_NAME_1, venueName);
                             editor.apply();
                             quieroIr.setText(Constants.TXT_NO_QUIERO);
 
@@ -263,6 +265,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             setGoingThere(String.valueOf(estaranAhi));
                         } else if (Objects.equals(v2, "0")){
                             editor.putString(Constants.QUIERO_VENUE_2, venueId);
+                            editor.putString(Constants.QUIERO_VENUE_NAME_2, venueName);
                             editor.apply();
                             quieroIr.setText(Constants.TXT_NO_QUIERO);
 
@@ -277,6 +280,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     {
                         if (Objects.equals(v1, venueId)){
                             editor.putString(Constants.QUIERO_VENUE_1, "0");
+                            editor.putString(Constants.QUIERO_VENUE_NAME_1, "");
                             editor.apply();
                             quieroIr.setText(Constants.TXT_QUIERO);
 
@@ -287,6 +291,7 @@ public class ClubsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         } else if (Objects.equals(v2, venueId)){
                             editor.putString(Constants.QUIERO_VENUE_2, "0");
+                            editor.putString(Constants.QUIERO_VENUE_NAME_2, "");
                             editor.apply();
                             quieroIr.setText(Constants.TXT_QUIERO);
 
