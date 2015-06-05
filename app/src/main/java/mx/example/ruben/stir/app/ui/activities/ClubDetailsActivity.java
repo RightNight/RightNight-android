@@ -6,13 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import mx.example.ruben.stir.R;
+import mx.example.ruben.stir.app.res.foursquare.Constants;
 import mx.example.ruben.stir.app.ui.fragments.ClubDetailsFragment;
+import mx.example.ruben.stir.app.ui.fragments.MapDetailFragment;
 
 /**
  * Created by Ruben on 5/6/15.
  */
 public class ClubDetailsActivity extends ActionBarActivity
 {
+
+    Bundle mapBundle;
 
     public final static int CLUB_DETAIL_FRAGMENT = 0;
     public final static String CLUB_DETAIL_FRAGMENT_TAG = "detailFragment";
@@ -21,10 +25,14 @@ public class ClubDetailsActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        mapBundle = new Bundle();
         setContentView(R.layout.activity_club_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        StartMapFragment();
 
-        if (savedInstanceState == null) {
+
+        if (savedInstanceState == null)
+        {
             savedInstanceState = getIntent().getExtras();
             fragmentSwitcher(savedInstanceState.getInt(CLUB_DETAIL_FRAGMENT_TAG), savedInstanceState);
         }
@@ -61,5 +69,18 @@ public class ClubDetailsActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    void SetBundle()
+    {
+        mapBundle.putDouble("latitude", getIntent().getExtras().getDouble(Constants.VENUE_LAT));
+        mapBundle.putDouble("longitude", getIntent().getExtras().getDouble(Constants.VENUE_LNG));
+        mapBundle.putString(Constants.CLUB_NAME, getIntent().getExtras().getString(Constants.CLUB_NAME));
+    }
+
+    void StartMapFragment()
+    {
+        SetBundle();
+        Fragment fragment = MapDetailFragment.getInstance(mapBundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.map_detail, fragment).commit();
     }
 }
