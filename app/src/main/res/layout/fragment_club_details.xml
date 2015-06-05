@@ -232,7 +232,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/linkSite"
                 android:layout_toRightOf="@+id/linkSite"
-                android:background="@drawable/ic_link_grey600_48dp" />
+                android:background="@drawable/ic_facebook" />
 
             <ImageView
                 android:id="@+id/linkTwitter"
@@ -242,7 +242,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_toEndOf="@+id/linkFB"
                 android:layout_toRightOf="@+id/linkFB"
-                android:background="@drawable/ic_link_grey600_48dp" />
+                android:background="@drawable/ic_twitter" />
 
         </RelativeLayout>
 
