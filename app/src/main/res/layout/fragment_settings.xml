@@ -1,27 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/img_lista_busqueda"
+    android:orientation="vertical">
 
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/btn_close"-->
-        <!--android:text="@string/txt_close"-->
-        <!--android:padding="@dimen/padd_txt_btn"-->
-        <!--android:layout_margin="@dimen/normal_margin"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:textColor="@color/com_facebook_blue"/>-->
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_profile"
+        android:layout_width="@dimen/img_profile_settings_width"
+        android:layout_height="@dimen/img_profile_settings_width"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/padd_txt_btn"
+        app:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/txt_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/txt_name_pro"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_profile_size" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_close"
+        style="@android:style/Widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingRight="@dimen/padd_txt_btn"
-        android:paddingLeft="@dimen/padd_txt_btn"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/white"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/txt_profile_size"
+        android:textStyle="normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_dp"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mini_margin"
+            android:padding="@dimen/mini_padding"
+            android:text="@string/txt_settings_radio"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_profile_size" />
+
+        <EditText
+            android:id="@+id/txt_input_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:padding="@dimen/mini_padding"
+            android:textColor="@color/white"
+            android:textSize="@dimen/input_setting_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mini_margin"
+            android:padding="@dimen/mini_padding"
+            android:text="@string/txt_radio_metros"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_profile_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_dp"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"/>
+
+    <LinearLayout
+        android:id="@+id/quieres_ir"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/txt_esta_noche"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_profile_size" />
+
+        <TextView
+            android:id="@+id/venue_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:text="Venue 1"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_profile_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/venue_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Venue 2"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_profile_size"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_limpiar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/normal_padding"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:text="@string/txt_limpiar"
+            android:textColor="@color/primary_dark" />
+    </LinearLayout>
 
 </LinearLayout>

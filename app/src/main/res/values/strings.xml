@@ -14,7 +14,7 @@
     <string name="title_activity_map">Map</string>
 
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyDjVUYSVKl-zwtzTp44rJp3jJOy34Gc_mA
+        AIzaSyCjkTga6PrnF3m0vwH8J8ZQjdZVpcaAkYg
     </string>
     <string name="facebook_app_id">1447072888924924</string>
     <string name="title_activity_splash">RightNight</string>
@@ -24,4 +24,16 @@
     <string name="title_activity_face">RightNight</string>
     <string name="txt_close">CERRAR SESIÓN</string>
     <string name="txt_login">Inicia sesión con Facebook</string>
+    <string name="txt_name_pro">Profile Name</string>
+    <string name="txt_settings_radio">Radio de búsqueda:</string>
+    <string name="txt_radio_metros">metros</string>
+    <string name="num_stars">5</string>
+    <string name="step_stars">0.5</string>
+    <string name="title_activity_search_activity">Busqueda</string>
+    <!--Strings que la página principal-->
+    <string name="facefragment_firstext">¡Conoce los diferentes antros y bares que hay cerca de ti!</string>
+    <string name="facefragment_secondtext">Conoce cuanta gente va a ir a cada lugar y cuanta gente ya está en él</string>
+    <string name="facefragment_thirdtext">Presiona el botón QUIERO IR cuando hayas decidido a cual lugar vas a ir</string>
+    <string name="txt_esta_noche">Esta noche quieres ir a:</string>
+    <string name="txt_limpiar">Borrar datos</string>
 </resources>

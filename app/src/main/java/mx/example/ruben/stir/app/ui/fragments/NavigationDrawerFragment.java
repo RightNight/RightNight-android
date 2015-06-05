@@ -1,7 +1,9 @@
 package mx.example.ruben.stir.app.ui.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.drawee.view.DraweeView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +40,22 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private View header;
 
     private int mCurrentSelectedPosition = 0;
+    private String firstName;
+    private String lastName;
+    private Uri profileImage;
+    TextView nameProfile;
+    SimpleDraweeView imgProfile;
 
 
-    public NavigationDrawerFragment() {
+    public NavigationDrawerFragment()
+    {
     }
 
-    public interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks
+    {
         void onNavigationDrawerItemSelected(int position);
     }
 
@@ -50,29 +65,35 @@ public class NavigationDrawerFragment extends Fragment {
 
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
-        } catch (ClassCastException e) {
+        } catch (ClassCastException e)
+        {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
         }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mCallbacks.onNavigationDrawerItemSelected(0);
+//        mCallbacks.onNavigationDrawerItemSelected(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+                             Bundle savedInstanceState)
+    {
+        header = getLayoutInflater(savedInstanceState).inflate(R.layout.header_profile_drawer, null);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView.addHeaderView(header);
+        getProfile();
 
         return mDrawerListView;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
 
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity(), loadArrayOptions()));
@@ -100,7 +121,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     }
 
-
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         mCallbacks.onNavigationDrawerItemSelected(position);
@@ -108,10 +128,10 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar) {
+    public void setUp(View mFragmentContainerView, DrawerLayout drawerLayout, Toolbar toolbar)
+    {
         this.mFragmentContainerView = mFragmentContainerView;
         this.mDrawerLayout = drawerLayout;
-
 
         enableHomeButton();
 
@@ -148,6 +168,19 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    private void getProfile(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("fb_user_prefs", getActivity().MODE_PRIVATE);
+        firstName = sharedPreferences.getString("first_name", "");
+        lastName = sharedPreferences.getString("last_name", "");
+        profileImage = Uri.parse(sharedPreferences.getString("img_profile", ""));
+
+        nameProfile = (TextView) header.findViewById(R.id.txt_profile_name);
+        nameProfile.setText(firstName + " " + lastName);
+
+        imgProfile = (SimpleDraweeView) header.findViewById(R.id.img_profile);
+        imgProfile.setImageURI(profileImage);
+
+    }
 
     private void enableHomeButton ()
     {

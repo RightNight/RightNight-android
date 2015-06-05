@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentOne"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_slide3"
+    android:orientation="vertical"
+    android:scaleType="centerCrop">
+
+    <TextView
+        android:id="@+id/third_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ViewPagerText"
+        android:layout_marginTop="@dimen/ViewPagerMarginTop"
+        android:gravity="center"
+        android:padding="@dimen/ViewPagerPadding"
+        android:text="@string/facefragment_thirdtext"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/ViewPagerText" />
+
+</LinearLayout>

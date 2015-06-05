@@ -6,6 +6,35 @@
     <dimen name="navigation_drawer_width">320dp</dimen>
     <dimen name="face_up">440dp</dimen>
     <dimen name="padd_txt_btn">30dp</dimen>
+    <dimen name="normal_padding">14dp</dimen>
+    <dimen name="big_padding">24dp</dimen>
     <dimen name="normal_margin">20dp</dimen>
     <dimen name="btn_face">20sp</dimen>
+    <dimen name="header_in_height">56dp</dimen>
+    <dimen name="header_height">175dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="img_profile_width">120dp</dimen>
+    <dimen name="txt_profile_size">18sp</dimen>
+    <dimen name="corner_img">48dp</dimen>
+    <dimen name="img_profile_settings_width">140dp</dimen>
+    <dimen name="margin_default">30dp</dimen>
+    <dimen name="txt_login_size">18sp</dimen>
+    <dimen name="listview_image">110dp</dimen>
+    <dimen name="listview_nameBar">30dp</dimen>
+    <dimen name="club_details_superiorIcons">30dp</dimen>
+    <dimen name="club_details_inferiorIcons">36dp</dimen>
+    <dimen name="club_details_generalDescription">22dp</dimen>
+    <!--    <dimen name="padd_txt_btn">12dp</dimen>  -->
+    <dimen name="listview_nameBarPadding">12dp</dimen>
+    <!--    <dimen name="face_up">12dp</dimen>  -->
+    <dimen name="mini_margin">10dp</dimen>
+    <dimen name="mini_padding">6dp</dimen>
+    <dimen name="input_setting_size">20sp</dimen>
+    <dimen name="minus_marging">-30dp</dimen>
+
+    <dimen name="ViewPagerText">23dp</dimen>
+    <dimen name="ViewPagerPadding">8dp</dimen>
+    <dimen name="ViewPagerMarginTop">13dp</dimen>
+    <dimen name="one_dp">1dp</dimen>
+
 </resources>

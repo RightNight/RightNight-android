@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
     <!--
  The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but are recommended.
@@ -44,6 +47,7 @@
         <activity
             android:name=".app.ui.activities.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Toolbar" >
             <intent-filter>
                 <action android:name="mx.example.ruben.stir.MAINACTIVITY" />
@@ -53,7 +57,14 @@
         </activity>
         <activity
             android:name=".app.ui.activities.ClubDetailsActivity"
-            android:label="@string/title_activity_character_detail_actiity" >
+            android:label="@string/title_activity_character_detail_actiity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".app.ui.activities.SearchActivity"
+            android:label="@string/title_activity_search_activity"
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
